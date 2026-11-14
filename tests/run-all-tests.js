@@ -16,7 +16,7 @@ const testFiles = [
 ];
 
 console.log('==================================================');
-console.log(' CryptoMatrix Unified Test Runner (Node.js)       ');
+console.log(' CryptoPassKey QWERTY Test Runner (Node.js)       ');
 console.log('==================================================\n');
 
 let passCount = 0;

@@ -26,8 +26,4 @@ crypto_qwerty/
 │   ├── qwerty/                 QWERTY 盤面決定論性・Safe Symbols・レシピテスト
 │   ├── test-runner.html     ブラウザ完結型 テストランナー (GUI)
 │   └── run-all-tests.js     Node.js CLI テストランナー
-│
-└── .github/workflows/
-    ├── audit.yml            CI 自動テスト実行
-    └── deploy.yml           GitHub Pages デプロイ
 ```
