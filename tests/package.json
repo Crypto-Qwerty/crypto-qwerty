@@ -1,0 +1,9 @@
+{
+  "name": "cryptomatrix-tests",
+  "version": "4.0.0",
+  "description": "CryptoMatrix Unified Multi-Profile Test Suite",
+  "private": true,
+  "scripts": {
+    "test": "node run-all-tests.js"
+  }
+}

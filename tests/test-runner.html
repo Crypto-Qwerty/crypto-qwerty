@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CryptoMatrix Test Runner // All Tests Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060911;
+      --panel: #111827;
+      --border: #263447;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --green: #10b981;
+      --red: #ef4444;
+      --blue: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 24px;
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { font-size: 1.4rem; font-weight: 800; }
+    .badge {
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+    .badge.running { background: var(--blue); color: #051923; }
+    .badge.pass { background: var(--green); color: #ffffff; }
+    .badge.fail { background: var(--red); color: #ffffff; }
+    .btn {
+      background: var(--blue);
+      color: #051923;
+      border: none;
+      padding: 8px 16px;
+      font-weight: 800;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .summary-box {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      flex: 1;
+    }
+    .stat-num { font-size: 1.8rem; font-weight: 800; font-family: "JetBrains Mono", monospace; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .results {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .suite-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--blue);
+      margin: 16px 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .suite-title:first-child { margin-top: 0; }
+    .test-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.84rem;
+      margin-bottom: 4px;
+    }
+    .test-item.pass { background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--green); }
+    .test-item.fail { background: rgba(239, 68, 68, 0.15); border-left: 3px solid var(--red); color: #fca5a5; }
+    .status-tag { font-weight: 800; font-size: 0.75rem; }
+    .status-tag.pass { color: var(--green); }
+    .status-tag.fail { color: var(--red); }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>CryptoMatrix Test Suite</h1>
+        <div style="font-size:0.85rem;color:var(--muted);margin-top:4px;">Shared Engine, Classic Profile & 4Q-1 Profile 回帰テスト</div>
+      </div>
+      <div>
+        <button id="btn-run" class="btn">全テスト再実行</button>
+      </div>
+    </header>
+
+    <div class="summary-box">
+      <div class="stat-card">
+        <div id="stat-total" class="stat-num">0</div>
+        <div class="stat-label">TOTAL TESTS</div>
+      </div>
+      <div class="stat-card">
+        <div id="stat-pass" class="stat-num" style="color:var(--green);">0</div>
+        <div class="stat-label">PASSED</div>
+      </div>
+      <div class="stat-card">
+        <div id="stat-fail" class="stat-num" style="color:var(--red);">0</div>
+        <div class="stat-label">FAILED</div>
+      </div>
+      <div class="stat-card">
+        <div id="stat-badge" class="badge running">READY</div>
+        <div class="stat-label">STATUS</div>
+      </div>
+    </div>
+
+    <div id="results-container" class="results">
+      <!-- Injected by script -->
+    </div>
+  </div>
+
+  <!-- Shared Libs -->
+  <script src="../shared/vendor/js-sha256.js"></script>
+  <script src="../shared/random/lcg.js"></script>
+  <script src="../shared/random/board-v2-rng.js"></script>
+  <script src="../shared/random/prng-4q1.js"></script>
+  <script src="../shared/validation/seed-key.js"></script>
+  <script src="../shared/generator/entropy.js"></script>
+  <script src="../shared/generator/engine.js"></script>
+
+  <!-- Profiles -->
+  <script src="../profiles/4q1/board.js"></script>
+  <script src="../profiles/4q1/recipes.js"></script>
+  <script src="../profiles/4q1/profile.js"></script>
+
+  <script>
+    const resultsContainer = document.getElementById('results-container');
+    const elTotal = document.getElementById('stat-total');
+    const elPass = document.getElementById('stat-pass');
+    const elFail = document.getElementById('stat-fail');
+    const elBadge = document.getElementById('stat-badge');
+
+    async function runAllTests() {
+      resultsContainer.innerHTML = '';
+      elBadge.className = 'badge running';
+      elBadge.textContent = 'RUNNING';
+
+      let total = 0, pass = 0, fail = 0;
+
+      function suite(name) {
+        const div = document.createElement('div');
+        div.className = 'suite-title';
+        div.textContent = name;
+        resultsContainer.appendChild(div);
+      }
+
+      function test(name, fn) {
+        total++;
+        let ok = false, errorMsg = '';
+        try {
+          fn();
+          ok = true;
+          pass++;
+        } catch (err) {
+          ok = false;
+          fail++;
+          errorMsg = err.message || String(err);
+        }
+
+        const item = document.createElement('div');
+        item.className = 'test-item ' + (ok ? 'pass' : 'fail');
+        item.innerHTML = `
+          <span>${name} ${errorMsg ? '<small style="color:#f87171">(' + errorMsg + ')</small>' : ''}</span>
+          <span class="status-tag ${ok ? 'pass' : 'fail'}">${ok ? 'PASS' : 'FAIL'}</span>
+        `;
+        resultsContainer.appendChild(item);
+      }
+
+      function assert(cond, msg = 'Assertion failed') {
+        if (!cond) throw new Error(msg);
+      }
+
+      // --- 1. SHARED RANDOM TESTS ---
+      suite('1. Shared: Random & PRNG');
+      test('LCG: 決定論的シーケンス出力', () => {
+        const l1 = new LinearCongruentialGenerator(84920173);
+        const l2 = new LinearCongruentialGenerator(84920173);
+        for (let i = 0; i < 50; i++) assert(l1.next() === l2.next());
+      });
+
+      test('4Q-1 PRNG: FNV-1a & Mulberry32 決定論的生成', () => {
+        const r1 = CM4Q1Random.createRng('TEST-SEED');
+        const r2 = CM4Q1Random.createRng('TEST-SEED');
+        for (let i = 0; i < 50; i++) assert(r1() === r2());
+      });
+
+      test('4Q-1 PRNG: pool による均等抽出', () => {
+        const r = CM4Q1Random.createRng('POOL');
+        const chars = ['A', 'B', 'C', 'D'];
+        const sampled = CM4Q1Random.pool(chars, 20, r);
+        assert(sampled.length === 20);
+        sampled.forEach(c => assert(chars.includes(c)));
+      });
+
+      // --- 2. SHARED VALIDATION TESTS ---
+      suite('2. Shared: Validation (CMSeedKey)');
+      test('CMSeedKey: 数値シードの判定 (v1)', () => {
+        assert(CMSeedKey.classify('84920173') === 'v1');
+        assert(CMSeedKey.isNumericSeed('12345') === true);
+        assert(CMSeedKey.isV2Seed('12345') === false);
+      });
+
+      test('CMSeedKey: 文字列・記号シードの判定 (v2)', () => {
+        assert(CMSeedKey.classify('alpha-beta') === 'v2');
+        assert(CMSeedKey.isV2Seed('alpha-beta') === true);
+        assert(CMSeedKey.isNumericSeed('alpha-beta') === false);
+      });
+
+      test('CMSeedKey: 自動シード生成 (12文字 v2)', () => {
+        const s = CMSeedKey.generateSeed();
+        assert(typeof s === 'string' && s.length === 12);
+        assert(CMSeedKey.classify(s) === 'v2');
+      });
+
+      // --- 3. QWERTY PROFILE TESTS ---
+      suite('3. CryptoPassKey (QWERTY): 盤面・Safe Symbols・レシピ');
+      test('4Q-1: 36キー QWERTY 構造確認', () => {
+        assert(CM4Q1Board.KEY_COUNT === 36);
+        assert(CM4Q1Board.ROWS.length === 4);
+        assert(CM4Q1Board.KEYS[0] === '1');
+        assert(CM4Q1Board.KEYS[10] === 'Q');
+      });
+
+      test('4Q-1: Safe Symbols が厳格に ! # $ % & @ のみ', () => {
+        const safe = ['!', '#', '$', '%', '&', '@'];
+        assert(CM4Q1Board.SAFE_SYMBOLS.length === 6);
+        CM4Q1Board.SAFE_SYMBOLS.forEach(s => assert(safe.includes(s)));
+      });
+
+      test('4Q-1: 右下 (PIN) スロットが数字 0-9 のみ', () => {
+        const b = CM4Q1Board.generate('84920173');
+        b.forEach(k => assert(/^[0-9]$/.test(k.pin)));
+      });
+
+      test('4Q-1: 左下 (ALNUM) スロットが英数字のみ（記号なし）', () => {
+        const b = CM4Q1Board.generate('84920173');
+        b.forEach(k => assert(/^[A-Za-z0-9]$/.test(k.alnum)));
+      });
+
+      test('4Q-1: 左上・右上の記号が Safe Symbols に限定されている', () => {
+        const b = CM4Q1Board.generate('84920173');
+        const allowed = new Set(['!', '#', '$', '%', '&', '@']);
+        b.forEach(k => {
+          [k.full1, k.full2].forEach(ch => {
+            if (!/^[A-Za-z0-9]$/.test(ch)) assert(allowed.has(ch));
+          });
+        });
+      });
+
+      test('4Q-1 レシピ: かんたんモード・パスワード（記号あり lenMode=5）', () => {
+        const b = CM4Q1Board.generate('84920173');
+        const res = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 5, lenVal: 16, symMode: 0 }, b);
+        assert(res.password.length === 16);
+        assert(/[A-Z]/.test(res.password) && /[a-z]/.test(res.password) && /[0-9]/.test(res.password));
+      });
+
+      test('4Q-1 レシピ: かんたんモード・PIN（数字のみ 6桁 lenMode=3）', () => {
+        const b = CM4Q1Board.generate('84920173');
+        const res = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 3, lenVal: 6 }, b);
+        assert(res.password.length === 6);
+        assert(/^[0-9]+$/.test(res.password));
+      });
+
+      test('4Q-1 レシピ: かんたんモード・記号なし（英大小数字 lenMode=4）', () => {
+        const b = CM4Q1Board.generate('84920173');
+        const res = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 4, lenVal: 16 }, b);
+        assert(res.password.length === 16);
+        assert(/^[A-Za-z0-9]+$/.test(res.password));
+        assert(/[A-Z]/.test(res.password) && /[a-z]/.test(res.password) && /[0-9]/.test(res.password));
+      });
+
+      test('4Q-1 レシピ: マイレシピ詳細モード (lenMode=0)', () => {
+        const b = CM4Q1Board.generate('84920173');
+        const res = CM4Q1Recipes.evaluate('1Password', 'taro', CM4Q1Recipes.defaultConfig, b);
+        assert(res.password && res.password.length > 0);
+        assert(res.steps.length > 0);
+      });
+
+      // --- 4. ENGINE INTEGRATION & REGRESSION TESTS ---
+      suite('4. Unified Engine & PR #180 回帰テスト');
+      test('CryptoMatrixEngine: QWERTY プロファイルのセットアップと生成', () => {
+        const engine = new CryptoMatrixEngine(CM4Q1Profile);
+        const md = engine.generateBoard('84920173');
+        assert(md.length === 36);
+        const res = engine.evaluate('AMAZON', 'K7');
+        assert(res.password.length > 0);
+      });
+
+      test('PR #180 回帰: 英数字シード文字列と数値ハッシュが混同されない', () => {
+        const rawLabel = 'alpha-beta';
+        const hashed = CMSeedKey.parseSeedValue ? CMSeedKey.parseSeedValue(rawLabel) : null;
+        assert(CMSeedKey.classify(rawLabel) === 'v2');
+        assert(String(hashed) !== rawLabel);
+        const normalizeSeedLabel = s => { const t = String(s ?? '').trim(); return t === '' ? '0' : t; };
+        assert(normalizeSeedLabel(rawLabel) === 'alpha-beta');
+        assert(normalizeSeedLabel('  ') === '0');
+      });
+
+      // 集計
+      elTotal.textContent = total;
+      elPass.textContent = pass;
+      elFail.textContent = fail;
+      if (fail === 0) {
+        elBadge.className = 'badge pass';
+        elBadge.textContent = 'ALL PASSED';
+      } else {
+        elBadge.className = 'badge fail';
+        elBadge.textContent = 'FAILED';
+      }
+    }
+
+    document.getElementById('btn-run').addEventListener('click', runAllTests);
+    window.addEventListener('load', runAllTests);
+  </script>
+</body>
+</html>
