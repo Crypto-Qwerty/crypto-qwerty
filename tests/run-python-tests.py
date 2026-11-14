@@ -18,7 +18,7 @@ class HmacCounterRng:
     def _next_block(self):
         if self.counter > MASK32:
             raise OverflowError("CM-BOARD-V3 counter overflow")
-        message = DOMAIN + b"\\x00" + self.counter.to_bytes(4, "big")
+        message = DOMAIN + b"\x00" + self.counter.to_bytes(4, "big")
         self.block = hmac.new(self.key, message, hashlib.sha256).digest()
         self.counter += 1
         self.offset = 0
