@@ -145,7 +145,7 @@ const FILES = [
 // Files fetched with HTTP-cache revalidation during precache. addAll() may be
 // served a stale copy from the browser HTTP cache right after a deploy, which
 // would pin the old file into the new worker's cache.
-const REVALIDATE_FILES = ['theme-cyber.css', 'lock-icon.png', 'unlock-icon.png'];
+const REVALIDATE_FILES = ['./theme-cyber.css', './lock-icon.png', './unlock-icon.png'];
 
 self.addEventListener('install', (e) => {
   // Precache the complete new app. The first rollout upgrades older workers once,
