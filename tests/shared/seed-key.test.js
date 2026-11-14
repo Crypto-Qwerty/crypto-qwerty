@@ -1,5 +1,7 @@
 'use strict';
 
+const { describe, it, test } = require('node:test');
+
 /**
  * 共通シード検証モジュールのテスト (tests/shared/seed-key.test.js)
  */
