@@ -8,7 +8,7 @@
 crypto_qwerty/
 ├── shared/                  ← 共通暗号・乱数・バックアップ基盤
 │   ├── generator/           生成エンジンコア (CryptoMatrixEngine, エントロピー計算)
-│   ├── random/              乱数処理 (LCG, SHA-256キーストリーム CMBoardV2, PRNG)
+│   ├── random/              乱数処理 (LCG, HMAC-SHA-256カウンター方式 CMBoardRng, PRNG)
 │   ├── storage/             保存・設定管理 (SeedVault, PasskeyStore)
 │   ├── backup/              バックアップ (BIP39, レシピ版6パック, QRバックアップ, TimeLock, TimeSecret)
 │   ├── validation/          入力検証 (CMSeedKey 正規シード解釈)

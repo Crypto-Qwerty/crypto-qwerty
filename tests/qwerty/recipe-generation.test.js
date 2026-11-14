@@ -44,6 +44,17 @@ describe('4Q-1 Recipe Generation Tests', () => {
     assert.strictEqual(r1.password, r2.password);
   });
 
+  it('新ゴールデンベクター（V3、シード84920173・AMAZON・K7）が一致する', () => {
+    // 変更前の値（Normal B09oVPC%B0@4Un7@、ALNUM vzQPv26EQp18DPx4、PIN 920899）
+    // とは一致しない。旧値は docs/board-rng-v3.md に変更前の記録として残す。
+    const rNormal = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 5, lenVal: 16, symMode: 0 }, board);
+    assert.strictEqual(rNormal.password, '%2y5R0#3%29yPa0$');
+    const rAlnum = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 4, lenVal: 16 }, board);
+    assert.strictEqual(rAlnum.password, '6U4r63m84I1l2Ly0');
+    const rPin = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 3, lenVal: 6 }, board);
+    assert.strictEqual(rPin.password, '341137');
+  });
+
 });
 
 if (require.main === module) {
@@ -52,11 +63,14 @@ if (require.main === module) {
   const board = CM4Q1Board.generate(SEED);
   const rNormal = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 5, lenVal: 16, symMode: 0 }, board);
   console.log(`  PASS normal password: "${rNormal.password}"`);
+  assert.strictEqual(rNormal.password, '%2y5R0#3%29yPa0$');
   const rPin = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 3, lenVal: 6 }, board);
   console.log(`  PASS pin: "${rPin.password}"`);
   if (!/^[0-9]+$/.test(rPin.password)) throw new Error('PIN test failed');
+  assert.strictEqual(rPin.password, '341137');
   const rAlnum = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 4, lenVal: 16 }, board);
   console.log(`  PASS alnum: "${rAlnum.password}"`);
   if (!/^[A-Za-z0-9]+$/.test(rAlnum.password)) throw new Error('ALNUM test failed');
+  assert.strictEqual(rAlnum.password, '6U4r63m84I1l2Ly0');
   console.log('PASS: recipe-generation.test.js all tests passed!');
 }

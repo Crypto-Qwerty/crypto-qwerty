@@ -2,6 +2,11 @@
 
 /**
  * 共通乱数モジュールの単体テスト (tests/shared/random.test.js)
+ *
+ * 注意: ここでテストする LCG と CM4Q1Random (FNV-1a + Mulberry32) は
+ * レガシーモジュールの単体テストである。盤面生成には使わない。
+ * 盤面生成は shared/random/board-rng.js（HMAC-SHA-256カウンター方式）のみを
+ * 使用する（tests/shared/board-rng.test.js 参照）。
  */
 const assert = require('assert');
 const path = require('path');
