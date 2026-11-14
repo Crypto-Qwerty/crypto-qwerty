@@ -78,7 +78,7 @@ async function main() {
       const restore = document.getElementById('input-restore-seed');
       const status = document.getElementById('restore-status');
       const results = [];
-      for (const seed of ['84920173', '007']) {
+      for (const seed of ['84920173', '007', '123456789012']) {
         input.value = seed;
         await generateAndRenderSeedPhrase();
         const words = currentMnemonicWords.slice();
@@ -95,12 +95,14 @@ async function main() {
     });
     assert.deepEqual(backupRoundTrips.map((x) => [x.seed, x.wordCount, x.restoredSeed]), [
       ['84920173', 24, '84920173'],
-      ['007', 48, '007']
+      ['007', 48, '007'],
+      ['123456789012', 48, '123456789012']
     ]);
     assert.ok(backupRoundTrips.every((x) => x.status.includes('復元しました')),
       JSON.stringify(backupRoundTrips));
     assert.match(backupRoundTrips[0].status, /24単語/);
     assert.match(backupRoundTrips[1].status, /48単語/);
+    assert.match(backupRoundTrips[2].status, /48単語/);
 
     // Exercise the real Service Worker install/precache path, including files
     // located in ../.. shared/profile directories.
