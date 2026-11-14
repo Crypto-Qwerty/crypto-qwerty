@@ -1,5 +1,7 @@
 'use strict';
 
+const { describe, it, test } = require('node:test');
+
 /**
  * 4Q-1 レシピ評価テスト (tests/qwerty/recipe-generation.test.js)
  */
