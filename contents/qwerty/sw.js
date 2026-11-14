@@ -148,9 +148,11 @@ const FILES = [
 const REVALIDATE_FILES = ['./theme-cyber.css', './lock-icon.png', './unlock-icon.png'];
 
 self.addEventListener('install', (e) => {
-  // Precache the complete new app. The first rollout upgrades older workers once,
-  // because those old app pages do not yet contain the manual-update controls.
-  // After this release is active, later updates wait for an explicit user request.
+  // Precache the complete new app. The first rollout activates immediately,
+  // but only when no previous worker has ever activated (no marker yet).
+  // Later updates wait for an explicit user request: the app page already
+  // offers a manual update (logo tap / pull-down), which posts
+  // CM_SKIP_WAITING to the waiting worker.
   e.waitUntil(
     caches.open(VERSION)
       .then((c) => c.addAll(FILES.filter((f) => !REVALIDATE_FILES.includes(f)))
