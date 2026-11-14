@@ -1,5 +1,7 @@
 'use strict';
 
+const { describe, it, test } = require('node:test');
+
 /**
  * Board V3 乱数エンジン（HMAC-SHA-256カウンター方式）テスト
  * (tests/shared/board-rng.test.js)
