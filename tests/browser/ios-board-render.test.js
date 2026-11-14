@@ -193,21 +193,26 @@ async function main() {
         assert.deepEqual(m.cornerFonts, ['12.48px'], `${width}px: corner fonts must be uniform`);
         await checkGoldenVectors(page);
         // Scroll-to-end: the fixed bottom dock must not cover the last content.
+        // Measure .cm-app (the app content wrapper), NOT document.body: the
+        // body now carries intentional bottom padding (fix/bottom-ui-overlap)
+        // that keeps content above the dock, so the body box itself extends
+        // under the dock by design while the content still clears it.
         const endCheck = await page.evaluate(() => {
           window.scrollTo(0, document.documentElement.scrollHeight);
           return new Promise((resolve) => setTimeout(() => {
             const dock = document.querySelector('.cm-mobile-dock');
             const dr = dock ? dock.getBoundingClientRect() : null;
+            const app = document.querySelector('.cm-app');
             resolve({
               scrolledTo: window.scrollY,
               maxScroll: document.documentElement.scrollHeight - window.innerHeight,
-              bodyBottom: document.body.getBoundingClientRect().bottom,
+              contentBottom: app ? app.getBoundingClientRect().bottom : null,
               dockTop: dr ? dr.top : null
             });
           }, 300));
         });
         assert.equal(endCheck.scrolledTo, endCheck.maxScroll, `${width}px: must scroll to the end`);
-        assert.ok(endCheck.dockTop === null || endCheck.bodyBottom < endCheck.dockTop,
+        assert.ok(endCheck.dockTop === null || endCheck.contentBottom < endCheck.dockTop,
           `${width}px: last content must clear the dock`);
         assert.equal(pageErrors.length, 0, `${width}px: no page errors: ${pageErrors.join('; ')}`);
         console.log(`iPhone ${width}px portrait: 36 keys, 0 overlaps, cm-ios present, golden OK`);
