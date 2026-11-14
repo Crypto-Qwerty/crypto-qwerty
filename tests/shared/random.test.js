@@ -1,5 +1,7 @@
 'use strict';
 
+const { describe, it, test } = require('node:test');
+
 /**
  * 共通乱数モジュールの単体テスト (tests/shared/random.test.js)
  *
