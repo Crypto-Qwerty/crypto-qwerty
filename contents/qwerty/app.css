@@ -692,11 +692,23 @@ html.light .cm-footer-dock-dot {
   display: none;
 }
 @media (max-width: 1024px) {
-  body {
-    padding-bottom: 54px !important;
+  /* Dock height is 45px + Safe Area; keep the page end clear of it.
+     NOTE: `html body` (not `body`) is required here — theme-cyber.css
+     has a global `body { padding: 0 !important; }` that beats a plain
+     `body` rule at the same importance. */
+  html body {
+    padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px)) !important;
   }
   #sticky-pw-bar {
-    bottom: 46px !important;
+    /* Sit above the fixed dock (45px + Safe Area) instead of under it. */
+    bottom: calc(52px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  /* The "🔑 パスワード表示 ▲" pill sat at bottom:10px inside the dock's
+     band (z-index 91 < dock 9999), so the dock intercepted every tap.
+     Lift it above the dock and above the dock in z-order. */
+  #btn-sticky-min-pill {
+    bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 10000 !important;
   }
   .cm-mobile-dock {
     display: block;
