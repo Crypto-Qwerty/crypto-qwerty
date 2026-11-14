@@ -48,6 +48,9 @@ LCG（`shared/random/lcg.js`）は本番の盤面生成では使われていな�
   1ブロックから8ワードが取れる。使い切ったら次のカウンターのブロックを生成する。
 - `nextInt(n)`（`[0, n)` の一様乱数）: 棄却サンプリングで剰余バイアスを排除する。
   `limit = 2^32 - (2^32 % n)` とし、ワード `w >= limit` の場合は捨てて引き直す。
+  32bitワードを使うため `n` は `2^32` まで。`n > 2^32` では `limit` が 0 になり
+  すべてのワードが棄却され続けるため、呼び出しの先頭で即座に例外にする
+  （`n <= 0` や非整数も同様に例外）。
 - シャッフル: 後方 Fisher-Yates（`j = nextInt(i + 1)`、入力配列のコピーに対して行う）。
 
 ### 3.3 シードの扱い
@@ -189,6 +192,8 @@ board[0] は key `1`、tl `n`、tr `e`、bl `n`、br `9`。
 - 先頭ゼロが trim・生成・盤面生成を通じて維持される。
 - HMAC処理失敗時に例外で停止する（ライブラリ不在・HMAC例外・出力長異常）。
 - 棄却サンプリングが境界値を正しく捨てる（スタブによる決定論的検証）。
+- `nextInt(n)` の上限チェック: `2^32` は許可され、`2^32` を超える値は
+  HMACを呼ぶ前に即座に例外になる（`0`・負数・非整数も例外）。
 - 文字種の保証と盤面の文字数が維持される（FULL 6/10/10/10、ALNUM 13/13/10、PIN 各数字3〜4回）。
 - カウンターの重複やオーバーフローを防止する（counterStart の差異、0xFFFFFFFF でのオーバーフロー例外、無効な counterStart の拒否）。
 - メッセージの構成が仕様通りである（ドメイン・区切り 0x00・カウンターのビッグエンディアンをスタブで捕捉して検証）。
@@ -206,7 +211,7 @@ node ~/workspace/investigation/stage3-harness.js tests/shared/random.test.js tes
   tests/shared/board-rng.test.js tests/shared/entropy.test.js \
   tests/qwerty/board-determinism.test.js tests/qwerty/safe-symbols.test.js \
   tests/qwerty/recipe-generation.test.js
-# Results: 46 passed, 0 failed
+# Results: 47 passed, 0 failed
 ```
 
 各テストファイルの `require.main` ブロックも個別に実行して PASS を確認した。
@@ -217,7 +222,7 @@ Python検証（`python3 tests/run-python-tests.py`）も PASS のままである
 注意: 正式な `node tests/run-all-tests.js` は 0/7 のままである。
 テストファイルが `describe`/`it` を使うがフレームワークが未導入のためで、
 第3段階の回帰ではなく第5段階で直すテストランナーの問題である。
-上記の46件は一時的なハーネス（`~/workspace/investigation/stage3-harness.js`、コミット対象外）で
+上記の47件は一時的なハーネス（`~/workspace/investigation/stage3-harness.js`、コミット対象外）で
 実行したものである。ハーネスは当初 `/tmp` に置いていたが、VMの入れ替えで
 消えたため再作成し、以後は `~/workspace/investigation/` に置いている。
 

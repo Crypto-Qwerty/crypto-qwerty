@@ -108,9 +108,11 @@
       return ((nextByte() << 24) | (nextByte() << 16) | (nextByte() << 8) | nextByte()) >>> 0;
     }
 
-    // [0, n) の一様乱数（棄却サンプリングで剰余バイアスを排除）
+    // [0, n) の一様乱数（棄却サンプリングで剰余バイアスを排除）。
+    // 32bitワードを使うため n は 2^32 まで。n > 2^32 では limit が 0 になり
+    // すべてのワードが棄却され続けるため、即座に例外にする。
     function nextInt(n) {
-      if (!Number.isInteger(n) || n <= 0) throw new Error('CMBoardRng: invalid range');
+      if (!Number.isInteger(n) || n <= 0 || n > 0x100000000) throw new Error('CMBoardRng: invalid range');
       const limit = 4294967296 - (4294967296 % n);
       let w = nextUint32();
       while (w >= limit) w = nextUint32();

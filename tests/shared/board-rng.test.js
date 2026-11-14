@@ -160,6 +160,26 @@ describe('Board V3 RNG (HMAC-SHA-256 counter mode)', () => {
     assert.strictEqual(callCount, 2, '棄却されたブロックと採用されたブロックの2回分が必要');
   });
 
+  it('nextInt(n) は 2^32 までを許可し、それを超える値は即座に例外になる', () => {
+    // 32bitワードを使うため n > 2^32 では limit が 0 になり、すべての
+    // ワードが棄却され続ける。範囲チェックを呼び出しの先頭で行い、
+    // HMACを呼ぶ前に例外にすることで無限ループを防ぐ。
+    const rng = CMBoardRng.createRandom('boundary');
+    // n = 2^32 は許可され、[0, 2^32) の32bit値を返す。
+    const v = rng.nextInt(0x100000000);
+    assert.ok(Number.isInteger(v) && v >= 0 && v < 0x100000000, `v=${v}`);
+    // n > 2^32 は即座に例外になる。HMACが呼ばれていないことも確認する。
+    const throwingHmac = () => { throw new Error('HMAC must not be called'); };
+    throwingHmac.array = () => { throw new Error('HMAC must not be called'); };
+    const stubRng = CMBoardRng.createRandom('boundary', { hmacLib: { hmac: throwingHmac } });
+    assert.throws(() => stubRng.nextInt(0x100000001), /CMBoardRng: invalid range/);
+    assert.throws(() => stubRng.nextInt(0x200000000), /CMBoardRng: invalid range/);
+    // 従来の範囲チェックも維持される。
+    assert.throws(() => rng.nextInt(0), /CMBoardRng: invalid range/);
+    assert.throws(() => rng.nextInt(-1), /CMBoardRng: invalid range/);
+    assert.throws(() => rng.nextInt(1.5), /CMBoardRng: invalid range/);
+  });
+
   it('nextInt の出力が一様である（カイ二乗検定）', () => {
     // 決定論的な乱数列なので検定結果も決定論的である。
     // 自由度9、p=0.001 の臨界値は 27.877。
