@@ -690,13 +690,22 @@ function decode32BitToSymList(mask) {
   return s;
 }
 
+// BIP39 core stores numeric seeds as uint32. Preserve the original text in
+// the optional second 24-word block whenever that conversion would be lossy.
+// This keeps leading zeroes (e.g. "007"), signs, and out-of-range digits intact.
+function seedNeedsTextBackup(seedText) {
+  const text = String(seedText == null ? '' : seedText).trim();
+  if (!text) return false;
+  if (window.CMSeedKey && window.CMSeedKey.isV2Seed(text)) return true;
+  return String(parseSeedValue(text) >>> 0) !== text;
+}
+
 function packRecipeTo256Bit(cfg, includeCardSeed, seedNumber) {
   const plain = new Uint8Array(28);
   plain[0] = 0x43; // 'C'
   plain[1] = 0x4D; // 'M'
-  const seedIsV2Text = includeCardSeed && typeof seedNumber === 'string' &&
-    typeof window !== 'undefined' && window.CMSeedKey && window.CMSeedKey.isV2Seed(seedNumber);
-  plain[2] = (0x02 << 4) | (includeCardSeed ? 1 : 0) | (seedIsV2Text ? 0x02 : 0);
+  const seedTextFollows = includeCardSeed && seedNeedsTextBackup(seedNumber);
+  plain[2] = (0x02 << 4) | (includeCardSeed ? 1 : 0) | (seedTextFollows ? 0x02 : 0);
   plain[3] = ((cfg.kwOrder & 0x0F) << 4) | (cfg.kwFilter & 0x0F);
   plain[4] = cfg.kwNum & 0xFF;
   plain[5] = ((cfg.shiftDir & 0x0F) << 4) | (cfg.baseCorner & 0x0F);
@@ -880,10 +889,11 @@ async function generateAndRenderSeedPhrase() {
     const seedVal = document.getElementById('input-seed-number')?.value || '0';
     const seedText = (typeof window !== 'undefined' && window.CMSeedKey) ? window.CMSeedKey.trimSeed(seedVal) : seedVal;
     const isV2 = inc && typeof window !== 'undefined' && window.CMSeedKey && window.CMSeedKey.classify(seedVal) === 'v2';
+    const seedTextFollows = inc && seedNeedsTextBackup(seedText);
     const useV6 = isV2 && typeof window !== 'undefined' && window.CMRecipeV6 && window.CMRecipeV6.canPack(cfg, seedText);
     const entropy = useV6 ? window.CMRecipeV6.pack(cfg, true, seedText) : packRecipeTo256Bit(cfg, inc, seedVal);
     let words = await entropyToBip39Words(entropy);
-    if (isV2 && !useV6) {
+    if (seedTextFollows && !useV6) {
       const seedBlock = packSeedTextBlock(seedText, entropy);
       words = words.concat(await entropyToBip39Words(seedBlock));
     }
