@@ -7,7 +7,7 @@
     "test": "node run-all-tests.js",
     "test:precache": "node ../scripts/generate-precache.js --check",
     "test:python": "python3 run-python-tests.py",
-    "test:browser": "node browser/run-browser-tests.js"
+    "test:browser": "node browser/run-browser-tests.js && node browser/ios-board-render.test.js"
   },
   "devDependencies": {
     "playwright": "1.56.1"

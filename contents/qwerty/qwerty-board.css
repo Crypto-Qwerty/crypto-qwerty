@@ -119,3 +119,85 @@ html.light .cm-board .qwerty-matrix .square .center-text {
   .cm-board .qwerty-matrix .square .corner-text.bottom-left { bottom: 2px !important; left: 2px !important; }
   .cm-board .qwerty-matrix .square .corner-text.bottom-right { bottom: 2px !important; right: 2px !important; }
 }
+/* =====================================================================
+ * iOS 盤面の視認性改善（iPhone Safari / ホーム画面 PWA）
+ * 適用条件：html.cm-ios（shared/common-ui/theme-init.js が iOS 判定で
+ * 描画前に付与）かつ画面幅 640px 以下。Android・PC には適用されない。
+ *
+ * 背景：app.css / legacy.css / theme-cyber.css / qwerty-board.css の
+ * !important が競合し、ライト／ダーク両方でキーが横長
+ * （aspect-ratio 1/0.82）・四隅文字が中央文字より大きい
+ * （14.08px > 12.48px）状態になり、iPhone 縦画面で全 36 キーに
+ * 文字の重なりが発生していた。ここでは ID セレクタで詳細度を上げ、
+ * サイズと余白だけを上書きする。文字・色・配置規則・生成ロジックは
+ * 変更しない。拡大表示モードは実装しない（通常表示で十分な大きさを
+ * 確保できるため。ページのピンチズームは従来通り利用できる）。
+ * ===================================================================== */
+@media (max-width: 640px) {
+  /* 外側の余白を最適化して盤面幅を確保する */
+  html.cm-ios main.cm-main {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  html.cm-ios .cm-board #matrix-stage-box {
+    padding: 8px 6px 10px !important;
+  }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix {
+    padding: 2px 0 !important;
+    gap: 6px !important;
+  }
+  html.cm-ios .cm-board .qwerty-row {
+    gap: 2px !important;
+  }
+  /* キーを縦長にして 5 文字分の高さを確保する */
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square {
+    flex: 0 0 calc((100% - 9 * 2px) / 10) !important;
+    aspect-ratio: 1 / 1.55 !important;
+  }
+  /* 中央文字：min サイズの箱をやめ、文字そのものの大きさにする */
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .center-text {
+    width: auto !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    font-size: 1rem !important;
+  }
+  /* 四隅文字：全隅・全状態で均一なサイズにする（固定 rem。vw による過度な縮小はしない） */
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text {
+    font-size: 0.78rem !important;
+    padding: 0 !important;
+  }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text.top-left { top: 2px !important; left: 2px !important; }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text.top-right { top: 2px !important; right: 2px !important; }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text.bottom-left { bottom: 2px !important; left: 2px !important; }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text.bottom-right { bottom: 2px !important; right: 2px !important; }
+  /* ルートプレビュー／再生ハイライトの太枠（2〜2.5px）は、絶対配置の
+     四隅文字を内側へ 1〜1.5px ずらして重なりの原因になるため、iOS では
+     1.5px に抑える。枠の色・背景・発光はそのまま残し、ハイライトの
+     識別性は保つ（再生中の中央文字の scale パルスは対象外）。 */
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square.stroke-preview-tile,
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square.stroke-start-tile,
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square.active-tile,
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square.fallback-tile {
+    border-width: 1.5px !important;
+  }
+}
+
+/* 320px 級の狭い iPhone では文字を一段だけ小さくし、重なりを防ぐ。
+   固定 rem の下限を保ち、vw による過度な縮小はしない。 */
+@media (max-width: 360px) {
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square {
+    aspect-ratio: 1 / 1.6 !important;
+  }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .center-text {
+    font-size: 0.85rem !important;
+  }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text {
+    font-size: 0.68rem !important;
+  }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text.top-left { top: 2px !important; left: 2px !important; }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text.top-right { top: 2px !important; right: 2px !important; }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text.bottom-left { bottom: 2px !important; left: 2px !important; }
+  html.cm-ios .cm-board #div-encrypto-matrix-main.qwerty-matrix .square .corner-text.bottom-right { bottom: 2px !important; right: 2px !important; }
+}
