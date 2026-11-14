@@ -14,7 +14,8 @@ const testFiles = [
   'qwerty/board-determinism.test.js',
   'qwerty/safe-symbols.test.js',
   'qwerty/recipe-generation.test.js',
-  'qwerty/service-worker-assets.test.js'
+  'qwerty/service-worker-assets.test.js',
+  'qwerty/service-worker-redirect.test.js'
 ].map((file) => path.join(__dirname, file));
 
 console.log('CryptoPassKey QWERTY — Node.js test suite');
