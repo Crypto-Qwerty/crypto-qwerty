@@ -158,17 +158,23 @@ const REVALIDATE_FILES = ['./theme-cyber.css', './lock-icon.png', './unlock-icon
 // (same status/headers/body) clears the flag. content-encoding and
 // content-length are dropped because the body handed back by fetch() is
 // already decoded, while those headers describe the encoded transfer.
+// If rebuilding fails (e.g. the Response constructor rejects the status),
+// fall back to caching the original response instead of failing the whole
+// install: a redirected entry is never served for a navigation (the fetch
+// handler treats it as a miss), so this only degrades that one page to a
+// network fetch / app-shell fallback until the next successful install.
 function storeClean(cache, request, response) {
   if (!response.redirected) return cache.put(request, response);
   const headers = new Headers();
   response.headers.forEach((value, name) => {
     if (name !== 'content-encoding' && name !== 'content-length') headers.append(name, value);
   });
+  const spare = response.clone();
   return response.arrayBuffer().then((body) => cache.put(request, new Response(body, {
     status: response.status,
     statusText: response.statusText,
     headers: headers,
-  })));
+  }))).catch(() => cache.put(request, spare));
 }
 
 // Precache one file. Fails the install when the fetch is not OK, exactly

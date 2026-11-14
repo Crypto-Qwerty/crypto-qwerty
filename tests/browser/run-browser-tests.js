@@ -193,6 +193,10 @@ async function main() {
       // Navigation to the .html URL (served from the precache).
       await cfPage.goto(cfOrigin + '/contents/qwerty/index.html', { waitUntil: 'load' });
       assert.match(await cfPage.title(), /CryptoPassKey/);
+      // The URL must stay on the .html form: a network fetch would 308 to
+      // the clean form, so staying here proves the precached copy answered.
+      assert.equal(cfPage.url(), cfOrigin + '/contents/qwerty/index.html',
+        'precached copy must serve the .html URL without redirecting');
       // Extensionless directory navigation (host 308, browser follows).
       await cfPage.goto(cfOrigin + '/contents/qwerty/keeweb', { waitUntil: 'load' });
       assert.equal(cfPage.url(), cfOrigin + '/contents/qwerty/keeweb/');
@@ -219,6 +223,17 @@ async function main() {
         'KeeWeb worker should control the KeeWeb page: ' + cfController);
       await cfPage.reload({ waitUntil: 'load' });
       assert.match(await cfPage.title(), /KeeWeb/);
+      // The KeeWeb worker caches only the directory URL ('.'), fetched
+      // without a redirect, so its entry must not be redirected either.
+      // (No rebuild is needed in keeweb/service-worker.js: it never
+      // returns a redirected response for a navigation.)
+      const kwCache = await cfPage.evaluate(async () => {
+        const cache = await caches.open('v1');
+        const res = await cache.match('.');
+        return res ? { redirected: res.redirected, status: res.status } : null;
+      });
+      assert.ok(kwCache, 'KeeWeb worker cache must contain the directory entry');
+      assert.equal(kwCache.redirected, false, 'KeeWeb cached entry must not be redirected');
       // Offline reload of the app shell.
       await cfPage.goto(cfOrigin + '/contents/qwerty/', { waitUntil: 'load' });
       await cfContext.setOffline(true);

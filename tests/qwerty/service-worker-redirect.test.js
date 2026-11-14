@@ -68,7 +68,7 @@ class MockCache {
   async keys() { return [...this.store.keys()].map((href) => ({ url: href })); }
 }
 
-function createHarness() {
+function createHarness(options = {}) {
   const storage = new Map();
   const caches = {
     async open(name) {
@@ -111,11 +111,18 @@ function createHarness() {
       if (isNav) {
         return mockResponse({ ok: false, status: 0, redirected: false, url: '', type: 'opaqueredirect', body: '' });
       }
-      return mockResponse({
+      const res = mockResponse({
         ok: true, status: 200, redirected: true, url: ORIGIN + target,
         headers: { 'content-type': 'text/html; charset=utf-8', 'content-encoding': 'br', 'content-length': '999' },
         body: '<html>page ' + pathname + '</html>',
       });
+      // Simulate a rebuild failure for one file (e.g. the Response
+      // constructor rejecting the status): storeClean must fall back to
+      // caching the original response instead of failing the install.
+      if (options.rebuildFailsFor && options.rebuildFailsFor.has(pathname)) {
+        res.arrayBuffer = async () => { throw new Error('rebuild failed (test)'); };
+      }
+      return res;
     }
     if (pathname.endsWith('/')) {
       return mockResponse({
@@ -244,4 +251,26 @@ test('Service Worker falls back to the app shell when offline', async () => {
   assert.ok(res, 'expected the app shell as the offline fallback');
   assert.equal(res.redirected, false);
   assert.equal(await res.text(), '<html>page /contents/qwerty/</html>');
+});
+
+test('Service Worker precache falls back to the original response when the rebuild fails', async () => {
+  const failing = '/contents/qwerty/timelock-recover.html';
+  const h = createHarness({ rebuildFailsFor: new Set([failing]) });
+  // Install must still succeed: only this one entry stays redirected.
+  await h.dispatchInstall();
+  assert.equal(h.wasSkipWaitingCalled(), true, 'install must succeed despite the rebuild failure');
+  const cache = await h.versionCache();
+  const files = filesFromSource(fs.readFileSync(swPath, 'utf8'));
+  assert.equal(cache.store.size, files.length, 'precache must contain every FILES entry');
+  const failed = cache.store.get(ORIGIN + failing);
+  assert.ok(failed, 'the failed entry must still be cached');
+  assert.equal(failed.redirected, true, 'the fallback entry keeps the original redirected response');
+  for (const [key, res] of cache.store) {
+    if (key === ORIGIN + failing) continue;
+    assert.equal(res.redirected, false, 'other precached entries must not be redirected: ' + key);
+  }
+  // The fallback entry is never served for a navigation: the handler treats
+  // a redirected hit as a miss and the network returns opaqueredirect.
+  const res = await h.dispatchFetch(navRequest(failing));
+  assert.equal(res.type, 'opaqueredirect');
 });
