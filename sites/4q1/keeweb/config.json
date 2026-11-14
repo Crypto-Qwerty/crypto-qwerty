@@ -1,0 +1,19 @@
+{
+  "settings": {
+    "locale": "ja",
+    "canOpen": true,
+    "canCreate": true,
+    "canOpenDemo": false,
+    "canOpenSettings": true,
+    "canOpenGenerator": true,
+    "dropbox": false,
+    "gdrive": false,
+    "onedrive": false,
+    "webdav": false
+  },
+  "plugins": [
+    {
+      "url": "plugins/translations/ja/"
+    }
+  ]
+}
