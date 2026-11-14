@@ -97,7 +97,7 @@ async function main() {
       ['84920173', 24, '84920173'],
       ['007', 48, '007']
     ]);
-    assert.ok(backupRoundTrips.every((x) => x.status.includes('BIP39検証成功')),
+    assert.ok(backupRoundTrips.every((x) => x.status.includes('復元しました')),
       JSON.stringify(backupRoundTrips));
 
     // Exercise the real Service Worker install/precache path, including files
