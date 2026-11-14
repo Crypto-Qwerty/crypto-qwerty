@@ -10,9 +10,9 @@ const fs = require('fs');
 const testFiles = [
   'shared/random.test.js',
   'shared/seed-key.test.js',
-  '4q1/board-determinism.test.js',
-  '4q1/safe-symbols.test.js',
-  '4q1/recipe-generation.test.js'
+  'qwerty/board-determinism.test.js',
+  'qwerty/safe-symbols.test.js',
+  'qwerty/recipe-generation.test.js'
 ];
 
 console.log('==================================================');

@@ -16,14 +16,14 @@ crypto_qwerty/
 │   └── vendor/              共通外部依存 (js-sha256, argon2, tlock, jsQR, zxing)
 │
 ├── profiles/
-│   └── 4q1/                 ← QWERTY 36キー盤面・レシピプロファイル
+│   └── qwerty/                 ← QWERTY 36キー盤面・レシピプロファイル
 │
-├── sites/
-│   └── 4q1/                 ← CryptoPassKey Webアプリ本体 (keeweb/ 連携含む)
+├── contents/
+│   └── qwerty/                 ← CryptoPassKey Webアプリ本体 (keeweb/ 連携含む)
 │
 ├── tests/
 │   ├── shared/              共通モジュールテスト
-│   ├── 4q1/                 QWERTY 盤面決定論性・Safe Symbols・レシピテスト
+│   ├── qwerty/                 QWERTY 盤面決定論性・Safe Symbols・レシピテスト
 │   ├── test-runner.html     ブラウザ完結型 テストランナー (GUI)
 │   └── run-all-tests.js     Node.js CLI テストランナー
 │
