@@ -4105,7 +4105,7 @@ document.addEventListener('DOMContentLoaded', () => {
    for(const b of blocks)groups.push(await entropyToBip39Words(b));
    if(request!==backupRequest)return;
    renderWords(groups,blocks);
-   setStatus('backup-summary',s.full?`拡張バックアップ（暗号化なし）：全${groups.length}ブロック ＋ 統合QR 1枚（PGPアーマード形式）を自動作成しました。サイト名・合言葉・記号リスト・マイレシピ設定を保存。シードフレーズ${s.includeSeed?'も保存':'は未保存（同じカードを別途用意）'}。`:`設定のみ（暗号化なし）：24単語 ＋ QR 1枚を自動作成しました。サイト名・合言葉は含みません。シードフレーズ${s.includeSeed?'を保存':'は未保存'}。`);
+   setStatus('backup-summary',s.full?`拡張バックアップ（暗号化なし）：全${groups.length}ブロック ＋ 統合QR 1枚（PGPアーマード形式）を自動作成しました。サイト名・合言葉・記号リスト・マイレシピ設定を保存。シードフレーズ${s.includeSeed?'も保存':'は未保存（同じカードを別途用意）'}。`:`設定のみ（暗号化なし）：${groups.length*24}単語（${groups.length}ブロック）＋ QR 1枚を自動作成しました。サイト名・合言葉は含みません。シードフレーズ${s.includeSeed?'を保存':'は未保存'}。`);
   }catch(e){if(request!==backupRequest)return;currentMnemonicWords=[];$('seed-words-container').textContent='バックアップ未作成：'+e.message;if($('seed-qr-list'))$('seed-qr-list').replaceChildren();setStatus('backup-summary',e.message,true);}
  };
 
@@ -4304,7 +4304,7 @@ document.addEventListener('DOMContentLoaded', () => {
    statusEl.className='status-msg ok';
    statusEl.textContent=data.full
     ?`✅ 全ブロック検証成功（${data.encrypted?'暗号化復号済み':'暗号化なし'}${shamirMsg}）。入力・設定を復元し、生成値も一致しました。`
-    :`✅ 設定を復元しました（${data.encrypted?'暗号化復号済み':'24単語'}${shamirMsg}）。サイト名・合言葉は生成時と同じものを別途入力してください。`;
+    :`✅ 設定を復元しました（${data.encrypted?'暗号化復号済み':`${blocks.length*24}単語`}${shamirMsg}）。サイト名・合言葉は生成時と同じものを別途入力してください。`;
    document.dispatchEvent(new Event('matrix-card-settings-changed'));
   }catch(e){
    if(previous){restoring=true;restoreUI(previous);}
