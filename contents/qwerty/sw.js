@@ -1,7 +1,7 @@
 // Crypto Matrix — オフライン用 Service Worker（ビルド不要の手書き版）
 
 // 版を上げると古いキャッシュは自動で削除される。ファイルを差し替えたら VERSION を変えること。
-const VERSION = 'cm-qwerty-v1.2.1-cloudflare';
+const VERSION = 'cm-qwerty-v1.2.2-ios-board';
 const MANUAL_UPDATE_MARKER = 'cm-manual-update-enabled';
 const FILES = [
   "./",
@@ -147,45 +147,6 @@ const FILES = [
 // would pin the old file into the new worker's cache.
 const REVALIDATE_FILES = ['./theme-cyber.css', './lock-icon.png', './unlock-icon.png'];
 
-// Store a response in the precache, stripping the redirected flag when the
-// host redirected the fetch. Cloudflare Pages Clean URLs 308-redirects every
-// .html URL to its clean form (index.html -> ./, keeweb/index.html ->
-// keeweb/, timelock-recover.html -> timelock-recover), so a plain
-// cache.addAll() would store those pages with redirected=true. Chrome
-// refuses to use such a response for a navigation ("a redirected response
-// was used for a request whose redirect mode is not 'follow'"), which
-// breaks every precached page on Cloudflare Pages. Rebuilding the response
-// (same status/headers/body) clears the flag. content-encoding and
-// content-length are dropped because the body handed back by fetch() is
-// already decoded, while those headers describe the encoded transfer.
-// If rebuilding fails (e.g. the Response constructor rejects the status),
-// fall back to caching the original response instead of failing the whole
-// install: a redirected entry is never served for a navigation (the fetch
-// handler treats it as a miss), so this only degrades that one page to a
-// network fetch / app-shell fallback until the next successful install.
-function storeClean(cache, request, response) {
-  if (!response.redirected) return cache.put(request, response);
-  const headers = new Headers();
-  response.headers.forEach((value, name) => {
-    if (name !== 'content-encoding' && name !== 'content-length') headers.append(name, value);
-  });
-  const spare = response.clone();
-  return response.arrayBuffer().then((body) => cache.put(request, new Response(body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: headers,
-  }))).catch(() => cache.put(request, spare));
-}
-
-// Precache one file. Fails the install when the fetch is not OK, exactly
-// like the cache.addAll() this replaces.
-function precacheFile(cache, file, init) {
-  return fetch(file, init).then((res) => {
-    if (!res.ok) throw new Error('precache failed: ' + file);
-    return storeClean(cache, file, res);
-  });
-}
-
 self.addEventListener('install', (e) => {
   // Precache the complete new app. The first rollout activates immediately,
   // but only when no previous worker has ever activated (no marker yet).
@@ -194,8 +155,9 @@ self.addEventListener('install', (e) => {
   // CM_SKIP_WAITING to the waiting worker.
   e.waitUntil(
     caches.open(VERSION)
-      .then((c) => Promise.all(FILES.filter((f) => !REVALIDATE_FILES.includes(f)).map((f) => precacheFile(c, f)))
-        .then(() => Promise.all(REVALIDATE_FILES.map((f) => precacheFile(c, f, { cache: 'reload' })))))
+      .then((c) => c.addAll(FILES.filter((f) => !REVALIDATE_FILES.includes(f)))
+        .then(() => Promise.all(REVALIDATE_FILES.map((f) => fetch(f, { cache: 'reload' })
+          .then((r) => { if (!r.ok) throw new Error('precache failed: ' + f); return c.put(f, r); })))))
       .then(() => caches.open(MANUAL_UPDATE_MARKER))
       .then((marker) => marker.match('./enabled'))
       .then((enabled) => enabled ? undefined : self.skipWaiting())
@@ -237,23 +199,11 @@ self.addEventListener('fetch', (e) => {
 
   if (req.mode === 'navigate') {
     // ページ本体もキャッシュ優先（アセットと同一方針）。新版の適用は手動更新フローで行う
-    // ただし redirected なキャッシュヒットは使えない。ホストのリダイレクト後に
-    // 保存されたレスポンスは redirected=true を持ち、Chrome はそれを
-    // ナビゲーションに使うと拒否する。redirected なヒットはミスとして扱う。
-    // fetch が opaqueredirect を返した場合（Cloudflare Pages Clean URLs の
-    // 308 や GitHub Pages のディレクトリ 301）は、そのまま返すことで
-    // ブラウザがリダイレクト先へ進み、URL と相対パスの基準も正しくなる。
-    // キャッシュするのは素の OK 応答のみ。
-    e.respondWith(caches.match(req, { ignoreSearch: true }).then((hit) => {
-      if (hit && !hit.redirected) return hit;
-      return fetch(req).then((res) => {
-        if (res && res.ok && !res.redirected) {
-          const copy = res.clone();
-          caches.open(VERSION).then((c) => c.put(req, copy)).catch(() => {});
-        }
-        return res;
-      });
-    }).catch(() => caches.match('./')));
+    e.respondWith(caches.match(req, { ignoreSearch: true }).then((r) => r || fetch(req).then((res) => {
+      const copy = res.clone();
+      caches.open(VERSION).then((c) => c.put(req, copy));
+      return res;
+    })).catch(() => caches.match('./')));
     return;
   }
   e.respondWith(caches.match(req, { ignoreSearch: true }).then((r) => r || fetch(req)));
