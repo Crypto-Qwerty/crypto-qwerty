@@ -4,8 +4,8 @@
   // Vendored ZXing assets (vendor/zxing-reader.js + vendor/zxing_reader.wasm).
   // Keep this version in sync with the vendored zxing-wasm package version.
   var VERSION = '3.1.6';
-  var SCRIPT_LOCAL_URL = 'vendor/zxing-reader.js';
-  var WASM_LOCAL_URL = 'vendor/zxing_reader.wasm';
+  var SCRIPT_LOCAL_URL = '../../shared/vendor/zxing-reader.js';
+  var WASM_LOCAL_URL = '../../shared/vendor/zxing_reader.wasm';
   var loadPromise = null;
 
   function swState() {

@@ -1,12 +1,12 @@
 'use strict';
 
 /**
- * 4Q-1 レシピ評価テスト (tests/4q1/recipe-generation.test.js)
+ * 4Q-1 レシピ評価テスト (tests/qwerty/recipe-generation.test.js)
  */
 const assert = require('assert');
-const CM4Q1Board = require('../../profiles/4q1/board.js');
-const CM4Q1Recipes = require('../../profiles/4q1/recipes.js');
-const CM4Q1Profile = require('../../profiles/4q1/profile.js');
+const CM4Q1Board = require('../../profiles/qwerty/board.js');
+const CM4Q1Recipes = require('../../profiles/qwerty/recipes.js');
+const CM4Q1Profile = require('../../profiles/qwerty/profile.js');
 
 describe('4Q-1 Recipe Generation Tests', () => {
 
@@ -47,7 +47,7 @@ describe('4Q-1 Recipe Generation Tests', () => {
 });
 
 if (require.main === module) {
-  console.log('Running tests/4q1/recipe-generation.test.js ...');
+  console.log('Running tests/qwerty/recipe-generation.test.js ...');
   const SEED = '84920173';
   const board = CM4Q1Board.generate(SEED);
   const rNormal = CM4Q1Recipes.evaluate('AMAZON', 'K7', { lenMode: 5, lenVal: 16, symMode: 0 }, board);

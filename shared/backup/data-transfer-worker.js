@@ -2,8 +2,8 @@
 'use strict';
 
 var VERSION = '3.1.6';
-var SCRIPT_LOCAL_URL = 'vendor/zxing-reader.js';
-var WASM_LOCAL_URL = 'vendor/zxing_reader.wasm';
+var SCRIPT_LOCAL_URL = '../vendor/zxing-reader.js';
+var WASM_LOCAL_URL = '../vendor/zxing_reader.wasm';
 var zxingApi = null;
 var isInitialized = false;
 

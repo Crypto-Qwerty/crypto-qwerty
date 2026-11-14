@@ -1,10 +1,10 @@
 'use strict';
 
 /**
- * 4Q-1 Safe Symbols & 文字種検証テスト (tests/4q1/safe-symbols.test.js)
+ * 4Q-1 Safe Symbols & 文字種検証テスト (tests/qwerty/safe-symbols.test.js)
  */
 const assert = require('assert');
-const CM4Q1Board = require('../../profiles/4q1/board.js');
+const CM4Q1Board = require('../../profiles/qwerty/board.js');
 
 describe('4Q-1 Safe Symbols & Character Set Tests', () => {
 
@@ -62,7 +62,7 @@ describe('4Q-1 Safe Symbols & Character Set Tests', () => {
 });
 
 if (require.main === module) {
-  console.log('Running tests/4q1/safe-symbols.test.js ...');
+  console.log('Running tests/qwerty/safe-symbols.test.js ...');
   const testSeeds = ['84920173', '12345678', 'SEED-TEST-01'];
   for (const seed of testSeeds) {
     const board = CM4Q1Board.generate(seed);

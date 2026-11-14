@@ -1,10 +1,10 @@
 'use strict';
 
 /**
- * 4Q-1 盤面決定論性＆データ構造テスト (tests/4q1/board-determinism.test.js)
+ * 4Q-1 盤面決定論性＆データ構造テスト (tests/qwerty/board-determinism.test.js)
  */
 const assert = require('assert');
-const CM4Q1Board = require('../../profiles/4q1/board.js');
+const CM4Q1Board = require('../../profiles/qwerty/board.js');
 
 describe('4Q-1 Board Determinism & Structure Tests', () => {
 
@@ -52,7 +52,7 @@ describe('4Q-1 Board Determinism & Structure Tests', () => {
 });
 
 if (require.main === module) {
-  console.log('Running tests/4q1/board-determinism.test.js ...');
+  console.log('Running tests/qwerty/board-determinism.test.js ...');
   const b1 = CM4Q1Board.generate('84920173');
   const b2 = CM4Q1Board.generate('84920173');
   assert.strictEqual(b1.length, 36);

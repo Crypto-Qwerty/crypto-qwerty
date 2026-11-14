@@ -1440,7 +1440,7 @@ async function getDecoder(){
  if(window.BarcodeDetector){try{if(!BarcodeDetector.getSupportedFormats||(await BarcodeDetector.getSupportedFormats()).includes('qr_code')){const detector=new BarcodeDetector({formats:['qr_code']});return async canvas=>(await detector.detect(canvas)).map(r=>r.rawValue);}}catch(_){}}
 
  if(!window.jsQR){
-  if(!decoderPromise)decoderPromise=script('vendor/jsQR.js').catch(e=>{decoderPromise=null;throw Error('QR読取補助ライブラリ（vendor/jsQR.js）を読み込めませんでした。');});
+  if(!decoderPromise)decoderPromise=script('../../shared/vendor/jsQR.js').catch(e=>{decoderPromise=null;throw Error('QR読取補助ライブラリ（vendor/jsQR.js）を読み込めませんでした。');});
   await decoderPromise;
  }
 

@@ -2625,7 +2625,7 @@ module.exports = QRCode;
         }
         var initTimer = null;
         try {
-          rxWorker = new Worker('data-transfer-worker.js');
+          rxWorker = new Worker('../../shared/backup/data-transfer-worker.js');
           initTimer = setTimeout(function () {
             rxWorkerFailed = true;
             rxWorkerReady = false;
