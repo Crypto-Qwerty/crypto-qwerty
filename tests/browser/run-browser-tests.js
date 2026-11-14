@@ -99,6 +99,8 @@ async function main() {
     ]);
     assert.ok(backupRoundTrips.every((x) => x.status.includes('復元しました')),
       JSON.stringify(backupRoundTrips));
+    assert.match(backupRoundTrips[0].status, /24単語/);
+    assert.match(backupRoundTrips[1].status, /48単語/);
 
     // Exercise the real Service Worker install/precache path, including files
     // located in ../.. shared/profile directories.
