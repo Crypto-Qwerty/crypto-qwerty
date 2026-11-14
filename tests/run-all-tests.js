@@ -1,11 +1,10 @@
 'use strict';
 
-/**
- * 全テスト一括実行スクリプト (Node.js 用)
- */
-const { execSync } = require('child_process');
-const path = require('path');
-const fs = require('fs');
+// Run the complete Node.js test suite with Node's built-in test runner.
+// The test files use describe()/it()/test(); executing them as plain scripts
+// does not register or execute those suites.
+const { spawnSync } = require('node:child_process');
+const path = require('node:path');
 
 const testFiles = [
   'shared/random.test.js',
@@ -14,35 +13,18 @@ const testFiles = [
   'shared/entropy.test.js',
   'qwerty/board-determinism.test.js',
   'qwerty/safe-symbols.test.js',
-  'qwerty/recipe-generation.test.js'
-];
+  'qwerty/recipe-generation.test.js',
+  'qwerty/service-worker-assets.test.js'
+].map((file) => path.join(__dirname, file));
 
-console.log('==================================================');
-console.log(' CryptoPassKey QWERTY Test Runner (Node.js)       ');
-console.log('==================================================\n');
+console.log('CryptoPassKey QWERTY — Node.js test suite');
+const result = spawnSync(process.execPath, ['--test', ...testFiles], {
+  cwd: __dirname,
+  stdio: 'inherit'
+});
 
-let passCount = 0;
-let failCount = 0;
-
-for (const tf of testFiles) {
-  const fullPath = path.join(__dirname, tf);
-  console.log(`▶ Running ${tf} ...`);
-  try {
-    execSync(`node "${fullPath}"`, { stdio: 'inherit' });
-    passCount++;
-    console.log(`✔ [OK] ${tf}\n`);
-  } catch (err) {
-    failCount++;
-    console.error(`✖ [FAIL] ${tf}\n`);
-  }
-}
-
-console.log('--------------------------------------------------');
-console.log(`Results: ${passCount} passed, ${failCount} failed, total ${testFiles.length}`);
-console.log('--------------------------------------------------');
-
-if (failCount > 0) {
+if (result.error) {
+  console.error(result.error);
   process.exit(1);
-} else {
-  console.log('🎉 All test suites passed successfully!');
 }
+process.exit(result.status === null ? 1 : result.status);

@@ -1,5 +1,7 @@
 'use strict';
 
+const { describe, it, test } = require('node:test');
+
 /**
  * 4Q-1 盤面決定論性＆データ構造テスト (tests/qwerty/board-determinism.test.js)
  */

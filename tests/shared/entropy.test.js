@@ -1,5 +1,7 @@
 'use strict';
 
+const { describe, it, test } = require('node:test');
+
 /**
  * エントロピー推定のテスト (tests/shared/entropy.test.js)
  *

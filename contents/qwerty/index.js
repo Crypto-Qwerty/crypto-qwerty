@@ -690,13 +690,22 @@ function decode32BitToSymList(mask) {
   return s;
 }
 
+// BIP39 core stores numeric seeds as uint32. Preserve the original text in
+// the optional second 24-word block whenever that conversion would be lossy.
+// This keeps leading zeroes (e.g. "007"), signs, and out-of-range digits intact.
+function seedNeedsTextBackup(seedText) {
+  const text = String(seedText == null ? '' : seedText).trim();
+  if (!text) return false;
+  if (window.CMSeedKey && window.CMSeedKey.isV2Seed(text)) return true;
+  return String(parseSeedValue(text) >>> 0) !== text;
+}
+
 function packRecipeTo256Bit(cfg, includeCardSeed, seedNumber) {
   const plain = new Uint8Array(28);
   plain[0] = 0x43; // 'C'
   plain[1] = 0x4D; // 'M'
-  const seedIsV2Text = includeCardSeed && typeof seedNumber === 'string' &&
-    typeof window !== 'undefined' && window.CMSeedKey && window.CMSeedKey.isV2Seed(seedNumber);
-  plain[2] = (0x02 << 4) | (includeCardSeed ? 1 : 0) | (seedIsV2Text ? 0x02 : 0);
+  const seedTextFollows = includeCardSeed && seedNeedsTextBackup(seedNumber);
+  plain[2] = (0x02 << 4) | (includeCardSeed ? 1 : 0) | (seedTextFollows ? 0x02 : 0);
   plain[3] = ((cfg.kwOrder & 0x0F) << 4) | (cfg.kwFilter & 0x0F);
   plain[4] = cfg.kwNum & 0xFF;
   plain[5] = ((cfg.shiftDir & 0x0F) << 4) | (cfg.baseCorner & 0x0F);
@@ -880,10 +889,11 @@ async function generateAndRenderSeedPhrase() {
     const seedVal = document.getElementById('input-seed-number')?.value || '0';
     const seedText = (typeof window !== 'undefined' && window.CMSeedKey) ? window.CMSeedKey.trimSeed(seedVal) : seedVal;
     const isV2 = inc && typeof window !== 'undefined' && window.CMSeedKey && window.CMSeedKey.classify(seedVal) === 'v2';
+    const seedTextFollows = inc && seedNeedsTextBackup(seedText);
     const useV6 = isV2 && typeof window !== 'undefined' && window.CMRecipeV6 && window.CMRecipeV6.canPack(cfg, seedText);
     const entropy = useV6 ? window.CMRecipeV6.pack(cfg, true, seedText) : packRecipeTo256Bit(cfg, inc, seedVal);
     let words = await entropyToBip39Words(entropy);
-    if (isV2 && !useV6) {
+    if (seedTextFollows && !useV6) {
       const seedBlock = packSeedTextBlock(seedText, entropy);
       words = words.concat(await entropyToBip39Words(seedBlock));
     }
@@ -2916,10 +2926,11 @@ document.addEventListener('DOMContentLoaded', () => {
  async function buildPlainBody(s,core){
   const sym=enc.encode(s.cfg.symList);
   if(sym.length>1024)throw new Error('記号リストは1024バイトまでです。');
-  // v2 シード文字列は256bitコアに収まらないため、本体バージョン3で末尾に
-  // シードブロック（32バイト）を付けて運ぶ。数値シードでは従来の2のまま。
-  const seedBlock=(s.includeSeed&&s.seedText&&typeof window!=='undefined'&&window.CMSeedKey&&window.CMSeedKey.classify(s.seedText)==='v2'&&!(window.CMRecipeV6&&window.CMRecipeV6.isV6(core)))
-   ? packSeedTextBlock(window.CMSeedKey.trimSeed(s.seedText),core) : null;
+  // v2 シード、および uint32 変換で文字列情報が失われる数値シードは
+  // 本体バージョン3で末尾にシードブロック（32バイト）を付けて完全保存する。
+  const seedText=String(s.seedText||'').trim();
+  const seedBlock=(s.includeSeed&&seedText&&seedNeedsTextBackup(seedText)&&!(window.CMRecipeV6&&window.CMRecipeV6.isV6(core)))
+   ? packSeedTextBlock(seedText,core) : null;
   const bodyVer=seedBlock?3:2;
   if(!s.full){
    const len=new Uint8Array(2);new DataView(len.buffer).setUint16(0,sym.length,false);
@@ -4084,16 +4095,17 @@ document.addEventListener('DOMContentLoaded', () => {
    const s=snapshotBackup(),V6=(typeof window!=='undefined'&&window.CMRecipeV6)||null;
    const seedForCore=(s.seedText!==undefined&&s.seedText!=='')?s.seedText:s.seed;
    const v6Seed=(s.includeSeed&&s.seedText&&typeof window!=='undefined'&&window.CMSeedKey&&window.CMSeedKey.classify(s.seedText)==='v2')?window.CMSeedKey.trimSeed(s.seedText):null;
+   const needsSeedTextBlock=s.includeSeed&&seedNeedsTextBackup(s.seedText);
    const core=(v6Seed&&V6&&V6.canPack(s.cfg,v6Seed))?V6.pack(s.cfg,true,v6Seed):packRecipeTo256Bit(s.cfg,s.includeSeed,seedForCore);
    let blocks;
    if(s.full)blocks=await fullBlocks(s,core);
-   else if(v6Seed&&!(V6&&V6.isV6(core)))blocks=[core,packSeedTextBlock(v6Seed,core)];
+   else if(needsSeedTextBlock&&!(V6&&V6.isV6(core)))blocks=[core,packSeedTextBlock(String(s.seedText).trim(),core)];
    else blocks=[core];
    const groups=[];
    for(const b of blocks)groups.push(await entropyToBip39Words(b));
    if(request!==backupRequest)return;
    renderWords(groups,blocks);
-   setStatus('backup-summary',s.full?`拡張バックアップ（暗号化なし）：全${groups.length}ブロック ＋ 統合QR 1枚（PGPアーマード形式）を自動作成しました。サイト名・合言葉・記号リスト・マイレシピ設定を保存。シードフレーズ${s.includeSeed?'も保存':'は未保存（同じカードを別途用意）'}。`:`設定のみ（暗号化なし）：24単語 ＋ QR 1枚を自動作成しました。サイト名・合言葉は含みません。シードフレーズ${s.includeSeed?'を保存':'は未保存'}。`);
+   setStatus('backup-summary',s.full?`拡張バックアップ（暗号化なし）：全${groups.length}ブロック ＋ 統合QR 1枚（PGPアーマード形式）を自動作成しました。サイト名・合言葉・記号リスト・マイレシピ設定を保存。シードフレーズ${s.includeSeed?'も保存':'は未保存（同じカードを別途用意）'}。`:`設定のみ（暗号化なし）：${groups.length*24}単語（${groups.length}ブロック）＋ QR 1枚を自動作成しました。サイト名・合言葉は含みません。シードフレーズ${s.includeSeed?'を保存':'は未保存'}。`);
   }catch(e){if(request!==backupRequest)return;currentMnemonicWords=[];$('seed-words-container').textContent='バックアップ未作成：'+e.message;if($('seed-qr-list'))$('seed-qr-list').replaceChildren();setStatus('backup-summary',e.message,true);}
  };
 
@@ -4292,7 +4304,7 @@ document.addEventListener('DOMContentLoaded', () => {
    statusEl.className='status-msg ok';
    statusEl.textContent=data.full
     ?`✅ 全ブロック検証成功（${data.encrypted?'暗号化復号済み':'暗号化なし'}${shamirMsg}）。入力・設定を復元し、生成値も一致しました。`
-    :`✅ 設定を復元しました（${data.encrypted?'暗号化復号済み':'24単語'}${shamirMsg}）。サイト名・合言葉は生成時と同じものを別途入力してください。`;
+    :`✅ 設定を復元しました（${data.encrypted?'暗号化復号済み':`${blocks.length*24}単語`}${shamirMsg}）。サイト名・合言葉は生成時と同じものを別途入力してください。`;
    document.dispatchEvent(new Event('matrix-card-settings-changed'));
   }catch(e){
    if(previous){restoring=true;restoreUI(previous);}

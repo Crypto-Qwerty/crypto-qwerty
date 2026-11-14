@@ -1,5 +1,7 @@
 'use strict';
 
+const { describe, it, test } = require('node:test');
+
 /**
  * 4Q-1 Safe Symbols & 文字種検証テスト (tests/qwerty/safe-symbols.test.js)
  */
