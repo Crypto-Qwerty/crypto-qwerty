@@ -14,18 +14,14 @@
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
     module.exports = factory(
-      require('../../shared/random/prng-4q1.js'),
-      require('../../shared/random/board-v2-rng.js'),
-      require('../../shared/validation/seed-key.js')
+      require('../../shared/random/board-rng.js')
     );
   } else {
     root.CM4Q1Board = factory(
-      root.CM4Q1Random,
-      root.CMBoardV2,
-      root.CMSeedKey
+      root.CMBoardRng
     );
   }
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (CM4Q1Random, CMBoardV2, CMSeedKey) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (CMBoardRng) {
 
   const ROWS = [
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -92,27 +88,21 @@
 
   /**
    * シードから盤面データ (36キー分) を生成する
-   * v2シードは CMBoardV2 (SHA-256)、v1シードは CM4Q1Random を使用
+   * すべてのシードで CMBoardRng (HMAC-SHA-256カウンター方式) を使用する。
+   * v1/v2の区別はしない。シードは文字列のまま扱い、数値化や先頭ゼロの
+   * 削除は一切行わない（"007" と "7" は別のシードになる）。
+   * 数値型で渡された場合のみ String(Math.trunc()) で文字列化するが、
+   * UIは常に文字列を渡す。数値型に先頭ゼロは存在しないため、この分岐で
+   * 先頭ゼロが失われることはない。
    */
   function generate(seedValue) {
     const seedText = (typeof seedValue === 'string') ? seedValue.trim()
       : (typeof seedValue === 'number' && Number.isFinite(seedValue)) ? String(Math.trunc(seedValue)) : '';
     const effectiveSeed = seedText || '0';
 
-    const seedKeyMod = (typeof window !== 'undefined' && window.CMSeedKey) ? window.CMSeedKey : CMSeedKey;
-    const boardV2Mod = (typeof window !== 'undefined' && window.CMBoardV2) ? window.CMBoardV2 : CMBoardV2;
-    const rng4q1Mod = (typeof window !== 'undefined' && window.CM4Q1Random) ? window.CM4Q1Random : CM4Q1Random;
-
-    const isV2 = seedKeyMod && boardV2Mod && seedKeyMod.isV2Seed(effectiveSeed);
-
-    let shuffleFn;
-    if (isV2) {
-      const v2rand = boardV2Mod.createRandom(seedKeyMod.canonicalSeedKey(effectiveSeed));
-      shuffleFn = arr => v2rand.shuffle(arr);
-    } else {
-      const rng = rng4q1Mod.createRng(effectiveSeed);
-      shuffleFn = arr => rng4q1Mod.shuffle(arr, rng);
-    }
+    const rngMod = (typeof window !== 'undefined' && window.CMBoardRng) ? window.CMBoardRng : CMBoardRng;
+    const rng = rngMod.createRandom(effectiveSeed);
+    const shuffleFn = arr => rng.shuffle(arr);
 
     const full1Chars = buildGuaranteedFullSlots(shuffleFn);
     const full2Chars = buildGuaranteedFullSlots(shuffleFn);

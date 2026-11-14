@@ -39,6 +39,27 @@ describe('Shared SeedKey Tests', () => {
     assert.strictEqual(typeof seed, 'string');
     assert.strictEqual(seed.length, 12);
     assert.strictEqual(CMSeedKey.classify(seed), 'v2');
+    // 標準シードは62種（英大小数字）のみ。記号は含まない。
+    assert.ok(/^[A-Za-z0-9]{12}$/.test(seed), `標準シードに62種以外の文字が含まれています: ${seed}`);
+    assert.ok([...seed].every(c => CMSeedKey.GENERATE_POOL.includes(c)));
+  });
+
+  it('generateNumericSeed が 12桁の数字シードを生成する', () => {
+    if (!globalThis.crypto) {
+      globalThis.crypto = require('crypto').webcrypto;
+    }
+    const seed = CMSeedKey.generateNumericSeed();
+    assert.strictEqual(typeof seed, 'string');
+    assert.strictEqual(seed.length, 12);
+    assert.ok(/^[0-9]{12}$/.test(seed), `数字シードに数字以外の文字が含まれています: ${seed}`);
+    assert.strictEqual(CMSeedKey.classify(seed), 'v1');
+  });
+
+  it('先頭ゼロが trim・分類を通じて維持される', () => {
+    assert.strictEqual(CMSeedKey.trimSeed('007'), '007');
+    assert.strictEqual(CMSeedKey.classify('007'), 'v1');
+    // 数値化する canonicalSeedKey は盤面生成では使わない（バックアップ暗号化ドメイン専用）。
+    // trimSeed が先頭ゼロを保持することが、盤面生成の前提である。
   });
 });
 

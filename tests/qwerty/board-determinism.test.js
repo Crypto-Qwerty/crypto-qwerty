@@ -49,6 +49,22 @@ describe('4Q-1 Board Determinism & Structure Tests', () => {
     assert.ok(diff, '異なるシードで盤面が変化していません');
   });
 
+  it('新ゴールデンベクター（V3、シード84920173）が一致する', () => {
+    // 変更前の値（Normal B09oVPC%B0@4Un7@ 等）とは一致しない。
+    // 旧値は docs/board-rng-v3.md に変更前の記録として残す。
+    const b = CM4Q1Board.generate('84920173');
+    assert.strictEqual(b[0].key, '1');
+    assert.strictEqual(b[0].tl, 'D');
+    assert.strictEqual(b[0].tr, 'Q');
+    assert.strictEqual(b[0].bl, 'I');
+    assert.strictEqual(b[0].br, '8');
+    assert.strictEqual(b[1].key, '2');
+    assert.strictEqual(b[1].tl, 's');
+    assert.strictEqual(b[1].tr, '9');
+    assert.strictEqual(b[1].bl, '1');
+    assert.strictEqual(b[1].br, '9');
+  });
+
 });
 
 if (require.main === module) {

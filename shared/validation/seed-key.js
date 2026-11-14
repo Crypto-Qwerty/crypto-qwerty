@@ -14,8 +14,18 @@
  *   ここへ複製しない（計算順序・型変換を変えないため）。
  * - それ以外のシード（v2: 英数字・記号入り）は trim 済みの文字列そのものが
  *   正規シードキーになる。
+ * - 盤面生成はこのモジュールの classify / canonicalSeedKey を使わない。
+ *   盤面生成はシード文字列をそのまま HMAC-SHA-256 乱数エンジンへ渡す
+ *   （shared/random/board-rng.js 参照）。canonicalSeedKey の数値解釈は
+ *   バックアップ暗号化ドメイン専用である。
  */
-window.CMSeedKey = (() => {
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) {
+    module.exports = factory();
+  } else {
+    root.CMSeedKey = factory();
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   function trimSeed(seedText) {
     return String(seedText == null ? '' : seedText).trim();
   }
@@ -54,13 +64,12 @@ window.CMSeedKey = (() => {
     return t;
   }
 
-  // v2 シードの自動生成（設計 §4）: 74種プール（数字＋英大小＋記号12。
-  // '#' と '&' は URL 埋め込みとの相性のため自動生成から除外）から
-  // 12文字を CSPRNG＋棄却サンプリングで引く（約74.5bit）。
-  // 12文字は現行仕様（デザイン用HTMLの生成と同一）で、2026-11-10 に維持を確定。
+  // 標準シードの自動生成（設計 §5）: 62種プール（数字＋英大小。記号なし）から
+  // 12文字を CSPRNG＋棄却サンプリングで引く（約71.45bit）。
+  // 12文字は現行仕様で、2026-11-10 に維持を確定。
   // 16文字は BIP39 版6形式の格納容量の目標であり、生成長ではない（設計 §14）。
   // 提示・保存の導線（UI）は別途設計する。ここは生成そのものの仕様。
-  const GENERATE_POOL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_!$%^*()+/.';
+  const GENERATE_POOL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   function generateSeed() {
     for (;;) {
       const out = [];
@@ -79,5 +88,24 @@ window.CMSeedKey = (() => {
     }
   }
 
-  return { trimSeed, isNumericSeed, isV2Seed, classify, canonicalSeedKey, generateSeed };
-})();
+  // 数字シードの自動生成（設計 §5）: 10種プール（0-9）から12桁を
+  // CSPRNG＋棄却サンプリングで引く（約39.86bit）。
+  // 先頭ゼロは文字として保持する（数値化しない）。"007" のような
+  // 先頭ゼロ付きシードも正しい12桁の数字シードである。
+  const NUMERIC_GENERATE_POOL = '0123456789';
+  function generateNumericSeed() {
+    const out = [];
+    const buf = new Uint8Array(64);
+    let pos = buf.length; // 未充填のゼロ埋めバッファを読まないよう、初回は必ず getRandomValues で充填する
+    const limit = 256 - (256 % NUMERIC_GENERATE_POOL.length);
+    while (out.length < 12) {
+      if (pos >= buf.length) { crypto.getRandomValues(buf); pos = 0; }
+      const b = buf[pos++];
+      if (b >= limit) continue;
+      out.push(NUMERIC_GENERATE_POOL[b % NUMERIC_GENERATE_POOL.length]);
+    }
+    return out.join('');
+  }
+
+  return { trimSeed, isNumericSeed, isV2Seed, classify, canonicalSeedKey, generateSeed, generateNumericSeed, GENERATE_POOL, NUMERIC_GENERATE_POOL };
+});

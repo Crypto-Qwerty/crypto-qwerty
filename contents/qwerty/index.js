@@ -2765,20 +2765,6 @@ document.addEventListener('DOMContentLoaded', () => {
   clipTimer=setTimeout(()=>{void settleClipboard(gen,onResult);},30000);
   window.dispatchEvent(new CustomEvent('cm-clipboard-copied',{detail:{claimed:typeof onResult==='function'}}));
  }
- function estimatePasswordEntropy(pw){
-  const chars=Array.from(String(pw??''));
-  if(!chars.length)return{bits:0,pool:0,unique:0,length:0};
-  let pool=0;
-  if(chars.some(c=>/[0-9]/.test(c)))pool+=10;
-  if(chars.some(c=>/[a-z]/.test(c)))pool+=26;
-  if(chars.some(c=>/[A-Z]/.test(c)))pool+=26;
-  if(chars.some(c=>/[^A-Za-z0-9\s]/.test(c)))pool+=32;
-  if(chars.some(c=>/\s/.test(c)))pool+=1;
-  if(!pool)pool=32;
-  const unique=new Set(chars).size;
-  const bits=Math.round(chars.length*Math.log2(pool)*10)/10;
-  return{bits,pool,unique,length:chars.length};
- }
  function syncBlindInputs(){
   const playing=document.body.classList.contains('trace-playing');
   const shouldMask=blindMode&&!playing;
@@ -2871,22 +2857,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if($('btn-sticky-pause'))$('btn-sticky-pause').disabled=false;
   if($('btn-sticky-stop'))$('btn-sticky-stop').disabled=false;
   if($('btn-sticky-copy'))$('btn-sticky-copy').disabled=!!issue;
+  const seedEnt=(typeof window!=='undefined'&&window.CMEntropy&&window.CMEntropy.estimateSeedEntropy)?window.CMEntropy.estimateSeedEntropy(($('input-seed-number')||{}).value||'0'):null;
+  const seedEntText=seedEnt?` ／ シード上限 約${seedEnt.bits} bits`:'';
   if(cardMode(cfg)&&!issue){
    const input=filtered($('sim-site').value,$('sim-secret').value);
    const pw=currentEvalSteps.map(s=>s.ch).join('');
    const ent=estimatePasswordEntropy(pw);
    const subMode=cfg.lenMode===5?'パスワード（記号あり）':cfg.lenMode===4?'パスワード（記号なし）':'暗証番号';
-   $('sim-output-meta').textContent=`かんたんモード（${subMode}） ／ ${currentEvalSteps.length}${cfg.lenMode===3?'桁':'文字'} ／ 約${ent.bits} bits`;
+   $('sim-output-meta').textContent=`かんたんモード（${subMode}） ／ ${currentEvalSteps.length}${cfg.lenMode===3?'桁':'文字'} ／ 約${ent.bits} bits${seedEntText}`;
    $('sim-step-banner').textContent='▶ 盤面または再生ボタンで、出力文字のキー・角が順番に光ります。';
    const syms=cfg.lenMode===5?validateSymbols(cfg).join(''):'';
-   setStatus('cq-status',`【使用中】${getActiveModeLabel(cfg)}\n・カード番号：${appliedSeedLabel} ／ 探索文字：${input.site} ＋ ${input.secret}（交互）\n・出力：${cfg.lenVal}${cfg.lenMode===3?'桁':'文字'}（約${ent.bits} bits）${cfg.lenMode===5?' ／ 記号：'+syms:''}`);
+   setStatus('cq-status',`【使用中】${getActiveModeLabel(cfg)}\n・カード番号：${appliedSeedLabel} ／ 探索文字：${input.site} ＋ ${input.secret}（交互）\n・出力：${cfg.lenVal}${cfg.lenMode===3?'桁':'文字'}（約${ent.bits} bits${seedEntText}）${cfg.lenMode===5?' ／ 記号：'+syms:''}`);
    if(cfg.lenMode===3&&cfg.lenVal>=4&&cfg.lenVal<=12)$('cq-pin-length').value=String(cfg.lenVal);
    if(cfg.lenMode===4||cfg.lenMode===5){if(cfg.lenVal>=16&&cfg.lenVal<=32)$('cq-symbol-length').value=String(cfg.lenVal);if(cfg.lenMode===4){$('cq-symbol-mode').value='3';}else if([0,1,2].includes(cfg.symMode)){$('cq-symbol-mode').value=String(cfg.symMode);}$('cq-symbol-list').value=cfg.symList;}
   }else if(issue){$('sim-output-meta').textContent=issue;setStatus('cq-status',issue,true);}
   else{
    const pw=currentEvalSteps.map(s=>s.ch).join('');
    const ent=estimatePasswordEntropy(pw);
-   if(pw&&$('sim-output-meta'))$('sim-output-meta').textContent=`1. マイレシピ ／ ${currentEvalSteps.length}文字（代替: ${currentEvalSteps.filter(s=>s.isFallback).length}） ／ 約${ent.bits} bits`;
+   if(pw&&$('sim-output-meta'))$('sim-output-meta').textContent=`1. マイレシピ ／ ${currentEvalSteps.length}文字（代替: ${currentEvalSteps.filter(s=>s.isFallback).length}） ／ 約${ent.bits} bits${seedEntText}`;
    setStatus('cq-status','【使用中】1. マイレシピ\n上の「暗証番号」または「パスワード」の「このモードを使う」を押すと切り替わります。');
   }
   const stickyPw=$('sticky-output-pw'),stickyMeta=$('sticky-output-meta');
