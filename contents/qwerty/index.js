@@ -2926,10 +2926,11 @@ document.addEventListener('DOMContentLoaded', () => {
  async function buildPlainBody(s,core){
   const sym=enc.encode(s.cfg.symList);
   if(sym.length>1024)throw new Error('記号リストは1024バイトまでです。');
-  // v2 シード文字列は256bitコアに収まらないため、本体バージョン3で末尾に
-  // シードブロック（32バイト）を付けて運ぶ。数値シードでは従来の2のまま。
-  const seedBlock=(s.includeSeed&&s.seedText&&typeof window!=='undefined'&&window.CMSeedKey&&window.CMSeedKey.classify(s.seedText)==='v2'&&!(window.CMRecipeV6&&window.CMRecipeV6.isV6(core)))
-   ? packSeedTextBlock(window.CMSeedKey.trimSeed(s.seedText),core) : null;
+  // v2 シード、および uint32 変換で文字列情報が失われる数値シードは
+  // 本体バージョン3で末尾にシードブロック（32バイト）を付けて完全保存する。
+  const seedText=String(s.seedText||'').trim();
+  const seedBlock=(s.includeSeed&&seedText&&seedNeedsTextBackup(seedText)&&!(window.CMRecipeV6&&window.CMRecipeV6.isV6(core)))
+   ? packSeedTextBlock(seedText,core) : null;
   const bodyVer=seedBlock?3:2;
   if(!s.full){
    const len=new Uint8Array(2);new DataView(len.buffer).setUint16(0,sym.length,false);
@@ -4094,10 +4095,11 @@ document.addEventListener('DOMContentLoaded', () => {
    const s=snapshotBackup(),V6=(typeof window!=='undefined'&&window.CMRecipeV6)||null;
    const seedForCore=(s.seedText!==undefined&&s.seedText!=='')?s.seedText:s.seed;
    const v6Seed=(s.includeSeed&&s.seedText&&typeof window!=='undefined'&&window.CMSeedKey&&window.CMSeedKey.classify(s.seedText)==='v2')?window.CMSeedKey.trimSeed(s.seedText):null;
+   const needsSeedTextBlock=s.includeSeed&&seedNeedsTextBackup(s.seedText);
    const core=(v6Seed&&V6&&V6.canPack(s.cfg,v6Seed))?V6.pack(s.cfg,true,v6Seed):packRecipeTo256Bit(s.cfg,s.includeSeed,seedForCore);
    let blocks;
    if(s.full)blocks=await fullBlocks(s,core);
-   else if(v6Seed&&!(V6&&V6.isV6(core)))blocks=[core,packSeedTextBlock(v6Seed,core)];
+   else if(needsSeedTextBlock&&!(V6&&V6.isV6(core)))blocks=[core,packSeedTextBlock(String(s.seedText).trim(),core)];
    else blocks=[core];
    const groups=[];
    for(const b of blocks)groups.push(await entropyToBip39Words(b));
