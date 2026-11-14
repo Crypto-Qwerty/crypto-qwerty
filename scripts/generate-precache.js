@@ -24,12 +24,12 @@ function buildFiles() {
 }
 
 function renderBlock(files) {
-  return 'const FILES = [\\n' + files.map((file) => '  ' + JSON.stringify(file) + ',').join('\\n') + '\\n];';
+  return 'const FILES = [\n' + files.map((file) => '  ' + JSON.stringify(file) + ',').join('\n') + '\n];';
 }
 
 const source = fs.readFileSync(swPath, 'utf8');
 const start = source.indexOf('const FILES = [');
-const endMarker = source.indexOf('\\n];', start);
+const endMarker = source.indexOf('\n];', start);
 if (start < 0 || endMarker < 0) throw new Error('Could not locate FILES array in sw.js');
 const end = endMarker + 3;
 const expected = renderBlock(buildFiles());
