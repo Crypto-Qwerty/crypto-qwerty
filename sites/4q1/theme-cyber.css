@@ -1,0 +1,5215 @@
+/* Cyber dark layer on top of the original stylesheet. Visual only. */
+:root {
+  /* T1 統一トークン（ダーク = BLACK HACKER: Stealth Cipher Console） */
+  --bg-main: #05080d;
+  --surface-sub: #080d15;
+  --card-bg: #0b111b;
+  --card-raised: #0f1724;
+  --input-bg: #060a10;
+  --text-main: #f1f5f9;
+  --text-sub: #94a3b8;
+  --border-color: #1e2d42;
+  --border-strong: #2d4463;
+  --accent: #10b981;
+  --accent-strong: #00ff88;
+  --accent-light: rgba(16, 185, 129, 0.14);
+  --accent-fg: #02180e;
+  --cyan: #38bdf8;
+  --focus-ring: #38bdf8;
+  --success: #10b981;
+  --success-bg: #062419;
+  --warning: #fbbf24;
+  --warning-bg: #291805;
+  --danger: #f43f5e;
+  --danger-bg: #2a0a12;
+  --feat-generate: #10b981;
+  --feat-generate-soft: rgba(16, 185, 129, 0.14);
+  --feat-backup: #38bdf8;
+  --feat-backup-soft: rgba(56, 189, 248, 0.14);
+  --feat-vault: #a78bfa;
+  --feat-vault-soft: rgba(167, 139, 250, 0.14);
+  --feat-capsule: #fbbf24;
+  --feat-capsule-soft: rgba(251, 191, 36, 0.14);
+  --feat-transfer: #38bdf8;
+  --feat-transfer-soft: rgba(56, 189, 248, 0.14);
+  --feat-passkey: #2fe6a7;
+  --feat-passkey-soft: rgba(47, 230, 167, 0.14);
+  --feat-secret: #22d3ee;
+  --feat-secret-soft: rgba(34, 211, 238, 0.14);
+  --feat-secret-strong: #075985;
+  --matrix-green: #00ff88;
+  --matrix-border: #10b981;
+  --font-ui: "Fira Code", "JetBrains Mono", "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", ui-monospace, monospace;
+}
+html, body { background: var(--bg-main) !important; color: var(--text-main); }
+body { padding: 0 !important; }
+.cm-legacy .container { max-width: none !important; padding: 0 !important; margin: 0 !important; background: transparent !important; box-shadow: none !important; border: 0 !important; }
+.cm-legacy .section-card {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 40px -20px rgba(0, 0, 0, 0.8) !important;
+  margin-top: 0 !important;
+}
+.cm-legacy .section-title { color: var(--text-main) !important; border-bottom-color: var(--border-color) !important; }
+.cm-legacy input, .cm-legacy select, .cm-legacy textarea {
+  background: var(--input-bg) !important; color: var(--text-main) !important; border-color: var(--border-color) !important;
+}
+.cm-legacy input:focus, .cm-legacy select:focus, .cm-legacy textarea:focus {
+  outline: none; border-color: var(--accent) !important; box-shadow: 0 0 0 3px rgba(52, 245, 138, 0.18) !important;
+}
+
+/* ===== Matrix board ===== */
+.cm-board .matrix-stage {
+  background: radial-gradient(120% 80% at 50% 0%, rgba(0, 229, 138, 0.07), transparent 60%), #0a0f1b !important;
+  border: 1px solid rgba(0, 229, 138, 0.25) !important;
+  border-radius: 16px !important;
+  box-shadow: inset 0 0 40px rgba(0, 229, 138, 0.04), 0 20px 50px -30px rgba(0, 0, 0, 0.9) !important;
+}
+.cm-board #div-encrypto-matrix-main { gap: 6px !important; }
+.cm-board .square {
+  background: linear-gradient(180deg, #111a2b, #0c1322) !important;
+  border: 1px solid #22304a !important;
+  box-shadow: none !important;
+}
+.cm-board .square:hover { border-color: rgba(56, 214, 245, 0.6) !important; }
+.cm-board .center-text { color: #f1f5f9 !important; text-shadow: 0 0 10px rgba(148, 163, 184, 0.25); }
+.cm-board .corner-text { color: #8fa3bf !important; font-size: 0.92rem !important; }
+.cm-board .corner-text.top-left { color: #e2e8f0 !important; }
+.cm-board .corner-text.bottom-right { color: #5eead4 !important; }
+.cm-board .active-char-spot {
+  background: #34f58a !important;
+  color: #04140a !important;
+  box-shadow: 0 0 0 2px rgba(0, 229, 138, 0.35), 0 0 22px rgba(0, 229, 138, 0.9), 0 0 48px rgba(0, 229, 138, 0.45) !important;
+  text-shadow: none !important;
+}
+.cm-board .corner-text.preview-char-spot { color: #7dd3fc !important; background: rgba(56, 189, 248, 0.2) !important; }
+.cm-board .corner-text.start-char-spot { color: #fbbf24 !important; background: rgba(251, 191, 36, 0.22) !important; }
+.cm-board .verbal-guide-card { background: #0d1422 !important; border-color: var(--border-color) !important; }
+.cm-board .verbal-highlight { background: rgba(52, 245, 138, 0.14) !important; color: #6ff7a9 !important; }
+
+/* buttons */
+.cm-legacy .btn, .cm-legacy button.btn {
+  border-radius: 8px !important;
+  transition: box-shadow .15s, transform .1s, border-color .15s;
+}
+.cm-legacy .btn:hover { box-shadow: 0 0 0 1px rgba(52, 245, 138, 0.4), 0 0 16px -4px rgba(52, 245, 138, 0.6); }
+.cm-legacy .btn:active { transform: translateY(1px); }
+.cm-legacy a { color: var(--cyan); }
+
+/* keep heavy inline light boxes readable */
+
+
+/* T2-1: 保管庫の生成バー／カードはクラスでテーマ追随（旧 [style*= 依存を置換。
+   ダークは従来の汎用塗り替えと同じ #0f1828、ライトは app.css の保持ルールと同じ値） */
+html:not(.light) .cm-legacy .cm-bq-bar { background: #0f1828 !important; }
+html.light .cm-legacy .cm-bq-bar { background: #f1f5f9 !important; }
+html:not(.light) .cm-legacy .cm-bq-card { background: #0f1828 !important; }
+html.light .cm-legacy .cm-bq-card { background: #f8fafc !important; }
+
+@media print {
+  html, body { background: #fff !important; color: #000 !important; }
+  .cm-app > header, [role="tablist"] { display: none !important; }
+}
+#sticky-pw-bar { background: #0a0f1b !important; border-color: rgba(52, 245, 138, 0.45) !important; color: var(--text-main) !important; box-shadow: 0 0 30px -8px rgba(52, 245, 138, 0.45) !important; }
+#sticky-pw-bar *:not(button):not(button *) { color: inherit; }
+
+/* ===== Light mode ===== */
+html.light {
+  color-scheme: light;
+  /* T1 統一トークン（ライト = WHITE HACKER: Precision Security Audit Lab） */
+  --bg-main: #edf1f7; --surface-sub: #e2e8f0; --card-bg: #ffffff; --card-raised: #f8fafc;
+  --input-bg: #f8fafc; --text-main: #0f172a; --text-sub: #334155;
+  --border-color: #cbd5e1; --border-strong: #94a3b8;
+  --accent: #047857; --accent-strong: #065f46; --accent-light: rgba(4, 120, 87, 0.1); --accent-fg: #ffffff;
+  --cyan: #0369a1; --focus-ring: #0284c7;
+  --success: #065f46; --success-bg: #ecfdf5;
+  --warning: #92400e; --warning-bg: #fffbeb;
+  --danger: #b91c1c; --danger-bg: #fef2f2;
+  --feat-generate: #047857; --feat-generate-soft: rgba(4, 120, 87, 0.1);
+  --feat-backup: #0284c7; --feat-backup-soft: rgba(2, 132, 199, 0.1);
+  --feat-vault: #6d28d9; --feat-vault-soft: rgba(109, 40, 217, 0.1);
+  --feat-capsule: #b45309; --feat-capsule-soft: rgba(180, 83, 9, 0.1);
+  --feat-transfer: #0369a1; --feat-transfer-soft: rgba(3, 105, 161, 0.1);
+  --feat-transfer-strong: #075985;
+  --feat-passkey: #047857; --feat-passkey-soft: rgba(4, 120, 87, 0.1);
+  --feat-secret: #0e7490; --feat-secret-soft: rgba(14, 116, 144, 0.1);
+}
+html.light .cm-legacy, html.light .cm-legacy *:not(button):not(button *) { color: var(--text-main); }
+
+
+
+html.light .cm-legacy a { color: #0369a1 !important; }
+html.light .cm-board .matrix-stage { background: var(--card-bg) !important; border-color: rgba(15,157,88,.35) !important; box-shadow: 0 10px 30px -20px rgba(0,0,0,.3) !important; }
+html.light .cm-board .square { background: linear-gradient(180deg,#ffffff,var(--surface-sub)) !important; border-color: var(--border-color) !important; }
+html.light .cm-board .center-text { color: var(--text-main) !important; text-shadow: none; }
+html.light .cm-board .corner-text { color: var(--text-sub) !important; }
+html.light .cm-board .corner-text.top-left { color: var(--text-main) !important; }
+html.light .cm-board .corner-text.bottom-right { color: #0f766e !important; }
+html.light .cm-board .active-char-spot { background: #16c060 !important; color: #fff !important; box-shadow: 0 0 0 2px rgba(22,192,96,.35), 0 0 18px rgba(22,192,96,.7) !important; }
+html.light .cm-board .verbal-guide-card { background: var(--card-bg) !important; }
+html.light .cm-board .verbal-highlight { background: rgba(15,157,88,.12) !important; color: #0b7a44 !important; }
+html.light #sticky-pw-bar { background: var(--card-bg) !important; box-shadow: 0 0 24px -10px rgba(0,0,0,.3) !important; }
+html.light .cm-legacy .btn-primary, html.light .cm-legacy .btn-primary * { color: #fff !important; }
+html.light .cm-legacy [role="status"], html.light .cm-legacy [class*="status"], html.light .cm-legacy [class*="badge"], html.light .cm-legacy .mode-pill { background: var(--success-bg) !important; color: var(--success) !important; border-color: var(--success) !important; }
+
+/* Legacy panels keep hardcoded dark backgrounds; give them light surfaces and readable text */
+html.light .cm-legacy .field-group { background: var(--surface-sub) !important; }
+html.light .cm-legacy .field-group .badge { color: #fff !important; }
+html.light .cm-legacy .seed-chip { background: var(--card-bg) !important; }
+html.light .cm-legacy .seed-chip .seed-txt { color: var(--text-main) !important; }
+html.light .cm-legacy .bq-select-desc { background: var(--surface-sub) !important; color: var(--text-sub) !important; }
+html.light .cm-legacy #card-quick .cq-warning,
+html.light .cm-legacy .backup-warning { background: var(--warning-bg) !important; color: var(--warning) !important; border-color: var(--warning) !important; }
+html.light .cm-legacy #card-quick .cq-panel.active-mode-panel { background: #eaf7ef !important; }
+html.light .cm-legacy .cloud-warning { color: var(--text-main) !important; }
+html.light .cm-legacy #seed-qr-list figure, html.light .cm-legacy #bq-qr-list figure { background: var(--card-bg) !important; color: var(--text-main) !important; border-color: var(--border-color) !important; }
+html.light .cm-legacy #card-quick select, html.light .cm-legacy #card-quick input,
+html.light .cm-legacy #backup-qr textarea, html.light .cm-legacy #bonus-vault textarea, html.light .cm-legacy #timelock-section textarea,
+html.light .cm-legacy #bonus-vault input[type=password], html.light .cm-legacy #bonus-vault input[type=text], html.light .cm-legacy #bonus-vault select,
+html.light .cm-legacy #timelock-section input[type=password], html.light .cm-legacy #timelock-section input[type=text], html.light .cm-legacy #timelock-section select, html.light .cm-legacy #timelock-section input[type=datetime-local] { background: var(--input-bg) !important; color: var(--text-main) !important; }
+
+/* ===== Add-ons: strength meter / peek guard / clipboard badge ===== */
+.cm-meter { display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin:6px 0 2px; font-size:12px; color:var(--text-sub); }
+.cm-meter-bar { flex:1 1 120px; height:6px; border-radius:99px; background:var(--border-color); overflow:hidden; }
+.cm-meter-bar span { display:block; height:100%; width:0; border-radius:99px; transition:width .25s, background .25s; background:#ef4444; }
+.cm-meter[data-level="1"] .cm-meter-bar span { background:#f59e0b; }
+.cm-meter[data-level="2"] .cm-meter-bar span { background:#22c55e; }
+.cm-meter[data-level="3"] .cm-meter-bar span { background:var(--accent); box-shadow:0 0 10px var(--accent); }
+.cm-meter-text { font-family:var(--font-ui); }
+/* Compact privacy toggle aligned with the emergency-clear button */
+.cm-peek-control {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.cm-legacy .cm-peek-control .cm-peek-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 6px 12px !important;
+  border: 1px solid #64748b !important;
+  border-radius: 6px !important;
+  background: #475569 !important;
+  color: #ffffff !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3;
+  letter-spacing: 0;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+.cm-legacy .cm-peek-control.is-on .cm-peek-toggle {
+  border-color: #16a34a !important;
+  background: #15803d !important;
+  color: #ffffff !important;
+}
+.cm-legacy .cm-peek-control .cm-peek-toggle:focus-visible {
+  outline: 3px solid #38bdf8 !important;
+  outline-offset: 3px;
+}
+html.light .cm-legacy .cm-peek-control .cm-peek-toggle {
+  background: #475569 !important;
+  border-color: #64748b !important;
+  color: #ffffff !important;
+}
+html.light .cm-legacy .cm-peek-control.is-on .cm-peek-toggle {
+  background: #15803d !important;
+  border-color: #16a34a !important;
+  color: #ffffff !important;
+}
+@media (max-width: 600px) {
+  .cm-legacy .cm-peek-control .cm-peek-toggle { width: auto; }
+}
+#sim-output-pw.cm-peek { filter:blur(7px); transition:filter .15s; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; cursor:pointer; }
+@media (hover:hover) { #sim-output-pw.cm-peek:hover { filter:none; } }
+#sim-output-pw.cm-peek.cm-reveal { filter:none; }
+.cm-clip-badge { position:fixed; left:50%; bottom:20px; transform:translateX(-50%); z-index:90; padding:8px 14px; border-radius:99px; font-size:12px;
+  background:var(--card-bg); color:var(--text-main); border:1px solid var(--accent); box-shadow:0 0 20px -6px var(--accent); max-width:92vw; text-align:center; }
+
+/* ===== Cyberpunk layer ===== */
+html:not(.light) body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,229,138,.028) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, rgba(56,214,245,.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(56,214,245,.05) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+}
+html:not(.light) .cm-app > *:not(.cm-mobile-dock):not(#sticky-pw-bar) { position: relative; z-index: 1; }
+
+.cm-mobile-dock {
+  display: none !important;
+}
+@media (max-width: 1024px) {
+  .cm-mobile-dock {
+    display: block !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+  }
+}
+html:not(.light) .cm-app > header {
+  box-shadow: 0 1px 0 rgba(0,229,138,.25), 0 8px 30px -18px rgba(0,229,138,.35);
+}
+html:not(.light) .cm-board .matrix-stage::after {
+  content: ""; position: absolute; inset: 0; border-radius: 16px; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 3px);
+}
+html:not(.light) .cm-board .matrix-stage { position: relative; overflow: hidden; }
+html:not(.light) .cm-legacy .section-card:hover { border-color: rgba(0,229,138,.45) !important; }
+html:not(.light) .cm-legacy .btn-primary {
+  box-shadow: 0 0 18px -4px rgba(0,229,138,.55) !important;
+}
+html:not(.light) ::selection { background: rgba(0,229,138,.35); }
+html:not(.light) .cm-legacy ::-webkit-scrollbar { width: 8px; height: 8px; }
+html:not(.light) .cm-legacy ::-webkit-scrollbar-thumb { background: #22304a; border-radius: 99px; }
+
+/* ===== Always expanded: tab layout removed the need to collapse ===== */
+.cm-legacy .section-card.is-collapsed .mode-section-body { display: block !important; }
+.cm-legacy .section-card.is-collapsed .section-title { margin-bottom: revert !important; padding-bottom: revert !important; border-bottom: revert !important; }
+.cm-legacy #btn-toggle-cq, .cm-legacy #btn-toggle-recipe { display: none !important; }
+
+/* ===== Secondary buttons get cyber styling in dark mode ===== */
+html:not(.light) .cm-legacy .btn-secondary,
+html:not(.light) .cm-legacy .btn-outline {
+  background: linear-gradient(180deg, #14202f, #0e1622) !important;
+  color: #a5c8e8 !important;
+  border: 1px solid #2c4258 !important;
+  box-shadow: inset 0 1px 0 rgba(120,180,230,.08) !important;
+}
+html:not(.light) .cm-legacy .btn-secondary:hover:not(:disabled),
+html:not(.light) .cm-legacy .btn-outline:hover:not(:disabled) {
+  border-color: rgba(56,214,245,.6) !important;
+  color: #d6ecff !important;
+  box-shadow: 0 0 14px -4px rgba(56,214,245,.5) !important;
+}
+
+/* ===== Action buttons: play = green glow, copy = cyan glow (dark) ===== */
+html:not(.light) .cm-legacy #btn-play-trace, html:not(.light) .cm-legacy #btn-sticky-play {
+  background: linear-gradient(180deg, #14532d, #0d3a20) !important;
+  color: #6ff7a9 !important;
+  border: 1px solid rgba(0,229,138,.55) !important;
+  box-shadow: 0 0 16px -4px rgba(0,229,138,.55), inset 0 1px 0 rgba(0,229,138,.2) !important;
+}
+html:not(.light) .cm-legacy #btn-play-trace:hover:not(:disabled), html:not(.light) .cm-legacy #btn-sticky-play:hover:not(:disabled) {
+  box-shadow: 0 0 24px -4px rgba(0,229,138,.8) !important; color: #a7fccb !important;
+}
+html:not(.light) .cm-legacy #btn-copy-pw {
+  background: linear-gradient(180deg, #0c3a4a, #092834) !important;
+  color: #7dd3fc !important;
+  border: 1px solid rgba(56,214,245,.5) !important;
+  box-shadow: 0 0 16px -6px rgba(56,214,245,.5), inset 0 1px 0 rgba(56,214,245,.15) !important;
+}
+html:not(.light) .cm-legacy #btn-copy-pw:hover:not(:disabled) {
+  box-shadow: 0 0 24px -4px rgba(56,214,245,.7) !important; color: #bae6fd !important;
+}
+
+/* The privacy toggle is intentionally visible beside the emergency-clear button. */
+
+/* ===== Print Stylesheet (All Tabs Printable via Browser Print Ctrl+P) ===== */
+@media print {
+  /* 1. Page & Base Colors */
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+    line-height: 1.5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 2. Hide screen-only interactive header, navigation, floating widgets & buttons */
+  .cm-header,
+  .cm-tablist,
+  #sticky-pw-bar,
+  .no-print,
+  .bv-no-print,
+  .btn,
+  button,
+  input[type="file"],
+  video,
+  #div-tile-template,
+  .help-btn,
+  #help-popover,
+  .cm-tools {
+    display: none !important;
+  }
+
+  /* 3. Main layout wrapper must expand across full printable width */
+  .cm-main {
+    display: block !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .cm-app {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 4. Display ALL 5 Tab Panels sequentially in the printout */
+  .cm-panel,
+  .cm-panel[hidden] {
+    display: block !important;
+    visibility: visible !important;
+    margin-bottom: 20mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* Each tab panel starts on a clean new printed page */
+  .cm-panel + .cm-panel {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  /* 5. Force un-blur on any peek-protected text/QR for print */
+  * {
+    filter: none !important;
+    user-select: auto !important;
+  }
+
+  /* 6. Card containers & field groups in print */
+  .cm-legacy .section-card,
+  .cm-legacy .field-group,
+  .cm-legacy .bq-select-desc,
+  .cm-legacy #card-quick,
+  .cm-legacy #section-recipe-detail,
+  .cm-legacy #backup-qr,
+  .cm-legacy #bonus-vault,
+  .cm-legacy #timelock-section,
+  #tl-panel-encrypt,
+  #tl-panel-encrypt > div,
+  #tl-panel-decrypt,
+  #tl-panel-decrypt > div {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    page-break-inside: auto;
+    break-inside: auto;
+    margin-bottom: 12pt !important;
+    padding: 8pt 10pt !important;
+  }
+
+  .cm-legacy .section-card *,
+  .cm-legacy #backup-qr *,
+  .cm-legacy #bonus-vault *,
+  .cm-legacy #timelock-section * {
+    color: #000000 !important;
+    text-shadow: none !important;
+  }
+
+  /* 7. Section Titles in print */
+  .section-title {
+    font-size: 13pt !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid #000000 !important;
+    margin-bottom: 10pt !important;
+    padding-bottom: 4pt !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    color: #000000 !important;
+  }
+
+  /* 8. Textareas & Secret Outputs expand fully without scrollbars */
+  textarea,
+  .seed-textarea,
+  #bq-output,
+  #bv-single-ta,
+  #tl-output-text,
+  #tl-decrypted-content,
+  #tl-manual-beacon-input {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #94a3b8 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+    font-size: 8pt !important;
+    line-height: 1.4 !important;
+    display: block !important;
+  }
+
+  /* 9. QR Codes & SVG crisp black & white rendering */
+  #seed-qr-list,
+  #bq-qr-list,
+  #tl-qr-container,
+  #bv-result-shares-container {
+    display: block !important;
+    visibility: visible !important;
+  }
+  #seed-qr-list svg,
+  #bq-qr-list svg,
+  #tl-qr-container svg,
+  .bv-qr-figure svg {
+    background: #ffffff !important;
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  #seed-qr-list svg .qr-white,
+  #bq-qr-list svg .qr-white,
+  #tl-qr-container svg .qr-white,
+  .bv-qr-figure svg .qr-white {
+    fill: #ffffff !important;
+  }
+  #seed-qr-list svg .qr-black,
+  #bq-qr-list svg .qr-black,
+  #tl-qr-container svg .qr-black,
+  .bv-qr-figure svg .qr-black {
+    fill: #000000 !important;
+  }
+  #seed-qr-list figure,
+  #bq-qr-list figure,
+  .bv-qr-figure,
+  .tl-qr-figure {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* 10. Matrix Stage and Board Display */
+  .matrix-stage, .cm-board {
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+
+/* ===== Sticky password bar: only when the main password row is out of view (engine toggles .visible) ===== */
+#sticky-pw-bar.visible:not(.is-minimized) { display: flex !important; }
+
+/* ===== Light mode: duress modal & remaining dark surfaces ===== */
+html.light .duress-modal-dialog { background: var(--card-bg) !important; border-color: var(--border-color) !important; color: var(--text-main) !important; }
+html.light .duress-modal-header { background: #f1f5f9 !important; border-bottom-color: #e2e8f0 !important; color: #1e293b !important; }
+html.light .duress-modal-header h3 { color: #1e293b !important; }
+html.light .duress-modal-close { color: #475569 !important; }
+html.light .duress-modal-body, html.light .duress-modal-body * { color: #1e293b !important; }
+/* T2-1: おとりモーダルの警告ボックス／補足テキストはクラスでテーマ追随（旧 [style*= 塗り替えを置換）。
+   注意: ライト側の実効値は、現行カスケードでダイアログ側の汎用ルールが優先された結果の値。
+   旧ルールが宣言していた警告色（#fdf3d7／#7c600f 等）は現行では実効しておらず、見た目を変えないため
+   そのまま持ち越さない。警告表現の再設計は T2-5 で扱う。 */
+.duress-modal-body .cm-duress-warn { background: #292619; border: 1px solid #a88700; }
+html.light .duress-modal-body .cm-duress-warn { background: var(--warning-bg) !important; color: var(--warning) !important; border-color: var(--warning) !important; }
+html.light .duress-modal-body .cm-duress-warn *:not(button):not(button *) { color: var(--warning) !important; }
+.duress-modal-body .cm-duress-muted { color: #829cc0; }
+html.light .duress-modal-body .cm-duress-muted { color: #1e293b !important; }
+html.light .duress-modal-body input, html.light .duress-modal-body select, html.light .duress-modal-body textarea { background: var(--input-bg) !important; color: var(--text-main) !important; border-color: var(--border-strong) !important; }
+
+/* ===== Light mode: on-screen QR + remaining warning boxes ===== */
+html.light .cm-legacy #seed-qr-list svg, html.light .cm-legacy #bq-qr-list svg, html.light .cm-legacy .bv-qr-figure svg { background: #fff !important; }
+html.light .cm-legacy #seed-qr-list svg .qr-white, html.light .cm-legacy #bq-qr-list svg .qr-white { fill: #fff !important; }
+html.light .cm-legacy #seed-qr-list svg .qr-black, html.light .cm-legacy #bq-qr-list svg .qr-black { fill: #000 !important; }
+html.light .cm-legacy .bq-warning { background: #fdf3d7 !important; color: #7c600f !important; border-color: #d9bd4f !important; }
+html.light .cm-legacy .bq-warning * { color: #7c600f !important; }
+
+/* ===== Peek guard: mask all sensitive fields (seed/site/passphrase/pw/sticky/seedphrase/PGP) =====
+   Engine sets .cm-peek on each target; hover (PC) / long-press (mobile, .cm-reveal) unmasks. */
+.cm-legacy .cm-peek { filter: blur(7px); transition: filter .15s; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; cursor: pointer; }
+@media (hover:hover) { .cm-legacy .cm-peek:hover { filter: none; } }
+.cm-legacy .cm-peek.cm-reveal { filter: none; }
+
+/* ===== Light mode: help popover ===== */
+html.light .cm-legacy .help-popover, html.light .help-popover { background: #ffffff !important; color: #1e293b !important; border-color: #cbd5e1 !important; }
+html.light .cm-legacy .help-popover *, html.light .help-popover * { color: #1e293b !important; }
+html.light .help-popover-header { background: #f1f5f9 !important; border-bottom-color: #e2e8f0 !important; }
+
+/* ===== Modal backdrop: no bleed-through ===== */
+.duress-modal-backdrop { background: rgba(4, 8, 16, 0.82) !important; z-index: 100000 !important; }
+html.light .duress-modal-backdrop { background: rgba(30, 41, 59, 0.55) !important; }
+
+/* ===== Light mode: trace log active line ===== */
+html.light .cm-legacy .trace-log-box { background: #f4f7fb !important; color: #3f5570 !important; border-color: #d4dde8 !important; }
+html.light .cm-legacy .trace-line.active-trace-line { background: #d3f2e2 !important; color: #0b7a44 !important; border-left-color: #16c060 !important; }
+
+/* ===== Light mode: scrollbars ===== */
+html.light { scrollbar-color: #b6c4d4 #eef2f7 !important; }
+html.light .cm-legacy ::-webkit-scrollbar { width: 8px; height: 8px; }
+html.light .cm-legacy ::-webkit-scrollbar-thumb { background: #b6c4d4; border-radius: 99px; }
+html.light .cm-legacy ::-webkit-scrollbar-track { background: #eef2f7; }
+
+/* ===== Modals live on <body> now: light-mode button/input fixes (no .cm-legacy ancestor) ===== */
+html.light .duress-modal-backdrop .btn-primary { background: var(--accent-strong) !important; color: #fff !important; border-color: var(--accent-strong) !important; }
+html.light .duress-modal-backdrop .btn-primary * { color: #fff !important; }
+html.light .duress-modal-backdrop button:not(.btn-primary):not(.duress-modal-close) { background: var(--surface-sub) !important; border: 1px solid var(--border-color) !important; color: var(--text-main) !important; }
+html.light .duress-modal-backdrop button:not(.btn-primary):not(.duress-modal-close) * { color: var(--text-main) !important; }
+html.light .duress-modal-backdrop .help-btn { background: var(--border-color) !important; color: var(--text-main) !important; }
+
+/* ===== Peek guard: never blur empty containers =====
+   NOTE: <input>/<textarea> are ALWAYS :empty (void of child nodes), so this
+   exception must target divs only — otherwise seed/site/passphrase fields
+   and the PGP armored textarea would never be masked. */
+.cm-legacy div.cm-peek:empty { filter: none !important; cursor: default; }
+/* Empty output textarea shows its placeholder — no secret to hide yet */
+.cm-legacy textarea.cm-peek:placeholder-shown { filter: none !important; cursor: default; }
+
+/* ===== Peek guard: containers hold a non-secret format-toggle bar =====
+   #seed-words-container / #bq-words-container contain the "出力形式" bar plus
+   the actual secret (armored text / word chips). Blur only the secret wraps. */
+.cm-legacy #seed-words-container.cm-peek,
+.cm-legacy #bq-words-container.cm-peek { filter: none !important; }
+/* Single-block layout renders chips directly (no wrap ids); multi-block adds a
+   non-secret format bar (.bv-no-print). Blur every child except that bar. */
+.cm-legacy #seed-words-container.cm-peek > *:not(.bv-no-print),
+.cm-legacy #bq-words-container.cm-peek > *:not(.bv-no-print) {
+  filter: blur(7px); transition: filter .15s; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+@media (hover:hover) {
+  .cm-legacy #seed-words-container.cm-peek:hover > *:not(.bv-no-print),
+  .cm-legacy #bq-words-container.cm-peek:hover > *:not(.bv-no-print) { filter: none; }
+}
+.cm-legacy #seed-words-container.cm-peek.cm-reveal > *:not(.bv-no-print),
+.cm-legacy #bq-words-container.cm-peek.cm-reveal > *:not(.bv-no-print) { filter: none; }
+
+/* ===== Strength meters under password inputs ===== */
+.cm-meter-input { width: 100%; margin: 4px 0 8px; }
+.cm-meter-input .cm-meter-text { font-size: 0.75rem; }
+
+/* ===== Missing-input guidance highlight ===== */
+.cm-legacy .cm-need-input, .cm-need-input {
+  outline: 3px solid #f59e0b !important;
+  outline-offset: 2px;
+  border-radius: 6px;
+  animation: cm-need-pulse 1s ease-in-out infinite;
+}
+@keyframes cm-need-pulse {
+  0%, 100% { outline-color: #f59e0b; box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.55); }
+  50% { outline-color: #fbbf24; box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+}
+.cm-need-tag {
+  margin: 6px 0;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.5;
+  background: #fdf3d7;
+  color: #7c600f;
+  border: 1px solid #d9bd4f;
+}
+html:not(.light) .cm-need-tag {
+  background: #2a2110;
+  color: #ffd97a;
+  border-color: #8a6d1f;
+}
+
+/* ===== Peek guard: QR images (save buttons stay visible) ===== */
+.cm-legacy #seed-qr-list.cm-peek,
+.cm-legacy #bq-qr-list.cm-peek,
+.cm-legacy #tl-qr-container.cm-peek,
+.cm-legacy #tl-shares-container.cm-peek { filter: none !important; }
+.cm-legacy #seed-qr-list.cm-peek svg,
+.cm-legacy #seed-qr-list.cm-peek canvas,
+.cm-legacy #seed-qr-list.cm-peek img,
+.cm-legacy #bq-qr-list.cm-peek svg,
+.cm-legacy #bq-qr-list.cm-peek canvas,
+.cm-legacy #bq-qr-list.cm-peek img,
+.cm-legacy #tl-qr-container.cm-peek svg,
+.cm-legacy #tl-shares-container.cm-peek svg {
+  filter: blur(10px); transition: filter .15s; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+/* Bonus Vault: mask only secret payloads, not the card captions or action controls. */
+.cm-legacy #bv-result-shares-container textarea.cm-peek,
+.cm-legacy #bv-result-shares-container .bv-qr-figure svg.cm-peek {
+  filter: blur(7px);
+  transition: filter .15s;
+}
+@media (hover:hover) {
+  .cm-legacy #bv-result-shares-container textarea.cm-peek:hover,
+  .cm-legacy #bv-result-shares-container .bv-qr-figure:hover svg.cm-peek { filter: none; }
+}
+.cm-legacy #bv-result-shares-container textarea.cm-peek.cm-reveal,
+.cm-legacy #bv-result-shares-container .bv-qr-figure svg.cm-peek.cm-reveal { filter: none; }
+
+.cm-legacy #tl-shares-container.cm-peek textarea {
+  filter: blur(7px); transition: filter .15s; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+@media (hover:hover) {
+  .cm-legacy #seed-qr-list.cm-peek figure:hover svg,
+  .cm-legacy #seed-qr-list.cm-peek figure:hover canvas,
+  .cm-legacy #seed-qr-list.cm-peek figure:hover img,
+  .cm-legacy #bq-qr-list.cm-peek figure:hover svg,
+  .cm-legacy #bq-qr-list.cm-peek figure:hover canvas,
+  .cm-legacy #bq-qr-list.cm-peek figure:hover img,
+  .cm-legacy #tl-qr-container.cm-peek figure:hover svg,
+  .cm-legacy #tl-qr-container.cm-peek svg:hover,
+  .cm-legacy #tl-shares-container.cm-peek figure:hover svg,
+  .cm-legacy #tl-shares-container.cm-peek svg:hover,
+  .cm-legacy #tl-shares-container.cm-peek textarea:hover { filter: none; }
+}
+.cm-legacy #seed-qr-list.cm-peek.cm-reveal svg,
+.cm-legacy #seed-qr-list.cm-peek.cm-reveal canvas,
+.cm-legacy #seed-qr-list.cm-peek.cm-reveal img,
+.cm-legacy #bq-qr-list.cm-peek.cm-reveal svg,
+.cm-legacy #bq-qr-list.cm-peek.cm-reveal canvas,
+.cm-legacy #bq-qr-list.cm-peek.cm-reveal img,
+.cm-legacy #tl-qr-container.cm-peek.cm-reveal svg,
+.cm-legacy #tl-shares-container.cm-peek.cm-reveal svg,
+.cm-legacy #tl-shares-container.cm-peek.cm-reveal textarea { filter: none; }
+
+/* ===== Mobile: prevent sticky password bar controls from overlapping content ===== */
+@media (max-width: 640px) {
+  #sticky-pw-bar {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)) !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+    flex-direction: column !important;
+    max-height: min(48dvh, 390px);
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+  #sticky-pw-bar > div:first-child {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding-right: 0 !important;
+  }
+  #sticky-pw-bar > div:first-child > div:first-child {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding-right: 0 !important;
+    gap: 6px !important;
+  }
+  #sticky-mode-badge {
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    line-height: 1.3 !important;
+  }
+  #sticky-pw-bar .pw-chars-box {
+    font-size: 0.95rem !important;
+    line-height: 1.45 !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    padding: 4px 2px !important;
+  }
+  #sticky-output-meta { font-size: 0.66rem !important; }
+  /* Keep both header controls in normal flow; never overlay the recipe badge. */
+  #btn-sticky-toggle,
+  #btn-sticky-top {
+    position: static !important;
+    inset: auto !important;
+    margin: 0 !important;
+    z-index: auto !important;
+    min-height: 36px;
+    white-space: normal !important;
+  }
+  #sticky-controls-bar {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    align-items: stretch !important;
+  }
+  #sticky-controls-bar .btn {
+    min-width: 0 !important;
+    min-height: 38px;
+    padding: 6px 5px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+  #sticky-controls-bar #btn-sticky-top { grid-column: span 3; }
+  #sticky-pw-bar.is-minimized {
+    max-height: none !important;
+    overflow: visible !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+}
+@media (max-width: 380px) {
+  #sticky-pw-bar { padding-left: 8px !important; padding-right: 8px !important; }
+  #sticky-controls-bar { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  #sticky-controls-bar #btn-sticky-top { grid-column: span 2; }
+}
+
+/* ===== Gesture design bar: visible frames in both modes ===== */
+html:not(.light) .cm-legacy .gesture-design-bar {
+  background: #101a14 !important;
+  border: 1.5px solid var(--accent) !important;
+  box-shadow: 0 0 12px rgba(0, 229, 138, 0.25), inset 0 0 20px rgba(0, 229, 138, 0.05) !important;
+}
+html:not(.light) .cm-legacy #gesture-design-bar .btn.gesture-pill {
+  background: #14231a !important;
+  border: 1px solid #33e575 !important;
+  color: #7cf5ae !important;
+}
+html:not(.light) .cm-legacy #gesture-design-bar .btn.gesture-pill:hover { border-color: #7cf5ae !important; box-shadow: 0 0 8px rgba(44, 236, 115, 0.35) !important; }
+html.light .cm-legacy .gesture-design-bar {
+  background: var(--success-bg) !important;
+  border: 1.5px solid var(--accent) !important;
+  box-shadow: 0 1px 6px rgba(22, 192, 96, 0.18) !important;
+}
+html.light .cm-legacy .gesture-design-bar span,
+html.light .cm-legacy .gesture-cat-label { color: var(--accent-strong) !important; }
+html.light .cm-legacy #gesture-design-bar .btn.gesture-pill {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--accent) !important;
+  color: var(--accent-strong) !important;
+}
+html.light .cm-legacy #gesture-design-bar .btn.gesture-pill:hover { background: var(--success-bg) !important; border-color: var(--accent-strong) !important; }
+html.light .cm-legacy #gesture-design-bar .btn.gesture-pill.active { background: var(--accent-strong) !important; color: #ffffff !important; border-color: var(--accent-strong) !important; }
+html.light .cm-legacy #gesture-design-bar button#btn-close-gesture-bar { background: var(--card-bg) !important; border-color: var(--accent) !important; color: var(--accent-strong) !important; }
+
+/* ===== Tutorial: temporarily unmask blurred fields while guiding =====
+   Tour adds .cm-tour-active on <html> for the input steps (removed again
+   for the final step, which explains the peek guard itself). */
+html.cm-tour-active .cm-legacy .cm-peek,
+html.cm-tour-active .cm-legacy #seed-words-container.cm-peek > *:not(.bv-no-print),
+html.cm-tour-active .cm-legacy #bq-words-container.cm-peek > *:not(.bv-no-print),
+html.cm-tour-active .cm-legacy #seed-qr-list.cm-peek svg,
+html.cm-tour-active .cm-legacy #seed-qr-list.cm-peek canvas,
+html.cm-tour-active .cm-legacy #seed-qr-list.cm-peek img,
+html.cm-tour-active .cm-legacy #bq-qr-list.cm-peek svg,
+html.cm-tour-active .cm-legacy #bq-qr-list.cm-peek canvas,
+html.cm-tour-active .cm-legacy #bq-qr-list.cm-peek img,
+html.cm-tour-active .cm-legacy #tl-qr-container.cm-peek svg,
+html.cm-tour-active .cm-legacy #tl-shares-container.cm-peek svg,
+html.cm-tour-active #sim-output-pw.cm-peek { filter: none !important; }
+
+/* Light mode: keep the minimized pill readable (T4 で汎用 [style*= 塗り替えは撤去済み。この ID 指定が単独で担う) */
+html.light #btn-sticky-min-pill { background: var(--accent-strong) !important; color: #ffffff !important; border-color: var(--accent-strong) !important; }
+
+/* ===== Light mode: comprehensive de-blackening (buttons, modals, badges) ===== */
+/* All legacy buttons: light surface, readable dark text */
+html.light .cm-legacy .btn,
+html.light .cm-legacy .btn-secondary,
+html.light .cm-legacy .btn-outline,
+html.light .cm-legacy button.btn,
+html.light .cm-legacy label.btn,
+html.light .cm-legacy #btn-sticky-toggle,
+html.light .cm-legacy #btn-sticky-top {
+  background: var(--surface-sub) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: none !important;
+}
+html.light .cm-legacy .btn:hover:not(:disabled),
+html.light .cm-legacy .btn-secondary:hover:not(:disabled),
+html.light .cm-legacy .btn-outline:hover:not(:disabled) {
+  background: var(--border-color) !important;
+  border-color: var(--border-strong) !important;
+}
+/* Inline-styled buttons (style="background:#1.../#19.../#0...") also go light */
+/* Primary / danger keep their accent colors with white text */
+html.light .cm-legacy .btn-primary,
+html.light .cm-legacy button.btn-primary,
+html.light .cm-legacy #btn-sticky-min-pill {
+  background: var(--accent-strong) !important;
+  color: #ffffff !important;
+  border-color: var(--accent-strong) !important;
+}
+html.light .cm-legacy .btn-primary *, html.light .cm-legacy #btn-sticky-min-pill * { color: #ffffff !important; }
+html.light .cm-legacy .btn-danger,
+html.light .cm-legacy #btn-zeroize {
+  background: var(--danger) !important;
+  color: #ffffff !important;
+  border-color: var(--danger) !important;
+}
+html.light .cm-legacy .btn-danger *, html.light .cm-legacy #btn-zeroize * { color: #ffffff !important; }
+/* Active mode pill stays green */
+html.light .cm-legacy .btn-mode-active {
+  background: var(--accent-strong) !important;
+  color: #ffffff !important;
+  border-color: var(--accent-strong) !important;
+}
+/* Inactive mode pills / status chips: light surface */
+html.light .cm-legacy .mode-pill.inactive {
+  background: var(--surface-sub) !important;
+  color: var(--text-sub) !important;
+  border-color: var(--border-color) !important;
+}
+/* Keyfile rows use dark green inline bg (#19291e) -> light green */
+html.light .cm-legacy [id$="-keyfile-row"] {
+  background: var(--success-bg) !important;
+  border-color: var(--accent) !important;
+}
+html.light .cm-legacy [id$="-keyfile-row"] *:not(button):not(button *) { color: var(--text-main) !important; }
+
+/* Modals live on <body> (no .cm-legacy ancestor): full light restyle */
+html.light .duress-modal-backdrop .btn,
+html.light .duress-modal-backdrop .btn-outline,
+html.light .duress-modal-backdrop .btn-secondary {
+  background: var(--surface-sub) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: none !important;
+}
+html.light .duress-modal-backdrop .btn * { color: var(--text-main) !important; }
+html.light .duress-modal-backdrop .btn-primary,
+html.light .duress-modal-backdrop .btn-primary * {
+  background: var(--accent-strong) !important;
+  color: #ffffff !important;
+  border-color: var(--accent-strong) !important;
+}
+/* Keyfile seed input keeps its blue accent but on white */
+html.light #keyfile-modal-seed { background: var(--input-bg) !important; color: var(--feat-transfer-strong) !important; border-color: var(--feat-transfer) !important; }
+
+/* =====================================================================
+   Light mode = original Crypto Matrix (uploaded ZIP) palette, restored.
+   Sage white surfaces, matrix green accents, glowing board frame.
+   ===================================================================== */
+/* T1: トークンは先頭の html.light ブロックで一元定義する（この節の旧パレット値は撤去） */
+html.light body, html.light .cm-legacy { background-color: #ffffff; }
+html.light .cm-legacy, html.light .cm-legacy *:not(button):not(button *) { color: var(--text-main); }
+html.light .cm-legacy input, html.light .cm-legacy select, html.light .cm-legacy textarea { background: var(--input-bg) !important; color: var(--text-main) !important; border-color: var(--border-strong) !important; }
+html.light .cm-legacy a { color: var(--accent-strong) !important; }
+
+/* Buttons: original neutral sage */
+html.light .cm-legacy .btn, html.light .cm-legacy button.btn, html.light .cm-legacy label.btn,
+html.light .cm-legacy #btn-sticky-toggle, html.light .cm-legacy #btn-sticky-top {
+  background: var(--surface-sub) !important; color: var(--text-main) !important; border: 1px solid var(--border-color) !important; box-shadow: none !important;
+}
+html.light .cm-legacy .btn:hover:not(:disabled) { background: var(--border-color) !important; border-color: var(--border-strong) !important; }
+html.light .cm-legacy .btn-secondary, html.light .cm-legacy button.btn-secondary, html.light .cm-legacy label.btn-secondary { background: var(--card-bg) !important; color: var(--text-sub) !important; border-color: var(--border-color) !important; }
+html.light .cm-legacy .btn-outline, html.light .cm-legacy button.btn-outline, html.light .cm-legacy label.btn-outline { background: var(--card-bg) !important; color: var(--accent-strong) !important; border-color: var(--accent) !important; }
+html.light .cm-legacy .btn-outline:hover:not(:disabled), html.light .cm-legacy button.btn-outline:hover:not(:disabled) { background: var(--success-bg) !important; border-color: var(--accent-strong) !important; }
+html.light .cm-legacy .btn-primary, html.light .cm-legacy button.btn-primary, html.light .cm-legacy label.btn-primary, html.light .cm-legacy .btn-mode-active, html.light .cm-legacy #btn-sticky-min-pill {
+  background: var(--accent-strong) !important; color: #ffffff !important; border-color: var(--accent-strong) !important;
+}
+html.light .cm-legacy .btn-danger, html.light .cm-legacy button.btn-danger, html.light .cm-legacy label.btn-danger, html.light .cm-legacy #btn-zeroize {
+  background: var(--danger) !important; color: #ffffff !important; border-color: var(--danger) !important;
+}
+html.light .cm-legacy #btn-play-trace { background: var(--accent-strong) !important; color: #ffffff !important; border-color: var(--accent-strong) !important; }
+html.light .cm-legacy #btn-play-trace * { color: #ffffff !important; }
+
+/* Board: original glowing frame + tiles */
+html.light .cm-board .matrix-stage {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%) !important;
+  border: 1.5px solid #00d957 !important;
+  box-shadow: 0 0 0 1px rgba(0,217,87,.15), 0 0 24px rgba(0,201,80,.22), 0 4px 20px -2px rgba(15,23,42,.06) !important;
+}
+html.light .cm-board .square {
+  background: #ffffff !important; border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(15,23,42,.05) !important;
+}
+html.light .cm-board .square:hover { border-color: #00c950 !important; box-shadow: 0 6px 16px -2px rgba(0,201,80,.22) !important; }
+html.light .cm-board .square.active-tile {
+  background: linear-gradient(135deg,#ecfdf5 0%,#d1fae5 100%) !important; border: 2px solid #00c950 !important;
+  box-shadow: 0 0 0 3px rgba(0,201,80,.22), 0 6px 16px rgba(0,201,80,.25) !important;
+}
+html.light .cm-board .center-text { color: #0f172a !important; }
+/* Original corner hierarchy: digits (top-left) bold & darkest, symbols (bottom-right) teal */
+html.light .cm-board .corner-text { color: #334155 !important; font-weight: 600 !important; }
+html.light .cm-board .corner-text.top-left { color: #1e293b !important; font-weight: 700 !important; }
+html.light .cm-board .corner-text.bottom-right { color: #0f766e !important; }
+html.light .cm-board .active-char-spot { background: #00c950 !important; color: #ffffff !important; box-shadow: 0 0 12px rgba(0,255,102,.65) !important; }
+
+/* Dark board: glowing frame + readable digit corner */
+html:not(.light) .cm-board .matrix-stage {
+  border: 1.5px solid rgba(0,229,138,.55) !important;
+  box-shadow: 0 0 0 1px rgba(0,229,138,.18), 0 0 28px rgba(0,229,138,.22), inset 0 0 40px rgba(0,229,138,.05) !important;
+}
+html:not(.light) .cm-board .corner-text.top-left { color: #f1f5f9 !important; font-weight: 700 !important; }
+
+/* 四隅文字色：4隅すべて同色に統一（再生ハイライトは除外） */
+html .cm-board .corner-text:is(.top-left,.top-right,.bottom-left,.bottom-right):not(.preview-char-spot):not(.start-char-spot) { color: #94a3b8 !important; font-weight: 600 !important; }
+html.light .cm-board .corner-text:is(.top-left,.top-right,.bottom-left,.bottom-right):not(.preview-char-spot):not(.start-char-spot) { color: #334155 !important; font-weight: 600 !important; }
+
+/* ===== Pattern route HUD: readable in both modes ===== */
+html:not(.light) .cm-legacy .stroke-char-hud {
+  background: rgba(10, 20, 15, 0.95) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 10px 28px -4px rgba(0,0,0,0.6), 0 0 22px rgba(0,229,138,0.3) !important;
+}
+html:not(.light) .cm-legacy .stroke-char-title { color: #f0fdf4 !important; }
+html:not(.light) .cm-legacy .stroke-char-sub { color: #a7f3d0 !important; }
+html.light .cm-legacy .stroke-char-hud {
+  background: rgba(255, 255, 255, 0.97) !important;
+  border-color: #16c060 !important;
+  box-shadow: 0 8px 22px -6px rgba(15,23,42,0.25), 0 0 14px rgba(22,192,96,0.2) !important;
+}
+html.light .cm-legacy .stroke-char-title { color: #0f172a !important; }
+html.light .cm-legacy .stroke-char-sub { color: #334155 !important; }
+
+/* ===== Trace log: roomy when idle, compact auto-follow while playing ===== */
+.cm-legacy .trace-log-box { max-height: 520px !important; overflow-y: auto !important; scroll-behavior: smooth; transition: max-height .25s ease; }
+body.trace-playing .cm-legacy .trace-log-box { max-height: 140px !important; overflow-y: auto !important; }
+
+/* ===== Recipe step number badges: original ZIP look (bright green + dark bold digit) ===== */
+html .cm-legacy .field-group-title .badge,
+html.light .cm-legacy .field-group-title .badge {
+  background: #00ff66 !important; color: #072411 !important; font-weight: 700 !important; border-color: transparent !important;
+}
+
+/* ===== Mobile first view: compact title row + zeroize beside title ===== */
+@media (max-width: 640px) {
+  /* Stack the intro and its controls vertically on phones to remove the large empty right-side area. */
+  .cm-legacy .container > div:first-child {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    margin-bottom: 8px;
+  }
+  .cm-legacy .container > div:first-child > div:first-child { flex: 1 1 auto; min-width: 0; width: 100%; }
+  .cm-legacy .container > div:first-child > div:last-child {
+    flex: 0 0 auto;
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap !important;
+  }
+  .cm-legacy .container h1 { font-size: 1.05rem !important; text-align: left !important; margin: 0 0 3px !important; line-height: 1.25; }
+  .cm-legacy .container .subtitle { font-size: 0.72rem !important; text-align: left !important; margin: 0 !important; line-height: 1.4; }
+  .cm-legacy #btn-zeroize { padding: 5px 9px !important; font-size: 0.72rem !important; white-space: nowrap; line-height: 1.2; }
+  .cm-legacy .seed-bar { margin-bottom: 8px !important; padding: 6px 8px !important; }
+  .cm-legacy .verbal-guide-card { margin-bottom: 8px !important; }
+}
+
+/* ===== Route preview (before play / idle): MATRIX green, start tile amber ===== */
+.cm-board .square.stroke-preview-tile {
+  background: linear-gradient(135deg, rgba(0,255,102,.10), rgba(0,200,80,.18)) !important;
+  border: 2px dashed #00ff66 !important;
+  box-shadow: 0 0 14px rgba(0,255,102,.35) !important;
+  animation: cmPrevPulseD 1.1s ease-in-out infinite alternate;
+}
+@keyframes cmPrevPulseD { from { box-shadow: 0 0 6px rgba(0,255,102,.2); } to { box-shadow: 0 0 18px rgba(0,255,102,.55); } }
+.cm-board .square.stroke-start-tile {
+  background: linear-gradient(135deg, #2a1f0a, #452a05) !important;
+  border: 2.5px solid #f59e0b !important;
+  box-shadow: 0 0 18px rgba(245,158,11,.5), 0 0 0 3px rgba(245,158,11,.2) !important;
+}
+.cm-board .corner-text.preview-char-spot { color: #00ff66 !important; font-weight: 800 !important; background: rgba(0,255,102,.16) !important; border-radius: 4px; box-shadow: 0 0 8px rgba(0,255,102,.45) !important; }
+.cm-board .corner-text.start-char-spot { color: #fde68a !important; font-weight: 900 !important; background: rgba(245,158,11,.3) !important; border-radius: 4px; box-shadow: 0 0 8px rgba(245,158,11,.6) !important; }
+html.light .cm-board .square.stroke-preview-tile {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7) !important;
+  border: 2px dashed #00a843 !important;
+  animation: cmPrevPulseL 1.1s ease-in-out infinite alternate;
+}
+@keyframes cmPrevPulseL { from { box-shadow: 0 0 6px rgba(0,168,67,.2); } to { box-shadow: 0 0 16px rgba(0,168,67,.5); } }
+html.light .cm-board .square.stroke-start-tile {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7) !important;
+  border: 2.5px solid #d97706 !important;
+  box-shadow: 0 0 16px rgba(217,119,6,.45), 0 0 0 3px rgba(245,158,11,.2) !important;
+}
+html.light .cm-board .corner-text.preview-char-spot { color: #0b7a44 !important; background: rgba(0,201,80,.2) !important; box-shadow: 0 0 6px rgba(0,168,67,.4) !important; }
+html.light .cm-board .corner-text.start-char-spot { color: #b45309 !important; background: rgba(217,119,6,.25) !important; box-shadow: 0 0 8px rgba(217,119,6,.5) !important; }
+/* idle (always-on) preview is subtler than the pre-play preview */
+.cm-board.cm-idle-preview .square.stroke-preview-tile { animation: none !important; box-shadow: none !important; }
+.cm-board.cm-idle-preview .square.stroke-start-tile { box-shadow: 0 0 8px rgba(245,158,11,.35) !important; }
+
+/* ===== Dark: route/pattern playback tiles glow like light mode ===== */
+html:not(.light) .cm-board .square.active-tile,
+html:not(.light) .cm-board .square.stroke-active-tile {
+  background: linear-gradient(135deg,#0d2a1b 0%,#065f33 100%) !important;
+  border: 2px solid #1aff75 !important;
+  box-shadow: 0 0 0 3px rgba(26,255,117,.28), 0 0 22px rgba(26,255,117,.45), inset 0 0 12px rgba(26,255,117,.18) !important;
+  transform: scale(1.04) translateY(-2px); z-index: 6;
+}
+html:not(.light) .cm-board .square.fallback-tile {
+  background: linear-gradient(135deg,#0d2422 0%,#035e4c 100%) !important;
+  border: 2px dashed #1aff75 !important;
+  box-shadow: 0 0 0 3px rgba(26,255,117,.2), 0 0 16px rgba(26,255,117,.3) !important;
+  transform: scale(1.02); z-index: 5;
+}
+html:not(.light) .cm-board .active-char-spot { background: #1aff75 !important; color: #04130a !important; box-shadow: 0 0 12px rgba(26,255,117,.75) !important; }
+
+/* =====================================================================
+   Time Lock Section Theme Styling (High-contrast Dark & Light Modes)
+   ===================================================================== */
+
+/* 1. Main Action Buttons */
+#tl-btn-encrypt {
+  background: #f59e0b !important;
+  color: #111827 !important;
+  border: 1px solid #d97706 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3) !important;
+  cursor: pointer;
+}
+#tl-btn-encrypt:hover:not(:disabled) {
+  background: #d97706 !important;
+  color: #ffffff !important;
+}
+
+#tl-btn-decrypt {
+  background: #059669 !important;
+  color: #ffffff !important;
+  border: 1px solid #047857 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3) !important;
+  cursor: pointer;
+}
+#tl-btn-decrypt:hover:not(:disabled) {
+  background: #047857 !important;
+  color: #ffffff !important;
+}
+
+/* 2. Subtab switcher buttons */
+#tl-tab-btn-encrypt.btn:not(.btn-outline),
+#tl-tab-btn-decrypt.btn:not(.btn-outline) {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0369a1 !important;
+  font-weight: 700 !important;
+}
+
+/* 3. Transition Buttons (Send to Sec 3 / Sec 4) */
+#tl-route-sec3,
+#tl-route-sec4 {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border: 1.5px solid #0369a1 !important;
+  font-weight: 700 !important;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25) !important;
+}
+#tl-route-sec3:hover,
+#tl-route-sec4:hover {
+  background: #0369a1 !important;
+  color: #ffffff !important;
+}
+
+/* 4. Decryption Result & Content Areas */
+html:not(.light) #tl-decrypt-result {
+  background: #064e3b !important;
+  border: 1.5px solid #10b981 !important;
+}
+html:not(.light) #tl-decrypted-content {
+  background: #111827 !important;
+  color: #f9fafb !important;
+  border: 1px solid #374151 !important;
+}
+html:not(.light) #tl-decrypted-meta {
+  color: #a7f3d0 !important;
+}
+html:not(.light) .tl-guide-banner {
+  background: #143324 !important;
+  border: 1.5px solid #10b981 !important;
+  color: #ecfdf5 !important;
+}
+
+/* 5. Light Mode: Comprehensive High-Contrast & Legibility Fixes */
+html.light #timelock-section {
+  color: #1e293b;
+}
+
+/* Card steps in Light Mode */
+html.light #tl-panel-encrypt > div,
+html.light #tl-panel-decrypt > div {
+  background: var(--card-bg) !important;
+  border: 1px solid #d4ded7 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Protection Mode Radio Cards */
+html.light label:has(#tl-mode-a) {
+  background: #f0f9ff !important;
+  border: 1.5px solid #0284c7 !important;
+}
+html.light label:has(#tl-mode-b) {
+  background: #fffbeb !important;
+  border: 1.5px solid #f59e0b !important;
+}
+
+/* Informational & Preview Boxes in Light Mode */
+html.light #tl-round-preview-box,
+html.light #tl-pre-summary-box,
+html.light #tl-capsule-info-box {
+  background: #f8fafc !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+html.light #tl-round-preview-box span,
+html.light #tl-round-preview-box strong,
+html.light #tl-pre-summary-box span,
+html.light #tl-pre-summary-box strong,
+html.light #tl-capsule-info-box span,
+html.light #tl-capsule-info-box strong {
+  color: #0f172a !important;
+}
+
+/* Textareas and Inputs in Light Mode */
+html.light #tl-decrypted-content {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #86efac !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+html.light #tl-output-text,
+html.light #tl-text-content,
+html.light #tl-restore-text,
+html.light #tl-manual-beacon-input {
+  background: var(--input-bg) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-strong) !important;
+}
+
+/* Decryption Result Box in Light Mode */
+html.light #tl-decrypt-result {
+  background: #f0fdf4 !important;
+  border: 1.5px solid #22c55e !important;
+  color: #14532d !important;
+}
+html.light #tl-decrypt-result > div:first-child > span {
+  color: #15803d !important;
+}
+html.light #tl-decrypted-meta {
+  color: #166534 !important;
+}
+html.light .tl-guide-banner {
+  background: #ecfdf5 !important;
+  border: 1.5px solid #10b981 !important;
+  color: #065f46 !important;
+}
+html.light .tl-guide-banner strong {
+  color: #047857 !important;
+}
+
+/* T2-1: タイムカプセル内の色テキストはクラスでテーマ追随（旧 [style*= 塗り替えを置換）。
+   ダーク側は通常指定とし、.section-title の !important が優先される現行の競合関係を保存する。
+   ライト側は旧リマップと同じ !important で従来の計算値を維持する。 */
+.cm-legacy #timelock-section .tl-ink-amber { color: #fbbf24; }
+.cm-legacy #timelock-section .tl-ink-sky { color: #38bdf8; }
+.cm-legacy #timelock-section .tl-ink-emerald { color: #34d399; }
+.cm-legacy #timelock-section .tl-ink-blue { color: #93c5fd; }
+.cm-legacy #timelock-section .tl-ink-slate { color: #94a3b8; }
+.cm-legacy #timelock-section .tl-ink-yellow { color: #fcd34d; }
+.cm-legacy #timelock-section .tl-ink-gray { color: #d1d5db; }
+html.light .cm-legacy #timelock-section .tl-ink-amber { color: #b45309 !important; }
+html.light .cm-legacy #timelock-section .tl-ink-sky { color: #0369a1 !important; }
+html.light .cm-legacy #timelock-section .tl-ink-emerald { color: #047857 !important; }
+html.light .cm-legacy #timelock-section .tl-ink-blue { color: #1e3a8a !important; }
+html.light .cm-legacy #timelock-section .tl-ink-slate { color: #475569 !important; }
+html.light .cm-legacy #timelock-section .tl-ink-yellow { color: #92400e !important; }
+html.light .cm-legacy #timelock-section .tl-ink-gray { color: #334155 !important; }
+
+/* Ensure action buttons always keep white text */
+#tl-route-sec3, #tl-route-sec4,
+#tl-route-sec3 *, #tl-route-sec4 *,
+#tl-btn-decrypt, #tl-btn-decrypt * {
+  color: #ffffff !important;
+}
+
+/* ===== Print Elements Screen Guard ===== */
+.bv-print-full-text,
+#bq-print-summary {
+  display: none !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-all !important;
+  white-space: pre-wrap !important;
+}
+
+/* ===== Universal Text Wrapping & Overflow Prevention (Sections 1-5) ===== */
+.cm-legacy textarea,
+.cm-legacy input[type="text"],
+.cm-legacy input[type="password"],
+.cm-legacy pre,
+.cm-legacy code,
+.seed-textarea,
+#bq-output,
+#bq-import,
+#bv-text-content,
+#bv-single-ta,
+[id^="bv-share-ta-"],
+#bv-restore-text,
+#tl-text-content,
+#tl-output-text,
+[id^="tl-share-ta-"],
+#tl-restore-text,
+#tl-manual-beacon-input,
+#input-restore-seed,
+#seed-armored-text,
+.duress-field textarea,
+#duress-vault-text {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-all !important;
+}
+
+#bv-decrypted-content,
+#tl-decrypted-content,
+#sim-trace-log,
+#cq-status,
+#backup-summary,
+#restore-status,
+#bq-status,
+#bq-scan-status,
+#bv-encrypt-status,
+#bv-decrypt-status,
+#tl-encrypt-status,
+#tl-decrypt-status,
+.status-msg,
+.bq-status,
+.step-status-banner,
+.pw-chars-box,
+.save-format-guide-box {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-all !important;
+}
+
+/* Prevent flex columns holding textareas / outputs from expanding wider than card
+   T2-1: 対象はクラスで指定（旧 [style*= 塗り替えを置換） */
+.cm-legacy #bonus-vault .cm-pane-flex,
+.cm-legacy #timelock-section .cm-pane-flex {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* ===== T2-2: カード・パネル・入力欄のクラス化（旧インライン色指定の受け皿） ===== */
+.cm-legacy .cm-guide-box {
+  background: #0b121e;
+  border: 1px solid #1e2d42;
+  border-left: 3px solid #10b981;
+  border-radius: 8px;
+  color: #94a3b8;
+}
+html.light .cm-legacy .cm-guide-box {
+  background: var(--surface-sub);
+  border-color: var(--border-color);
+  color: var(--accent-strong);
+}
+.cm-legacy .cm-qr-fig { border: 1px solid #cbd5e1; border-radius: 6px; }
+html:not(.light) .cm-legacy .cm-qr-fig { background: #0f1828; }
+html.light .cm-legacy .cm-qr-fig { background: var(--card-bg); border-color: var(--border-color); }
+.cm-legacy .cm-bar-mint { border: 1px solid #b9cec0; border-radius: 6px; }
+html.light .cm-legacy .cm-bar-mint { border-color: var(--border-color); }
+.cm-legacy .cm-tl-panel { background: #192129; border: 1px solid #304257; border-radius: 6px; }
+html.light .cm-legacy .cm-tl-panel { background: var(--surface-sub); border-color: var(--border-color); }
+.cm-legacy .cm-bq-bar { border: 1px solid #cbd5e1; border-radius: 6px; }
+.cm-legacy .cm-btn-capsule { background: #f59e0b !important; border-color: #d97706 !important; color: #111827 !important; }
+.cm-legacy .cm-btn-route { background: #0284c7 !important; border-color: #0369a1 !important; color: #ffffff !important; }
+html.light .cm-legacy .cm-bq-bar { border-color: var(--border-color); }
+html:not(.light) .cm-legacy .cm-field-deep { background: #0f1828 !important; }
+.cm-legacy .cm-radius-4 { border-radius: 4px !important; }
+.cm-legacy .cm-radius-6 { border-radius: 6px !important; }
+.cm-bbox { box-sizing: border-box; }
+
+/* ===== T2-4: 現在地表示と機能色（ライトのみ。ダークは現行の緑基調を維持） ===== */
+html.light .cm-tab[aria-controls="tab-quick"][aria-selected="true"],
+html.light .cm-tab[aria-controls="tab-recipe"][aria-selected="true"] {
+  color: var(--feat-generate); background: var(--feat-generate-soft);
+  border-color: var(--feat-generate); box-shadow: inset 0 -3px 0 var(--feat-generate);
+}
+html.light .cm-tab[aria-controls="tab-backup"][aria-selected="true"] {
+  color: var(--feat-backup); background: var(--feat-backup-soft);
+  border-color: var(--feat-backup); box-shadow: inset 0 -3px 0 var(--feat-backup);
+}
+html.light .cm-tab[aria-controls="tab-vault"][aria-selected="true"] {
+  color: var(--feat-vault); background: var(--feat-vault-soft);
+  border-color: var(--feat-vault); box-shadow: inset 0 -3px 0 var(--feat-vault);
+}
+html.light .cm-tab[aria-controls="tab-timelock"][aria-selected="true"] {
+  color: var(--feat-capsule); background: var(--feat-capsule-soft);
+  border-color: var(--feat-capsule); box-shadow: inset 0 -3px 0 var(--feat-capsule);
+}
+html.light .cm-tab[aria-controls="tab-timesecret"][aria-selected="true"] {
+  color: var(--feat-secret-strong); background: var(--feat-secret-soft);
+  border-color: var(--feat-secret); box-shadow: inset 0 -3px 0 var(--feat-secret);
+}
+html.light .cm-tab[aria-controls="tab-datatransfer"][aria-selected="true"] {
+  color: var(--feat-transfer-strong); background: var(--feat-transfer-soft);
+  border-color: var(--feat-transfer); box-shadow: inset 0 -3px 0 var(--feat-transfer);
+}
+/* セクションカード: 上端に機能色の細いアクセント（ライトのみ、控えめに） */
+html.light .cm-legacy #card-quick,
+html.light .cm-legacy #section-recipe-detail { border-top: 2px solid var(--feat-generate) !important; }
+html.light .cm-legacy #section-bip39-plain,
+html.light .cm-legacy #backup-qr { border-top: 2px solid var(--feat-backup) !important; }
+html.light .cm-legacy #bonus-vault { border-top: 2px solid var(--feat-vault) !important; }
+html.light .cm-legacy #timelock-section { border-top: 2px solid var(--feat-capsule) !important; }
+html.light .cm-legacy #timesecret-section { border-top: 2px solid var(--feat-secret) !important; }
+html.light .cm-legacy #datatransfer-section { border-top: 2px solid var(--feat-transfer) !important; }
+
+/* ===== T2-5: 生成要素の状態表示クラス（ダークは従来の実効値、ライトは状態トークン） ===== */
+.cm-legacy .cm-note-warn { background: #451a03; color: #fbbf24; border: 1px solid #f59e0b; border-radius: 4px; }
+html.light .cm-legacy .cm-note-warn { background: var(--warning-bg); color: var(--warning); border-color: var(--warning); }
+.cm-legacy .cm-note-err { background: #291919; color: #fca5a5; border: 1px solid #7f1d1d; border-radius: 4px; }
+html.light .cm-legacy .cm-note-err { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+.cm-legacy .cm-note-warnbox { background: #292119; border: 1px solid #d97706; border-radius: 6px; }
+html.light .cm-legacy .cm-note-warnbox { background: var(--warning-bg); border-color: var(--warning); color: var(--warning); }
+.cm-legacy .cm-panel-ok { background: #143324; border: 1.5px solid #10b981; border-radius: 6px; color: #ecfdf5; }
+/* cm-panel-ok のライトは .tl-guide-banner 側の専用ルール（html.light .tl-guide-banner）が担う */
+.cm-legacy .cm-pill-ok { background: #064e3b; border: 1px solid #10b981; border-radius: 999px; }
+html.light .cm-legacy .cm-pill-ok { background: var(--success-bg); border-color: var(--success); color: var(--success); }
+.cm-legacy .cm-pill-warn { background: #451a03; border: 1px solid #f59e0b; border-radius: 999px; }
+html.light .cm-legacy .cm-pill-warn { background: var(--warning-bg); border-color: var(--warning); color: var(--warning); }
+.cm-legacy .cm-verify-ok { background: #064e3b; border: 1px solid #10b981; border-radius: 6px; color: #34d399; }
+html.light .cm-legacy .cm-verify-ok { background: var(--success-bg); border-color: var(--success); color: var(--success); }
+.cm-legacy .cm-verify-warn { background: #451a03; border: 1px solid #f59e0b; border-radius: 6px; color: #fbbf24; }
+html.light .cm-legacy .cm-verify-warn { background: var(--warning-bg); border-color: var(--warning); color: var(--warning); }
+.cm-legacy .cm-txt-ok { color: #34d399; }
+html.light .cm-legacy .cm-txt-ok { color: var(--success); }
+.cm-legacy .cm-txt-warn { color: #fbbf24; }
+html.light .cm-legacy .cm-txt-warn { color: var(--warning); }
+
+/* パスワード表示切替リンク: ライトでは濃い転送色（おとりモーダル内は警告色） */
+html.light .cm-legacy .btn-toggle-pw-visibility { color: var(--feat-transfer-strong) !important; }
+html.light .duress-modal-dialog .btn-toggle-pw-visibility { color: var(--feat-transfer-strong) !important; }
+html.light .duress-modal-body .btn-toggle-pw-visibility { color: var(--warning) !important; }
+
+/* ===== T3: ダークのコントラスト是正と階層の統一（ダーク限定の上書き） ===== */
+html:not(.light) #btn-duress-confirm-dual { background: #fe7d1a !important; border-color: #f47324 !important; color: #1b2027 !important; }
+html:not(.light) .cm-legacy .stroke-char-badge { color: var(--accent-strong); }
+html:not(.light) .cm-step:not(.is-current) .cm-step-badge { color: var(--text-main); }
+html:not(.light) .cm-subtab-btn.is-active { color: var(--accent-fg); }
+html:not(.light) #btn-legacy-pk2-accept { background: #1d4ed8 !important; color: #ffffff !important; }
+html:not(.light) #tl-btn-decrypt { background: #047857 !important; }
+html:not(.light) #tl-tab-btn-encrypt.btn:not(.btn-outline),
+html:not(.light) #tl-tab-btn-decrypt.btn:not(.btn-outline) { background: #0369a1 !important; }
+html:not(.light) #timesecret-section .ts-btn-primary { background: #15803d !important; border-color: #16a34a !important; }
+html:not(.light) .help-btn { color: #8a9dbd; }
+html:not(.light) #cq-status[data-mode="recipe"] { color: var(--text-sub); }
+html:not(.light) .cloud-warning-head { color: #9e0000; }
+html:not(.light) .cm-board .square.stroke-preview-tile {
+  background: linear-gradient(135deg, rgba(0,229,138,.10), rgba(0,229,138,.18)) !important;
+  border-color: var(--accent);
+  box-shadow: 0 0 14px rgba(0,229,138,.35) !important;
+}
+/* ガイド・注記の色クラス（基底はライトの現行値、ダークは明色化） */
+.cm-guide-heading { color: #6382b5; }
+html:not(.light) .cm-guide-heading { color: var(--text-sub); }
+.cm-warn-red { color: #e92f2f; }
+html:not(.light) .cm-warn-red { color: #f85d78; }
+.cm-guide-violet { color: #a855f7; }
+html:not(.light) .cm-guide-violet { color: #c084fc; }
+.cm-km-violet { color: #610bf4; }
+html:not(.light) .cm-km-violet { color: var(--feat-vault); }
+.cm-passkey-note { color: #3b65dd; }
+html:not(.light) .cm-passkey-note { color: #7da2ff; }
+.cm-guide-blue { color: #335de6; }
+html:not(.light) .cm-guide-blue { color: #7da2ff; }
+html.light .cm-legacy .cm-guide-blue { color: #335de6; }
+.cm-note-muted { color: #7889a1; }
+html:not(.light) .cm-note-muted { color: #8799b5; }
+html.light .cm-legacy .cm-note-muted { color: #7889a1; }
+
+/* ===== T4: 生成要素の状態色クラス（JS の色直接代入から移行） ===== */
+.cm-prot-init { background: #0b121e; color: #34d399; border-color: #1e2d42; }
+html.light .cm-legacy .cm-prot-init { background: var(--surface-sub); color: #096e3c; border-color: #cfd8e3; }
+.cm-prot-warn { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+html:not(.light) .cm-prot-warn { background: var(--warning-bg); color: var(--warning); border-color: var(--warning); }
+.cm-prot-err { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+html:not(.light) .cm-prot-err { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+.cm-prot-ok { background: #dcfce7; color: #065f46; border-color: #86efac; }
+html:not(.light) .cm-prot-ok { background: var(--success-bg); color: var(--success); border-color: var(--success); }
+.cm-kdf-warn { background: #fffbeb; color: #92400e; border: 1.5px solid #fcd34d; }
+html:not(.light) .cm-kdf-warn { background: var(--warning-bg); color: var(--warning); border-color: var(--warning); }
+.cm-kdf-err { background: #fef2f2; color: #991b1b; border: 1.5px solid #f87171; }
+html:not(.light) .cm-kdf-err { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+.cm-strength-weak { color: #b91c1c; }
+html:not(.light) .cm-strength-weak { color: var(--danger); }
+.cm-strength-mid { color: #b45309; }
+html:not(.light) .cm-strength-mid { color: var(--warning); }
+.cm-strength-strong { color: #065f46; }
+html:not(.light) .cm-strength-strong { color: var(--success); }
+.cm-seed-chip { color: #fbbf24; background: #1f2937; border-color: #374151; }
+html.light .cm-seed-chip { color: #b45309; background: var(--surface-sub); border-color: #cfd8e3; }
+/* ライトでは汎用の本文色ルールより優先して状態色を維持する */
+html.light .cm-legacy .cm-prot-warn { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+html.light .cm-legacy .cm-prot-err { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+html.light .cm-legacy .cm-prot-ok { background: #dcfce7; color: #065f46; border-color: #86efac; }
+html.light .cm-legacy .cm-kdf-warn { color: #92400e; }
+html.light .cm-legacy .cm-kdf-err { color: #991b1b; }
+html.light .cm-legacy .cm-strength-weak { color: #b91c1c; }
+html.light .cm-legacy .cm-strength-mid { color: #b45309; }
+html.light .cm-legacy .cm-strength-strong { color: #065f46; }
+html.light .cm-legacy .cm-seed-chip { color: #b45309; }
+html.light .cm-legacy .duress-modal-body .cm-prot-init { color: #096e3c !important; }
+
+/* ===== T4: パネル・チップ等のテーマクラス（汎用 [style*= ルールの依存解消用） ===== */
+.cm-panel-slate { background: #192129; border-color: #304257; }
+html.light .cm-legacy .cm-panel-slate { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-panel-deep { background: #111827; border-color: #1e3a5f; }
+html.light .cm-legacy .cm-panel-deep { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-panel-blue { background: #192029; border-color: #004ca0; }
+html.light .cm-legacy .cm-panel-blue { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-panel-guide { background: #1b2027; border-color: #003578; }
+html.light .cm-legacy .cm-panel-guide { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-dropzone { background: #1b2027; border-color: #00abf7; }
+html.light .cm-legacy .cm-dropzone { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-panel-result { background: #1b2027; }
+html.light .cm-legacy .cm-panel-result { background: var(--surface-sub); }
+.cm-panel-result-ok { background: #0b121e; border-color: #10b981; }
+html.light .cm-legacy .cm-panel-result-ok { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-panel-amber { background: #292119; border-color: #f59e0b; }
+html.light .cm-legacy .cm-panel-amber { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-panel-red { background: #291919; border-color: #ef4444; color: #fca5a5; }
+html.light .cm-legacy .cm-panel-red { background: var(--surface-sub); border-color: #cfd8e3; color: #b02834; }
+.cm-panel-beacon { background: #111827; border-color: #4b5563; }
+html.light .cm-legacy .cm-panel-beacon { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-panel-sky { background: #192029; border-color: #0284c7; }
+html.light .cm-legacy .cm-panel-sky { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-chip-dark { background: #1f2937; border-color: #374151; }
+html.light .cm-legacy .cm-chip-dark { background: var(--surface-sub); border-color: #cfd8e3; }
+.cm-panel-kdf { background: #451a03; border-color: #f59e0b; }
+html.light .cm-legacy .cm-panel-kdf { background: var(--warning-bg); border-color: var(--warning); }
+.cm-panel-card { background: #192129; }
+html.light .cm-legacy .cm-panel-card { background: var(--card-bg); }
+.cm-label-sky { color: #38bdf8; }
+html.light .cm-legacy .cm-label-sky { color: #0369a1; }
+.cm-note-sky { color: #93c5fd; }
+html.light .cm-legacy .cm-note-sky { color: #0369a1; }
+.cm-guide-sky { color: #38bdf8; }
+html.light .cm-legacy .cm-guide-sky { color: #0369a1; }
+.cm-guide-amber { color: #f59e0b; }
+html.light .cm-legacy .cm-guide-amber { color: #b45309; }
+/* T4 レビュー追加対応: ライトの WCAG AA（通常文字 4.5:1）是正 */
+html.light .cm-legacy .cm-seed-chip { color: #a34e08; }
+html.light .cm-legacy #timelock-section #tl-bound-seed-badge { color: #a34e08 !important; }
+html.light .cm-legacy .help-btn { color: #8a9dbd; }
+html.light #timesecret-section .ts-btn-primary { background: #15803d !important; border-color: #15803d !important; }
+html.light #tl-btn-decrypt { background: #047857 !important; }
+html.light #tl-btn-decrypt:hover:not(:disabled) { background: #065f46 !important; }
+html.light #tl-route-sec3, html.light #tl-route-sec4 { background: #0369a1 !important; }
+html.light #tl-tab-btn-encrypt.btn:not(.btn-outline) { background: #0369a1 !important; }
+html.light .cm-legacy #datatransfer-section .dt-subtab-btn.is-active .dt-subtab-main { color: #075985 !important; }
+.cm-frame-sky { border-color: #1ab1ff; }
+html.light .cm-legacy .cm-frame-sky { border-color: #cfd8e3; }
+.cm-frame-amber { border-color: #f59e0b; }
+html.light .cm-legacy .cm-frame-amber { border-color: #cfd8e3; }
+.cm-result-title { color: #1dfbbd; }
+html.light .cm-legacy .cm-result-title { color: #096e3c; }
+.cm-txt-deep { color: #192029; }
+html.light .cm-legacy .cm-txt-deep { color: var(--text-main); }
+.cm-link-neon { color: #1aff78; }
+html:not(.light) .cm-legacy .cm-link-neon { color: #1aff78; }
+html.light .cm-legacy .cm-link-neon { color: #0b7a44 !important; }
+.cm-link-sky { color: #1ab1ff; }
+html:not(.light) .cm-legacy .cm-link-sky { color: #1ab1ff; }
+html.light .cm-legacy .cm-link-sky { color: #0b7a44 !important; }
+.cm-txt-sky { color: #1aaeff; }
+html.light .cm-legacy .cm-txt-sky { color: #096e3c !important; }
+.cm-guide-emerald { color: #10b981; }
+html.light .cm-legacy .cm-guide-emerald { color: #0b7a44; }
+.cm-row-goldline { border-bottom: 1px dashed #a88700; }
+html.light .cm-legacy .cm-row-goldline { border-bottom-color: #cfd8e3; }
+html.light .btn-toggle-pw-visibility { border-color: #cfd8e3 !important; }
+html.light .cm-legacy .cm-modal-panel, html.light .cm-legacy .cm-modal-panel-sky, html.light .cm-legacy .cm-modal-box-blue, html.light .cm-legacy .cm-modal-note-blue, html.light .cm-legacy .cm-km-factor { border-color: #cfd8e3; }
+html:not(.light) #tl-decrypt-result .bq-action-group-label { color: #a7f3d0; }
+html:not(.light) #btn-zeroize { background: #ff5c6c !important; }
+html:not(.light) #tl-route-sec3,
+html:not(.light) #tl-route-sec4 { background: #0369a1 !important; }
+html:not(.light) #btn-cm-consent-close { color: #8799b5; }
+html:not(.light) .duress-modal-close { color: #8799b5; }
+/* ライトでは汎用の本文色ルール（html.light .cm-legacy *）より優先して現行値を維持する */
+html.light .cm-legacy .cm-guide-heading { color: #3f619b; }
+html.light .cm-legacy .cm-passkey-note { color: #2f56c4; }
+html.light .cm-legacy .cm-warn-red { color: var(--danger); }
+html.light .cm-legacy .cm-guide-violet { color: #9333ea; }
+html.light .cm-legacy .cm-km-label { color: #3f619b; }
+
+/* ===== T2-5: モーダル面・見出し・エラー表示（ダークは従来の実効値、ライトはトークン） ===== */
+.cm-modal-header { background: #192329; border-bottom: 1px solid #00527d; }
+.cm-modal-header-pk2 { background: #192029; border-bottom-color: #003578; }
+html.light .cm-modal-header { background: var(--surface-sub); border-bottom-color: var(--border-color); }
+.cm-modal-title { color: #1aaeff; }
+html.light .cm-modal-title { color: var(--feat-transfer-strong); }
+.cm-modal-title-pk2 { color: #7da2ff; }
+html.light .cm-modal-title-pk2 { color: var(--feat-backup); }
+.cm-modal-title-consent { color: #38bdf8; }
+html.light .cm-modal-title-consent { color: var(--feat-transfer-strong); }
+.cm-modal-note-blue { color: #7da2ff; background: #192329; border: 1px solid #00527d; }
+html.light .cm-modal-note-blue { color: var(--feat-backup); background: var(--surface-sub); border-color: var(--border-color); }
+.cm-modal-panel { background: var(--card-raised); border: 1px solid #304257; }
+html.light .cm-modal-panel { background: var(--surface-sub); border-color: var(--border-color); }
+.cm-modal-panel-sky { background: rgba(15, 23, 42, 0.7); border: 1.5px solid rgba(56, 189, 248, 0.3); }
+html.light .cm-modal-panel-sky { background: var(--feat-transfer-soft); border-color: var(--feat-transfer); }
+.cm-modal-box-blue { background: #192029; border: 1px solid #004ca0; }
+html.light .cm-modal-box-blue { background: var(--surface-sub); border-color: var(--border-color); }
+.cm-err-box { color: #e83838; background: #291919; border: 1px solid #910000; border-radius: 6px; }
+.cm-err-box-consent { color: #ef4444; border-color: #7f1d1d; }
+html.light .cm-err-box { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+.cm-duress-accent { color: #f47324; }
+html.light .cm-duress-accent { color: var(--warning); }
+.cm-modal-muted { color: #8799b5; }
+html.light .cm-modal-muted { color: var(--text-sub); }
+.cm-km-label { color: var(--feat-backup); }
+html.light .cm-km-label { color: var(--feat-backup); }
+.cm-km-heading { color: var(--text-sub); }
+html.light .cm-km-heading { color: var(--text-sub); }
+.cm-km-note { color: #8499b5; }
+html.light .cm-km-note { color: var(--text-sub); }
+.cm-km-accent-orange { color: #ff941a; }
+html.light .cm-km-accent-orange { color: var(--warning); }
+.cm-km-sky { color: #1aaeff; }
+html.light .cm-km-sky { color: var(--feat-transfer-strong); }
+.cm-km-factor { background: var(--card-raised); border: 1px solid #304257; }
+html.light .cm-km-factor { background: var(--surface-sub); border-color: var(--border-color); }
+.cm-km-factor-sel { border: 1.5px solid #1ab1ff; background: var(--card-raised); }
+html.light .cm-km-factor-sel { border-color: var(--feat-transfer); }
+
+/* Responsive mobile stacking for QR + Textarea output containers */
+@media (max-width: 600px) {
+  .cm-legacy #bonus-vault div[style*="display:flex"],
+  .cm-legacy #timelock-section div[style*="display:flex"] {
+    flex-wrap: wrap !important;
+  }
+  .cm-legacy #bonus-vault .bv-qr-figure,
+  .cm-legacy #timelock-section .tl-qr-figure,
+  .cm-legacy #timelock-section #tl-qr-container {
+    width: 100% !important;
+    max-width: 160px !important;
+    margin: 0 auto 10px auto !important;
+    align-self: center !important;
+  }
+  /* T2-1: 対象はクラスで指定（旧 [style*= 塗り替えを置換） */
+  .cm-legacy #bonus-vault .cm-pane-flex,
+  .cm-legacy #timelock-section .cm-pane-flex {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex-basis: 100% !important;
+  }
+}
+
+
+
+
+
+
+/* Compact build marker: helps confirm which deployed revision is open. */
+.cm-build-version {
+  margin: 10px auto 6px;
+  padding: 4px 8px;
+  text-align: center;
+  font: 10px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: .03em;
+  color: var(--muted, #718096);
+  opacity: .78;
+}
+.cm-build-version span { opacity: .8; }
+
+
+/* ===== Compact route playback on small screens =====
+   Keep the existing route log and playback logic intact; reclaim vertical space
+   by hiding explanatory copy while a route is actively playing. */
+@media (max-width: 600px) {
+  .cm-legacy .live-player-bar { margin-top: 6px; padding: 8px; gap: 6px; }
+  .cm-legacy .live-inputs-row { gap: 6px; }
+  .cm-legacy #live-result-row { gap: 6px; margin-top: 6px; }
+  .cm-legacy #live-result-row > div:first-child { margin-bottom: 0; }
+  .cm-legacy #live-mode-badge { font-size: .72rem; padding: 3px 6px; }
+  .cm-legacy #trace-controls-bar { gap: 6px; }
+  .cm-legacy #trace-controls-bar .btn { padding: 7px 9px; font-size: .82rem; }
+  .cm-legacy #sim-step-banner { margin-top: 4px; font-size: .78rem; }
+  .cm-legacy #sim-trace-log { margin-top: 4px; max-height: 112px; padding: 6px 8px; }
+}
+
+/* Entropy caveat is available on demand through the existing help control. */
+
+
+/* Route playback focus mode: hide secondary controls and descriptive metadata only
+   while a route is actively playing or paused. Normal UI and feature handlers remain intact. */
+body.trace-playing .cm-legacy #btn-blind-mode,
+body.trace-playing .cm-legacy #live-mode-badge,
+body.trace-playing .cm-legacy #sim-output-meta,
+body.trace-playing .cm-legacy #btn-copy-pw,
+body.trace-playing .cm-legacy #btn-transfer-to-keeweb {
+  display: none !important;
+}
+body.trace-playing .cm-legacy #live-result-row > div:first-child > div:first-child {
+  margin-bottom: 2px !important;
+}
+
+
+/* Playback speed slider: compact, touch-friendly control */
+.cm-legacy .sim-speed-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.cm-legacy #sim-speed {
+  width: min(100%, 220px);
+  min-width: 100px;
+  accent-color: var(--accent, #00c950);
+  cursor: pointer;
+  touch-action: pan-y;
+}
+.cm-legacy #sim-speed-value {
+  min-width: 70px;
+  color: var(--text-sub);
+  font-size: .78rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .cm-legacy .sim-speed-control { gap: 8px; }
+  .cm-legacy #sim-speed { flex: 1; width: auto; }
+}
+
+
+/* Global privacy toggle beside emergency clear: neutral when off, green when on. */
+.cm-legacy #btn-blind-mode {
+  background: #334155 !important;
+  color: #f8fafc !important;
+  border: 1px solid #64748b !important;
+}
+.cm-legacy #btn-blind-mode:hover {
+  background: #475569 !important;
+  border-color: #94a3b8 !important;
+}
+.cm-legacy #btn-blind-mode.btn-blind-active {
+  background: #166534 !important;
+  color: #ffffff !important;
+  border-color: #4ade80 !important;
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, .22) !important;
+}
+html.light .cm-legacy #btn-blind-mode {
+  background: var(--surface-sub) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-strong) !important;
+}
+html.light .cm-legacy #btn-blind-mode:hover {
+  background: var(--border-color) !important;
+}
+html.light .cm-legacy #btn-blind-mode.btn-blind-active {
+  background: var(--accent-strong) !important;
+  color: #ffffff !important;
+  border-color: var(--accent-strong) !important;
+}
+
+/* ===== Time Secret (タイムシークレット専用UI) ===== */
+#timesecret-section {
+  padding: 18px;
+}
+#timesecret-section [hidden] {
+  display: none !important;
+}
+#timesecret-section .ts-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+#timesecret-section .ts-title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#timesecret-section .ts-lead {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  line-height: 1.55;
+  margin: 0 0 14px 0;
+}
+#timesecret-section .ts-state-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 0.77rem;
+  font-weight: 700;
+  font-family: var(--font-ui);
+  white-space: nowrap;
+  border: 1px solid #334155 !important;
+  background: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+#timesecret-section .ts-state-pill[data-state="ACTIVE"] {
+  background: rgba(22, 163, 74, 0.18) !important;
+  border-color: #22c55e !important;
+  color: #4ade80 !important;
+}
+#timesecret-section .ts-state-pill[data-state="WARNING"] {
+  background: rgba(245, 158, 11, 0.2) !important;
+  border-color: #f59e0b !important;
+  color: #fcd34d !important;
+}
+#timesecret-section .ts-state-pill[data-state="CLOCK_SUSPECT"] {
+  background: rgba(249, 115, 22, 0.22) !important;
+  border-color: #fb923c !important;
+  color: #fdba74 !important;
+}
+#timesecret-section .ts-state-pill[data-state="EXPIRED"],
+#timesecret-section .ts-state-pill[data-state="DELETE_FAILED"],
+#timesecret-section .ts-state-pill[data-state="CORRUPTED"] {
+  background: rgba(220, 38, 38, 0.24) !important;
+  border-color: #ef4444 !important;
+  color: #fca5a5 !important;
+}
+#timesecret-section .ts-state-pill[data-state="DELETE_PENDING"] {
+  background: rgba(14, 165, 233, 0.2) !important;
+  border-color: #38bdf8 !important;
+  color: #7dd3fc !important;
+}
+#timesecret-section .ts-state-pill[data-state="DESTROYED"] {
+  background: rgba(100, 116, 139, 0.22) !important;
+  border-color: #94a3b8 !important;
+  color: #e2e8f0 !important;
+}
+
+#timesecret-section .ts-status-bar {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  border: 1px solid #334155 !important;
+  background: #0f172a !important;
+  color: #e2e8f0 !important;
+}
+#timesecret-section .ts-status-bar.ts-status-ok {
+  border-color: #16a34a !important;
+  background: rgba(22, 163, 74, 0.14) !important;
+  color: #86efac !important;
+}
+#timesecret-section .ts-status-bar.ts-status-warn {
+  border-color: #d97706 !important;
+  background: rgba(217, 119, 6, 0.16) !important;
+  color: #fde68a !important;
+}
+#timesecret-section .ts-status-bar.ts-status-err {
+  border-color: #dc2626 !important;
+  background: rgba(220, 38, 38, 0.18) !important;
+  color: #fca5a5 !important;
+}
+
+#timesecret-section .ts-expiry-banner {
+  padding: 11px 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  line-height: 1.5;
+  border: 1px solid #f59e0b !important;
+  background: rgba(245, 158, 11, 0.16) !important;
+  color: #fde68a !important;
+}
+#timesecret-section .ts-expiry-banner[data-urgency="1h"] {
+  border-color: #ef4444 !important;
+  background: rgba(220, 38, 38, 0.2) !important;
+  color: #fecaca !important;
+}
+
+#timesecret-section .ts-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 560px) {
+  #timesecret-section .ts-telemetry-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+#timesecret-section .ts-stat-card {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-sub);
+  min-width: 0;
+}
+#timesecret-section .ts-stat-label {
+  font-size: 0.74rem;
+  color: var(--text-sub);
+  margin-bottom: 4px;
+}
+#timesecret-section .ts-stat-value {
+  font-size: 0.94rem;
+  font-weight: 700;
+  font-family: var(--font-ui);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+#timesecret-section .ts-meta-strip {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+  background: rgba(15, 23, 42, 0.45);
+  font-size: 0.76rem;
+  color: var(--text-sub);
+  line-height: 1.5;
+  margin-bottom: 14px;
+  overflow-wrap: anywhere;
+}
+
+#timesecret-section .ts-block-card {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-sub);
+  margin-bottom: 14px;
+}
+#timesecret-section .ts-block-title {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+#timesecret-section .ts-alert-card {
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  line-height: 1.55;
+  font-size: 0.83rem;
+}
+#timesecret-section .ts-alert-clock {
+  border: 1px solid #f97316 !important;
+  background: rgba(249, 115, 22, 0.12) !important;
+}
+#timesecret-section .ts-alert-fail {
+  border: 2px solid #ef4444 !important;
+  background: rgba(220, 38, 38, 0.14) !important;
+}
+#timesecret-section .ts-alert-destroyed {
+  border: 1px solid #64748b !important;
+  background: rgba(71, 85, 105, 0.15) !important;
+}
+
+#timesecret-section .ts-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+#timesecret-section .ts-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+#timesecret-section .ts-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+#timesecret-section .ts-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+#timesecret-section .ts-btn-primary {
+  flex: 1 1 210px;
+  background: #16a34a !important;
+  border-color: #22c55e !important;
+  color: #ffffff !important;
+}
+#timesecret-section .ts-btn-secondary {
+  flex: 1 1 160px;
+  background: #0f172a;
+  border-color: #38bdf8;
+  color: #7dd3fc;
+}
+#timesecret-section .ts-btn-warn {
+  background: #c2410c !important;
+  border-color: #fb923c !important;
+  color: #ffffff !important;
+}
+#timesecret-section .ts-btn-danger {
+  background: #b91c1c !important;
+  border-color: #f87171 !important;
+  color: #ffffff !important;
+}
+
+#timesecret-section .ts-field {
+  margin-bottom: 10px;
+}
+#timesecret-section .ts-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+#timesecret-section input[type="text"],
+#timesecret-section input[type="password"],
+#timesecret-section input[type="number"],
+#timesecret-section select,
+#timesecret-section textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border-color);
+  font-size: 0.85rem;
+}
+#timesecret-section textarea {
+  min-height: 96px;
+  resize: vertical;
+  font-family: var(--font-ui);
+}
+#timesecret-section .ts-pre-box {
+  margin: 8px 0 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: #070b14;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-height: 260px;
+  overflow-y: auto;
+}
+#timesecret-section .ts-guarantees-list {
+  margin: 6px 0 10px 0;
+  padding-left: 18px;
+  font-size: 0.77rem;
+  line-height: 1.6;
+  color: var(--text-sub);
+}
+#timesecret-section .ts-guarantees-list li {
+  margin-bottom: 3px;
+}
+#timesecret-section .ts-inline-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Light mode contrast overrides for Time Secret */
+html.light .cm-legacy #timesecret-section input[type="text"],
+html.light .cm-legacy #timesecret-section input[type="password"],
+html.light .cm-legacy #timesecret-section input[type="number"],
+html.light .cm-legacy #timesecret-section select,
+html.light .cm-legacy #timesecret-section textarea,
+html.light .cm-legacy #timesecret-section .ts-pre-box {
+  background: var(--input-bg) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-strong) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-meta-strip {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+}
+html.light .cm-legacy #timesecret-section .ts-btn {
+  background: var(--surface-sub);
+  color: var(--text-main);
+  border-color: var(--border-strong);
+}
+html.light .cm-legacy #timesecret-section .ts-btn-secondary {
+  background: var(--feat-secret-soft) !important;
+  color: var(--feat-secret-strong) !important;
+  border-color: var(--feat-secret) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-state-pill {
+  background: var(--surface-sub) !important;
+  border-color: var(--border-strong) !important;
+  color: var(--text-sub) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-state-pill[data-state="ACTIVE"] {
+  background: var(--success-bg) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-state-pill[data-state="WARNING"] {
+  background: var(--warning-bg) !important;
+  border-color: var(--warning) !important;
+  color: var(--warning) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-state-pill[data-state="CLOCK_SUSPECT"] {
+  background: var(--warning-bg) !important;
+  border-color: var(--warning) !important;
+  color: var(--warning) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-state-pill[data-state="EXPIRED"],
+html.light .cm-legacy #timesecret-section .ts-state-pill[data-state="DELETE_FAILED"],
+html.light .cm-legacy #timesecret-section .ts-state-pill[data-state="CORRUPTED"] {
+  background: var(--danger-bg) !important;
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-state-pill[data-state="DELETE_PENDING"] {
+  background: var(--feat-transfer-soft) !important;
+  border-color: var(--feat-transfer) !important;
+  color: var(--feat-transfer-strong) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-state-pill[data-state="DESTROYED"] {
+  background: var(--surface-sub) !important;
+  border-color: var(--border-strong) !important;
+  color: var(--text-sub) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-status-bar {
+  background: var(--bg-main) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-status-bar.ts-status-ok {
+  background: var(--success-bg) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-status-bar.ts-status-warn {
+  background: var(--warning-bg) !important;
+  border-color: var(--warning) !important;
+  color: var(--warning) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-status-bar.ts-status-err {
+  background: var(--danger-bg) !important;
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-expiry-banner {
+  background: var(--warning-bg) !important;
+  border-color: var(--warning) !important;
+  color: var(--warning) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-expiry-banner[data-urgency="1h"] {
+  background: var(--danger-bg) !important;
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+}
+
+/* ===== Time Secret v2 Multi-Vault List, Detail, Unified Input, & Auth Modal ===== */
+#timesecret-section .ts-btn-sm {
+  padding: 7px 12px;
+  font-size: 0.79rem;
+}
+#timesecret-section .ts-subtoolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+#timesecret-section .ts-subtoolbar-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+#timesecret-section .ts-nav-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-color);
+}
+#timesecret-section .ts-view-heading {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-empty-card {
+  padding: 24px 18px;
+  border-radius: 12px;
+  border: 1px dashed var(--border-color);
+  background: var(--surface-sub);
+  text-align: center;
+}
+#timesecret-section .ts-empty-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+#timesecret-section .ts-empty-desc {
+  font-size: 0.81rem;
+  color: var(--text-sub);
+  line-height: 1.55;
+  max-width: 580px;
+  margin: 0 auto 14px auto;
+}
+
+/* Multi-Vault List Table (Desktop Table -> Mobile Cards) */
+#timesecret-section .ts-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-sub);
+  overflow: hidden;
+}
+#timesecret-section .ts-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+#timesecret-section .ts-list-table thead th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  background: rgba(15, 23, 42, 0.55);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+#timesecret-section .ts-list-table tbody td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+#timesecret-section .ts-list-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+#timesecret-section .ts-row-name {
+  font-weight: 700;
+  font-size: 0.87rem;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-row-sub {
+  font-size: 0.74rem;
+  color: var(--text-sub);
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-mono-cell {
+  font-family: var(--font-ui);
+  font-size: 0.79rem;
+  font-variant-numeric: tabular-nums;
+}
+#timesecret-section .ts-row-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+#timesecret-section .ts-row-btns .ts-btn {
+  flex: 0 1 auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  #timesecret-section .ts-table-wrap {
+    border: 0;
+    background: transparent;
+  }
+  #timesecret-section .ts-list-table,
+  #timesecret-section .ts-list-table tbody {
+    display: block;
+    width: 100%;
+  }
+  #timesecret-section .ts-list-table thead {
+    display: none;
+  }
+  #timesecret-section .ts-list-table tbody tr.ts-list-row {
+    display: block;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--surface-sub);
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+  #timesecret-section .ts-list-table tbody td {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(148, 163, 184, 0.2);
+  }
+  #timesecret-section .ts-list-table tbody td:last-child {
+    border-bottom: 0;
+    padding-top: 8px;
+  }
+  #timesecret-section .ts-list-table tbody td::before {
+    content: attr(data-label);
+    font-size: 0.73rem;
+    font-weight: 700;
+    color: var(--text-sub);
+    margin-right: 8px;
+  }
+  #timesecret-section .ts-row-btns {
+    width: 100%;
+  }
+  #timesecret-section .ts-row-btns .ts-btn {
+    flex: 1 1 120px;
+  }
+}
+
+/* Preset Name Chips & Unified File Attachment Chip */
+#timesecret-section .ts-preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+#timesecret-section .ts-preset-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: rgba(15, 23, 42, 0.65);
+  color: var(--text-main, #e2e8f0);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+#timesecret-section .ts-preset-chip:hover {
+  border-color: var(--accent, #22c55e);
+  color: #4ade80;
+}
+#timesecret-section .ts-file-attach-box {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+  background: rgba(15, 23, 42, 0.35);
+}
+#timesecret-section .ts-file-chip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  border: 1px solid #0284c7;
+  background: rgba(14, 165, 233, 0.14);
+  font-size: 0.8rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-auth-none-box {
+  margin-top: 8px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #fde68a;
+}
+#timesecret-section .ts-devkey-banner {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 7px;
+  border: 1px solid #22c55e !important;
+  background: rgba(22, 163, 74, 0.12) !important;
+  color: #86efac !important;
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-devkey-banner[data-ok="false"] {
+  border-color: #ef4444 !important;
+  background: rgba(220, 38, 38, 0.16) !important;
+  color: #fca5a5 !important;
+}
+#timesecret-section .ts-file-output-card {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #38bdf8;
+  background: rgba(14, 165, 233, 0.12);
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+
+/* Shared Authentication & Target Confirmation Modal */
+#timesecret-section .ts-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  background: rgba(2, 6, 23, 0.76);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+#timesecret-section .ts-modal-dialog {
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #475569;
+  background: #0f172a;
+  color: #f8fafc;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+  box-sizing: border-box;
+}
+#timesecret-section .ts-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+#timesecret-section .ts-modal-title {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-modal-close {
+  background: transparent;
+  border: 1px solid #475569;
+  color: #cbd5e1;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+#timesecret-section .ts-modal-desc {
+  margin: 0 0 12px 0;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+#timesecret-section .ts-modal-confirm-box {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ef4444;
+  background: rgba(220, 38, 38, 0.14);
+  margin-bottom: 10px;
+}
+
+/* Light mode overrides for Time Secret v2 */
+html.light .cm-legacy #timesecret-section .ts-list-table thead th {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+}
+html.light .cm-legacy #timesecret-section .ts-preset-chip {
+  background: #f8fafc;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+html.light .cm-legacy #timesecret-section .ts-file-attach-box {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+html.light .cm-legacy #timesecret-section .ts-file-chip,
+html.light .cm-legacy #timesecret-section .ts-file-output-card {
+  background: #e0f2fe;
+  border-color: #0284c7;
+  color: #0c4a6e;
+}
+html.light .cm-legacy #timesecret-section .ts-auth-none-box {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #92400e;
+}
+html.light .cm-legacy #timesecret-section .ts-devkey-banner {
+  background: #dcfce7 !important;
+  border-color: #16a34a !important;
+  color: #166534 !important;
+}
+html.light .cm-legacy #timesecret-section .ts-devkey-banner[data-ok="false"] {
+  background: #fee2e2 !important;
+  border-color: #dc2626 !important;
+  color: #991b1b !important;
+}
+html.light .cm-legacy #timesecret-section .ts-modal-dialog {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+html.light .cm-legacy #timesecret-section .ts-modal-desc {
+  color: #475569;
+}
+html.light .cm-legacy #timesecret-section .ts-modal-close {
+  color: #334155;
+  border-color: #cbd5e1;
+}
+html.light .cm-legacy #timesecret-section .ts-modal-confirm-box {
+  background: #fee2e2;
+  border-color: #dc2626;
+  color: #991b1b;
+}
+
+/* =====================================================================
+ * Time Secret v2.12.0 — Separated Auth Subcards, Quick Presets, & Seed Badge
+ * ===================================================================== */
+#timesecret-section [hidden] {
+  display: none !important;
+}
+#timesecret-section .ts-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+#timesecret-section .ts-radio-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: rgba(15, 23, 42, 0.55);
+  font-size: 0.81rem;
+  font-weight: 700;
+  cursor: pointer;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-radio-chip input[type="radio"] {
+  margin: 0;
+  flex: 0 0 auto;
+}
+#timesecret-section .ts-quick-preset-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+#timesecret-section .ts-quick-preset-label {
+  font-size: 0.77rem;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+#timesecret-section .ts-preset-time-btn.is-active,
+#timesecret-section .ts-edit-preset-time-btn.is-active {
+  border-color: #38bdf8 !important;
+  background: rgba(14, 165, 233, 0.22) !important;
+  color: #7dd3fc !important;
+}
+#timesecret-section .ts-preset-test {
+  border-style: dashed !important;
+  border-color: #f59e0b !important;
+  color: #fde68a !important;
+}
+#timesecret-section .ts-test-warn-box {
+  margin-bottom: 8px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.14);
+  color: #fde68a;
+  font-size: 0.77rem;
+  line-height: 1.45;
+}
+#timesecret-section .ts-deadline-preview {
+  font-size: 0.79rem;
+  color: var(--cyan, #38bdf8);
+  font-family: var(--font-ui);
+  padding: 6px 9px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-seed-bind-banner {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #1e3a5f;
+  background: rgba(15, 23, 42, 0.7);
+  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  box-sizing: border-box;
+}
+#timesecret-section .ts-seed-bind-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+#timesecret-section .ts-seed-bind-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #38bdf8;
+}
+#timesecret-section .ts-seed-badge {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #fbbf24;
+  background: #1f2937;
+  padding: 2px 9px;
+  border-radius: 5px;
+  border: 1px solid #374151;
+}
+#timesecret-section .ts-seed-bind-note {
+  font-size: 0.74rem;
+  color: var(--text-sub);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-legacy-seed-note {
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid #64748b;
+  background: rgba(100, 116, 139, 0.14);
+  font-size: 0.76rem;
+  color: #cbd5e1;
+  margin-bottom: 10px;
+}
+#timesecret-section .ts-auth-subcard {
+  padding: 12px;
+  border-radius: 9px;
+  border: 1px solid var(--border-color);
+  background: rgba(15, 23, 42, 0.42);
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+#timesecret-section .ts-auth-subhead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.25);
+}
+#timesecret-section .ts-auth-subtag {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+#timesecret-section .ts-tag-enc {
+  background: rgba(14, 165, 233, 0.18);
+  border: 1px solid #0284c7;
+  color: #7dd3fc;
+}
+#timesecret-section .ts-tag-ci {
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid #16a34a;
+  color: #86efac;
+}
+#timesecret-section .ts-tag-mgmt {
+  background: rgba(168, 85, 247, 0.18);
+  border: 1px solid #9333ea;
+  color: #d8b4fe;
+}
+#timesecret-section .ts-auth-subcaption {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-chk-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-chk-label input[type="checkbox"] {
+  margin: 0;
+  flex: 0 0 auto;
+}
+#timesecret-section .ts-ci-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 6px 12px;
+  margin-bottom: 6px;
+}
+#timesecret-section .ts-factor-panel {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: rgba(2, 6, 23, 0.35);
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+#timesecret-section .ts-label-split {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+#timesecret-section .ts-toggle-pw {
+  background: none;
+  border: 0;
+  color: var(--cyan, #38bdf8);
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+html.light #timesecret-section .ts-toggle-pw { color: #1a5da6; }
+#timesecret-section .ts-kf-status {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-pk-reg-status {
+  font-size: 0.77rem;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.13);
+  color: #fde68a;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+#timesecret-section .ts-pk-reg-status[data-registered="true"] {
+  border-color: #22c55e;
+  background: rgba(22, 163, 74, 0.15);
+  color: #86efac;
+}
+#timesecret-section .ts-modal-recovery-box {
+  padding: 8px 10px;
+  border-radius: 7px;
+  border: 1px dashed #38bdf8;
+  background: rgba(14, 165, 233, 0.12);
+  color: #bae6fd;
+  margin-bottom: 10px;
+}
+
+/* Light Mode Overrides for Time Secret v2.12.0 */
+html.light .cm-legacy #timesecret-section .ts-radio-chip {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+html.light .cm-legacy #timesecret-section .ts-preset-time-btn.is-active,
+html.light .cm-legacy #timesecret-section .ts-edit-preset-time-btn.is-active {
+  background: var(--feat-secret-soft) !important;
+  border-color: var(--feat-secret) !important;
+  color: var(--feat-secret-strong) !important;
+}
+html.light .cm-legacy #timesecret-section .ts-preset-test {
+  border-color: #d97706 !important;
+  color: #92400e !important;
+  background: #fffbeb !important;
+}
+html.light .cm-legacy #timesecret-section .ts-test-warn-box {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #92400e;
+}
+html.light .cm-legacy #timesecret-section .ts-deadline-preview {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+  color: #0369a1;
+}
+html.light .cm-legacy #timesecret-section .ts-seed-bind-banner {
+  background: #f0f9ff;
+  border-color: #7dd3fc;
+}
+html.light .cm-legacy #timesecret-section .ts-seed-bind-label {
+  color: #0369a1;
+}
+html.light .cm-legacy #timesecret-section .ts-seed-badge {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+}
+html.light .cm-legacy #timesecret-section .ts-legacy-seed-note {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #334155;
+}
+html.light .cm-legacy #timesecret-section .ts-auth-subcard {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+html.light .cm-legacy #timesecret-section .ts-factor-panel {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+html.light .cm-legacy #timesecret-section .ts-tag-enc {
+  background: #e0f2fe;
+  border-color: #0284c7;
+  color: #075985;
+}
+html.light .cm-legacy #timesecret-section .ts-tag-ci {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #166534;
+}
+html.light .cm-legacy #timesecret-section .ts-tag-mgmt {
+  background: #f3e8ff;
+  border-color: #9333ea;
+  color: #6b21a8;
+}
+html.light .cm-legacy #timesecret-section .ts-pk-reg-status {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #92400e;
+}
+html.light .cm-legacy #timesecret-section .ts-pk-reg-status[data-registered="true"] {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #166534;
+}
+html.light .cm-legacy #timesecret-section .ts-modal-recovery-box {
+  background: #e0f2fe;
+  border-color: #0284c7;
+  color: #0c4a6e;
+}
+
+/* Sub-radio rows and reuse badges for authentication separation */
+.cm-legacy #timesecret-section .ts-sub-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cm-legacy #timesecret-section .ts-chip-sm {
+  font-size: 11px;
+  padding: 4px 10px;
+}
+.cm-legacy #timesecret-section .ts-reuse-badge {
+  font-size: 11.5px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: rgba(0, 255, 170, 0.08);
+  border: 1px solid rgba(0, 255, 170, 0.3);
+  color: #a7f3d0;
+  line-height: 1.45;
+}
+html.light .cm-legacy #timesecret-section .ts-reuse-badge {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+/* =====================================================================
+ * 7. Data Transfer (データ転送: 送信 / 受信 — Light & Dark Mode + Mobile Responsive)
+ * ===================================================================== */
+/* 7-tab grid balance: on 2-column mobile grid, let the 7th tab span full width cleanly */
+@media (max-width: 639px) {
+  .cm-tablist > .cm-tab:nth-child(7):last-child {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 640px) {
+  .cm-tablist {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+#datatransfer-section {
+  padding: 18px;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+#datatransfer-section [hidden] {
+  display: none !important;
+}
+#datatransfer-section .dt-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+#datatransfer-section .dt-title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+#datatransfer-section .dt-title svg.cm-tab-ico {
+  color: var(--accent);
+}
+#datatransfer-section .dt-lead {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  line-height: 1.55;
+  margin: 0 0 14px 0;
+}
+
+/* State Pill Badge */
+#datatransfer-section .dt-state-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.77rem;
+  font-weight: 700;
+  font-family: var(--font-ui);
+  white-space: nowrap;
+  border: 1px solid var(--border-color) !important;
+  background: var(--surface-sub) !important;
+  color: var(--text-main) !important;
+}
+#datatransfer-section .dt-state-pill[data-state="READY"],
+#datatransfer-section .dt-state-pill[data-state="COMPLETED"] {
+  background: rgba(22, 163, 74, 0.18) !important;
+  border-color: #22c55e !important;
+  color: #4ade80 !important;
+}
+#datatransfer-section .dt-state-pill[data-state="SENDING"],
+#datatransfer-section .dt-state-pill[data-state="SCANNING"],
+#datatransfer-section .dt-state-pill[data-state="PREPARING"] {
+  background: rgba(14, 165, 233, 0.2) !important;
+  border-color: #38bdf8 !important;
+  color: #7dd3fc !important;
+}
+#datatransfer-section .dt-state-pill[data-state="RECOVERING"],
+#datatransfer-section .dt-state-pill[data-state="PAUSED"] {
+  background: rgba(245, 158, 11, 0.2) !important;
+  border-color: #f59e0b !important;
+  color: #fcd34d !important;
+}
+#datatransfer-section .dt-state-pill[data-state="ERROR"] {
+  background: rgba(220, 38, 38, 0.22) !important;
+  border-color: #ef4444 !important;
+  color: #fca5a5 !important;
+}
+
+/* Sub-Tab Switcher (送信 / 受信) */
+#datatransfer-section .dt-subtab-bar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-sub);
+  margin-bottom: 14px;
+}
+#datatransfer-section .dt-subtab-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+#datatransfer-section .dt-subtab-btn:hover {
+  border-color: var(--border-color);
+  background: rgba(148, 163, 184, 0.08);
+}
+#datatransfer-section .dt-subtab-btn.is-active {
+  background: rgba(52, 245, 138, 0.14) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 16px -6px rgba(52, 245, 138, 0.45);
+}
+#datatransfer-section .dt-subtab-main {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+#datatransfer-section .dt-subtab-btn.is-active .dt-subtab-main {
+  color: var(--accent);
+}
+#datatransfer-section .dt-subtab-sub {
+  font-size: 0.73rem;
+  color: var(--text-sub);
+  line-height: 1.3;
+}
+
+/* Status Bar */
+#datatransfer-section .dt-status-bar {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  border: 1px solid var(--border-color) !important;
+  background: var(--surface-sub) !important;
+  color: var(--text-main) !important;
+}
+#datatransfer-section .dt-status-bar.dt-status-ok {
+  border-color: #16a34a !important;
+  background: rgba(22, 163, 74, 0.14) !important;
+  color: #86efac !important;
+}
+#datatransfer-section .dt-status-bar.dt-status-info {
+  border-color: #0284c7 !important;
+  background: rgba(14, 165, 233, 0.14) !important;
+  color: #bae6fd !important;
+}
+#datatransfer-section .dt-status-bar.dt-status-warn {
+  border-color: #d97706 !important;
+  background: rgba(217, 119, 6, 0.16) !important;
+  color: #fde68a !important;
+}
+#datatransfer-section .dt-status-bar.dt-status-err {
+  border-color: #dc2626 !important;
+  background: rgba(220, 38, 38, 0.18) !important;
+  color: #fca5a5 !important;
+}
+
+/* Cards & Fields */
+#datatransfer-section .dt-card {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-sub);
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+#datatransfer-section .dt-card-title {
+  margin: 0 0 10px 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+#datatransfer-section .dt-field {
+  margin-bottom: 10px;
+}
+#datatransfer-section .dt-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--text-main);
+}
+#datatransfer-section textarea,
+#datatransfer-section input[type="text"],
+#datatransfer-section input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border-color);
+  font-size: 0.84rem;
+  font-family: var(--font-ui);
+}
+#datatransfer-section .dt-hint {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  line-height: 1.45;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+
+/* File Dropzone & Chip */
+#datatransfer-section .dt-dropzone {
+  padding: 12px;
+  border-radius: 9px;
+  border: 1.5px dashed var(--border-color);
+  background: rgba(15, 23, 42, 0.4);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+#datatransfer-section .dt-dropzone.is-dragover {
+  border-color: var(--accent);
+  background: rgba(52, 245, 138, 0.1);
+}
+#datatransfer-section .dt-dropzone-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+#datatransfer-section .dt-file-input {
+  max-width: 100%;
+  font-size: 0.8rem;
+}
+#datatransfer-section .dt-file-chip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid #0284c7;
+  background: rgba(14, 165, 233, 0.14);
+  font-size: 0.8rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* Settings Grid & Sliders */
+#datatransfer-section .dt-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 640px) {
+  #datatransfer-section .dt-settings-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+#datatransfer-section .dt-setting-box {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  min-width: 0;
+}
+#datatransfer-section .dt-setting-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 0.81rem;
+  font-weight: 700;
+}
+#datatransfer-section .dt-setting-val {
+  font-family: var(--font-ui);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+#datatransfer-section .dt-slider {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+  margin: 4px 0;
+}
+#datatransfer-section .dt-chunk-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#datatransfer-section .dt-chunk-num {
+  width: 82px !important;
+  flex: 0 0 82px;
+  text-align: right;
+  padding: 5px 7px !important;
+}
+
+/* Buttons */
+#datatransfer-section .dt-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+#datatransfer-section .dt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-main);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+#datatransfer-section .dt-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+#datatransfer-section .dt-btn:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+#datatransfer-section .dt-btn-sm {
+  padding: 7px 11px;
+  font-size: 0.78rem;
+}
+#datatransfer-section .dt-btn-primary {
+  background: #15803d !important;
+  border-color: #16a34a !important;
+  color: #ffffff !important;
+}
+#datatransfer-section .dt-btn-play {
+  background: #0369a1 !important;
+  border-color: #38bdf8 !important;
+  color: #ffffff !important;
+}
+#datatransfer-section .dt-btn-danger {
+  background: #b91c1c !important;
+  border-color: #f87171 !important;
+  color: #ffffff !important;
+}
+
+/* Stage Header */
+#datatransfer-section .dt-stage-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+#datatransfer-section .dt-stage-tip {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+}
+
+/* QR Display Stage & Camera Stage (Smartphone Vertical Screen Friendly) */
+#datatransfer-section .dt-qr-stage {
+  position: relative;
+  width: min(100%, 420px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 12px auto;
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  background: #ffffff !important;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 8px 26px -12px rgba(0, 0, 0, 0.45);
+}
+#datatransfer-section #dt-tx-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  image-rendering: pixelated;
+  background: #ffffff !important;
+}
+#datatransfer-section .dt-camera-stage {
+  position: relative;
+  width: min(100%, 480px);
+  aspect-ratio: 4 / 3;
+  margin: 10px auto 12px auto;
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  background: #070b14;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 640px) {
+  #datatransfer-section {
+    padding: 12px;
+  }
+  #datatransfer-section .dt-qr-stage {
+    width: 100%;
+    max-width: min(100%, 380px);
+    padding: 8px;
+  }
+  #datatransfer-section .dt-camera-stage {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+  #datatransfer-section .dt-action-row .dt-btn {
+    flex: 1 1 calc(50% - 6px);
+  }
+}
+#datatransfer-section #dt-camera {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+#datatransfer-section .dt-stage-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+  background: var(--card-bg);
+  color: var(--text-main);
+  z-index: 2;
+}
+#datatransfer-section .dt-placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+#datatransfer-section .dt-placeholder-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+#datatransfer-section .dt-placeholder-sub {
+  font-size: 0.77rem;
+  color: var(--text-sub);
+  max-width: 290px;
+  line-height: 1.45;
+}
+#datatransfer-section .dt-play-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: rgba(15, 23, 42, 0.88) !important;
+  color: #fde68a !important;
+  border: 1px solid #f59e0b !important;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Progress Bar */
+#datatransfer-section .dt-progress-track {
+  width: 100%;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--border-color);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+#datatransfer-section .dt-progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--cyan, #38d6f5));
+  transition: width 0.12s ease;
+}
+
+/* Stats Grid */
+#datatransfer-section .dt-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+@media (max-width: 560px) {
+  #datatransfer-section .dt-stats-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+#datatransfer-section .dt-stat-item {
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  min-width: 0;
+}
+#datatransfer-section .dt-stat-label {
+  font-size: 0.72rem;
+  color: var(--text-sub);
+  margin-bottom: 3px;
+}
+#datatransfer-section .dt-stat-value {
+  font-size: 0.86rem;
+  font-weight: 700;
+  font-family: var(--font-ui);
+  color: var(--text-main);
+  overflow-wrap: anywhere;
+}
+
+/* Block Map */
+#datatransfer-section .dt-blockmap-box {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+}
+#datatransfer-section .dt-blockmap-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+#datatransfer-section .dt-blockmap-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+#datatransfer-section .dt-blockmap-legend {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: var(--text-sub);
+}
+#datatransfer-section .dt-legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+#datatransfer-section .dt-dot-direct { background: #20d69a; }
+#datatransfer-section .dt-dot-recovered { background: #ffc247; }
+#datatransfer-section .dt-dot-missing { background: #334155; }
+#datatransfer-section .dt-blockmap-canvas {
+  width: 100%;
+  height: auto;
+  min-height: 18px;
+  max-height: 140px;
+  display: block;
+  border-radius: 4px;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+/* Compatibility Mode Row */
+#datatransfer-section .dt-compat-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+}
+#datatransfer-section .dt-compat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.79rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-main);
+}
+#datatransfer-section .dt-scanner-badge {
+  font-size: 0.74rem;
+  font-family: var(--font-ui);
+  color: var(--text-sub);
+}
+
+/* Completion Card */
+#datatransfer-section .dt-completion-card {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1.5px solid #22c55e;
+  background: rgba(22, 163, 74, 0.1);
+  margin-bottom: 14px;
+}
+#datatransfer-section .dt-completion-header {
+  margin-bottom: 10px;
+}
+#datatransfer-section .dt-completion-badge {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #4ade80;
+}
+
+/* ===== Light Mode Overrides for Data Transfer ===== */
+html.light .cm-legacy #datatransfer-section .dt-state-pill {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-state-pill[data-state="READY"],
+html.light .cm-legacy #datatransfer-section .dt-state-pill[data-state="COMPLETED"] {
+  background: #dcfce7 !important;
+  border-color: #16a34a !important;
+  color: #166534 !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-state-pill[data-state="SENDING"],
+html.light .cm-legacy #datatransfer-section .dt-state-pill[data-state="SCANNING"],
+html.light .cm-legacy #datatransfer-section .dt-state-pill[data-state="PREPARING"] {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+  color: #075985 !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-state-pill[data-state="RECOVERING"],
+html.light .cm-legacy #datatransfer-section .dt-state-pill[data-state="PAUSED"] {
+  background: #fef3c7 !important;
+  border-color: #d97706 !important;
+  color: #92400e !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-state-pill[data-state="ERROR"] {
+  background: #fee2e2 !important;
+  border-color: #dc2626 !important;
+  color: #991b1b !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-subtab-bar {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+html.light .cm-legacy #datatransfer-section .dt-subtab-btn {
+  background: transparent;
+  color: var(--text-main);
+}
+html.light .cm-legacy #datatransfer-section .dt-subtab-btn.is-active {
+  background: var(--feat-transfer-soft) !important;
+  border-color: var(--feat-transfer) !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+html.light .cm-legacy #datatransfer-section .dt-subtab-btn.is-active .dt-subtab-main {
+  color: #075985 !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-status-bar {
+  background: var(--bg-main) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-status-bar.dt-status-ok {
+  background: var(--success-bg) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-status-bar.dt-status-info {
+  background: var(--feat-transfer-soft) !important;
+  border-color: var(--feat-transfer) !important;
+  color: var(--feat-transfer-strong) !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-status-bar.dt-status-warn {
+  background: var(--warning-bg) !important;
+  border-color: var(--warning) !important;
+  color: var(--warning) !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-status-bar.dt-status-err {
+  background: var(--danger-bg) !important;
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-dropzone {
+  background: var(--card-bg);
+  border-color: var(--border-strong);
+}
+html.light .cm-legacy #datatransfer-section .dt-file-chip {
+  background: var(--feat-transfer-soft);
+  border-color: var(--feat-transfer);
+  color: var(--feat-transfer-strong);
+}
+html.light .cm-legacy #datatransfer-section .dt-btn {
+  background: var(--card-bg);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+html.light .cm-legacy #datatransfer-section .dt-btn-primary,
+html.light .cm-legacy #datatransfer-section .dt-btn-primary * {
+  background: var(--accent-strong) !important;
+  border-color: var(--accent-strong) !important;
+  color: #ffffff !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-btn-play,
+html.light .cm-legacy #datatransfer-section .dt-btn-play * {
+  background: var(--feat-transfer-strong) !important;
+  border-color: var(--feat-transfer-strong) !important;
+  color: #ffffff !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-btn-danger,
+html.light .cm-legacy #datatransfer-section .dt-btn-danger * {
+  background: var(--danger) !important;
+  border-color: var(--danger) !important;
+  color: #ffffff !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-stage-placeholder {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+html.light .cm-legacy #datatransfer-section .dt-camera-stage {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+html.light .cm-legacy #datatransfer-section .dt-completion-card {
+  background: #f0fdf4;
+  border-color: #16a34a;
+}
+html.light .cm-legacy #datatransfer-section .dt-completion-badge {
+  color: #15803d !important;
+}
+html.light .cm-legacy #datatransfer-section .dt-dot-direct { background: #10b981; }
+html.light .cm-legacy #datatransfer-section .dt-dot-recovered { background: #f59e0b; }
+html.light .cm-legacy #datatransfer-section .dt-dot-missing { background: #cbd5e1; }
+
+
+
+/* Unit 1 (2026-11-07): legacy hero demoted to a section heading; the shell title is canonical */
+.cm-legacy .container h2.cm-legacy-hero-title { font-size: 1.06rem; font-weight: 700; line-height: 1.3; margin: 0 0 3px; text-align: left; letter-spacing: 0.02em; }
+
+/* =====================================================================
+ * Unit 3 (2026-11-07): button geometry unification
+ * Radius and padding only — colours, borders and hover states keep
+ * each area's identity. Buttons with inline padding styles keep
+ * their local tuning (inline styles win over these rules).
+ * ===================================================================== */
+:root {
+  --cm-btn-radius: 8px;
+  --cm-btn-pad: 9px 15px;
+  --cm-btn-sm-pad: 7px 12px;
+}
+.cm-legacy .btn { border-radius: var(--cm-btn-radius); padding: var(--cm-btn-pad); }
+#timesecret-section .ts-btn { border-radius: var(--cm-btn-radius); padding: var(--cm-btn-pad); }
+#datatransfer-section .dt-btn { border-radius: var(--cm-btn-radius); padding: var(--cm-btn-pad); }
+#timesecret-section .ts-btn-sm { padding: var(--cm-btn-sm-pad); }
+#datatransfer-section .dt-btn-sm { padding: var(--cm-btn-sm-pad); }
+
+/* =====================================================================
+ * Unit 4 (2026-11-07): mobile touch targets & small-screen layout
+ * Everything below applies only to touch devices or narrow screens;
+ * the desktop layout is untouched.
+ * ===================================================================== */
+@media (pointer: coarse) {
+  /* Standard buttons reach a 44px touch height (inline paddings kept). */
+  .cm-legacy .btn, #timesecret-section .ts-btn, #datatransfer-section .dt-btn { min-height: 44px; }
+  #timesecret-section .ts-btn-sm, #datatransfer-section .dt-btn-sm { min-height: 38px; }
+  /* Sticky password bar controls: taller and easier to read. */
+  #sticky-controls-bar .btn { min-height: 42px; padding: 7px 12px; font-size: 0.82rem; }
+  /* Help (?) buttons: 17px -> 28px hit area (inline in text, so not full 44px). */
+  .cm-legacy .help-btn { width: 28px; height: 28px; }
+  /* Header tools and feature-map chips get comfortable heights too. */
+  .cm-btn { height: 40px; min-height: 40px; }
+  .cm-map-chip { min-height: 42px; }
+}
+@media (max-width: 820px) {
+  /* Keep form controls at 16px so iOS Safari does not auto-zoom on focus. */
+  .cm-legacy input, .cm-legacy select, .cm-legacy textarea,
+  #timesecret-section input, #timesecret-section select, #timesecret-section textarea,
+  #datatransfer-section input, #datatransfer-section select, #datatransfer-section textarea { font-size: 16px !important; }
+  /* Sticky bar goes full-bleed on phones; its controls scroll sideways
+     instead of wrapping into a tall stack. */
+  #sticky-pw-bar { left: 0; right: 0; bottom: 0; border-radius: 12px 12px 0 0; }
+  #sticky-controls-bar { display: flex !important; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; max-width: 100%; -webkit-overflow-scrolling: touch; }
+  #sticky-controls-bar::-webkit-scrollbar { display: none; }
+  #sticky-controls-bar .btn { flex: none; }
+}
+
+/* Unit 5 (2026-11-07): subsection rhythm inside section cards */
+.cm-legacy .section-card h3 { font-size: 0.98rem; line-height: 1.4; margin: 18px 0 8px; }
+
+/* ===== Guide card collapse toggle (v3.0.2) ===== */
+.guide-toggle-btn { display: inline-flex; align-items: center; gap: 5px; background: transparent; border: 1px solid var(--border-color); color: var(--text-sub); border-radius: 999px; padding: 5px 12px; font-size: 0.76rem; font-weight: 600; cursor: pointer; font-family: inherit; }
+.guide-toggle-btn:hover { color: var(--text-main); border-color: var(--accent); }
+.guide-toggle-ico { transition: transform .18s ease; font-size: 0.7rem; }
+.verbal-guide-card.guide-collapsed .verbal-guide-list { display: none; }
+.verbal-guide-card.guide-collapsed .cm-guide-hero { display: none; }
+.cm-guide-hero { text-align: center; }
+.cm-feature-img-sm { display: block; width: 54px; height: 54px; object-fit: contain; margin: 4px 0 10px; }
+.cm-feature-img-lg { display: block; width: 160px; height: 160px; max-width: 60%; object-fit: contain; margin: 10px auto; }
+.help-popover-img { display: block; width: 150px; height: 150px; object-fit: contain; margin: 8px auto 4px; }
+.help-popover-img[hidden] { display: none; }
+.cm-qr-side-row { display: flex; align-items: center; gap: 8px; }
+.cm-qr-side { flex: 0 0 auto; }
+.cm-qr-side img { width: 180px; height: 180px; object-fit: contain; display: block; }
+.cm-qr-side-row #seed-qr-list, .cm-qr-side-row #bq-qr-list { flex: 1 1 auto; min-width: 0; }
+@media (max-width: 639px) { .cm-qr-side img { width: 88px; height: 88px; } .cm-qr-side-row { gap: 6px; } }
+.verbal-guide-card.guide-collapsed .guide-toggle-ico { transform: rotate(-90deg); }
+.verbal-guide-card.guide-collapsed .verbal-guide-header { margin-bottom: 0; }
+@media (pointer: coarse) { .guide-toggle-btn { min-height: 38px; padding: 7px 14px; } }
+@media (max-width: 520px) { .guide-toggle-btn { align-self: flex-end; } }
+
+/* Backup / encryption nested page navigation */
+.cm-subtab-bar {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.cm-subtab-bar-inner { margin-top: 2px; }
+.cm-subtab-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 9px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--text-sub);
+  font: inherit;
+  font-size: .86rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.cm-subtab-btn:hover { border-color: var(--accent); color: var(--text-main); }
+.cm-subtab-btn.is-active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+html.light .cm-subtab-btn.is-active {
+  border-color: #1f6fc4;
+  background: #1f6fc4;
+}
+.cm-subtab-panel[hidden] { display: none !important; }
+@media (pointer: coarse) {
+  .cm-subtab-btn { min-height: 44px; }
+}
+
+/* BIP39 recovery phrase: the outer container spans the full card width.
+   The generated .seed-words-grid owns the responsive columns. */
+#seed-words-container {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+#seed-words-container > .seed-words-grid,
+#seed-words-container .seed-words-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  gap: 6px !important;
+  box-sizing: border-box !important;
+}
+#seed-words-container .seed-chip {
+  display: grid !important;
+  grid-template-columns: max-content minmax(0, 1fr) !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  container-type: inline-size;
+}
+#seed-words-container .seed-num {
+  white-space: nowrap !important;
+  font-size: 0.62rem !important;
+  line-height: 1.1 !important;
+}
+#seed-words-container .seed-txt {
+  display: block !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  font-size: clamp(0.58rem, 8.5cqi, 0.92rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.025em !important;
+}
+@media (max-width: 820px) {
+  #seed-words-container > .seed-words-grid,
+  #seed-words-container .seed-words-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* ===== Action button groups (button layout Unit A) ===== */
+.bq-action-group { margin: 12px 0 4px; }
+.bq-action-group-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; color: var(--text-sub); margin-bottom: 2px; }
+.bq-action-group .bq-row { margin: 4px 0 8px; }
+.bq-action-group-manage .bq-row { justify-content: flex-end; }
+
+#section-bip39-plain .bq-action-group .bq-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* ===== Unit D3-1: backup restore step indicator + verified block ===== */
+.cm-restore-steps { margin: 12px 0 4px; }
+.cm-restore-steps-title { font-size: 0.8rem; font-weight: 700; color: var(--text-sub); margin-bottom: 6px; }
+.cm-steps-list { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.cm-step { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1.5px solid var(--border-color); border-radius: 999px; font-size: 0.8rem; color: var(--text-sub); }
+.cm-step-badge { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--border-color); color: #0b1220; font-size: 0.72rem; font-weight: 700; flex: none; }
+.cm-step-arrow { color: var(--text-sub); font-size: 0.8rem; }
+.cm-step.is-current { border-color: #38bdf8; color: var(--text-main); font-weight: 700; }
+.cm-step.is-current .cm-step-badge { background: #38bdf8; }
+.cm-step.is-done { border-color: #10b981; color: var(--text-main); }
+.cm-step.is-done .cm-step-badge { background: #10b981; color: #ffffff; }
+.cm-step.is-processing { border-color: #f59e0b; color: var(--text-main); }
+.cm-step.is-processing .cm-step-badge { background: #f59e0b; animation: cm-step-pulse 1.2s ease-in-out infinite; }
+.cm-step.is-error { border-color: #ef4444; color: var(--text-main); }
+.cm-step.is-error .cm-step-badge { background: #ef4444; color: #ffffff; }
+@keyframes cm-step-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+.bq-verified-divider { border-top: 1.5px dashed var(--border-color); margin: 14px 0 8px; }
+.bq-verified-head { font-size: 0.88rem; font-weight: 700; color: #34d399; margin-bottom: 6px; }
+/* Unit D3-4: field error highlight + fix hint (not color-only: the hint
+   text under the field explains what to fix). */
+.cm-field-invalid { border-color: #f87171 !important; box-shadow: 0 0 0 1px #f87171 !important; }
+.cm-field-hint { color: #fca5a5; font-size: 0.78rem; font-weight: 600; line-height: 1.5; margin-top: 4px; }
+
+/* ===== ビジュアル改善: 状態を伝えるインラインSVG（色はテーマ変数で制御） ===== */
+.cm-visual { display: inline-block; flex: none; }
+.cm-visual-bg { fill: var(--surface-sub); }
+.cm-visual-card { fill: var(--card-bg); }
+.cm-visual-secret { color: var(--feat-secret); }
+html.light .cm-legacy .cm-visual-secret { color: var(--feat-secret-strong); }
+.cm-visual-capsule { color: var(--feat-capsule); }
+.cm-visual-transfer { color: var(--feat-transfer); }
+html.light .cm-legacy .cm-visual-transfer { color: var(--feat-transfer-strong); }
+html.light .cm-legacy .cm-visual-capsule { color: var(--feat-capsule); }
+html.light .cm-legacy .cm-guide-icon { color: inherit; }
+.ts-empty-visual { margin-bottom: 10px; }
+.tl-visual-inline { vertical-align: -9px; margin-right: 6px; }
+#datatransfer-section .dt-placeholder-icon svg { display: block; }
+.cm-guide-icon { vertical-align: -3px; margin-right: 6px; }
+
+
+/* ============================================================================
+ * GENERATIONAL REDESIGN: WHITE HACKER (LIGHT) × BLACK HACKER (DARK)
+ * Complete architectural & visual system for CryptoMatrix
+ * ============================================================================ */
+
+/* 1. Global Chassis & Subtle Technical Grid */
+html:not(.light) body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(30, 58, 95, 0.14) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(30, 58, 95, 0.14) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+html.light body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(148, 163, 184, 0.16) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+.cm-app > *:not(.cm-mobile-dock):not(#sticky-pw-bar) { position: relative; z-index: 1; }
+
+
+
+/* 2. Left Deck Control Header (.cm-deck-header) */
+.cm-legacy .cm-deck-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background-color: #09101a !important;
+  border: 1px solid #1e2d42 !important;
+  border-left: 4px solid #38bdf8 !important;
+}
+html.light .cm-legacy .cm-deck-header {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-left: 4px solid #0284c7 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05) !important;
+}
+.cm-legacy .cm-deck-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1 1 240px;
+}
+.cm-legacy .cm-deck-eyebrow {
+  font-family: "Fira Code", ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #38bdf8 !important;
+  line-height: 1.2;
+}
+html.light .cm-legacy .cm-deck-eyebrow {
+  color: #0369a1 !important;
+}
+.cm-legacy .container h2.cm-legacy-hero-title {
+  font-size: 0.98rem !important;
+  font-weight: 800 !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+  color: #f8fafc !important;
+}
+html.light .cm-legacy .container h2.cm-legacy-hero-title {
+  color: #0f172a !important;
+}
+.cm-legacy .container .subtitle {
+  font-size: 0.72rem !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+  color: #94a3b8 !important;
+  text-align: left !important;
+}
+html.light .cm-legacy .container .subtitle {
+  color: #334155 !important;
+}
+
+.cm-legacy .cm-deck-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cm-legacy .cm-deck-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Compact Hardware Seed Register (.seed-bar) */
+.cm-legacy .seed-bar {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  background-color: #060a10 !important;
+  border: 1px solid #263850 !important;
+}
+html.light .cm-legacy .seed-bar {
+  background-color: #f1f5f9 !important;
+  border: 1px solid #94a3b8 !important;
+}
+.cm-legacy .seed-bar label {
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  color: #cbd5e1 !important;
+  white-space: nowrap;
+  margin: 0 !important;
+}
+html.light .cm-legacy .seed-bar label {
+  color: #0f172a !important;
+}
+.cm-legacy #input-seed-number {
+  width: 110px !important;
+  min-width: 80px !important;
+  max-width: 150px !important;
+  padding: 4px 8px !important;
+  font-family: "Fira Code", ui-monospace, monospace !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-align: center;
+  border-radius: 4px !important;
+  background-color: #0b1320 !important;
+  color: #00ff88 !important;
+  border: 1px solid #10b981 !important;
+}
+html.light .cm-legacy #input-seed-number {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #0284c7 !important;
+}
+
+/* Guarded Emergency Zeroize Switch (#btn-zeroize) */
+html:not(.light) .cm-legacy #btn-zeroize,
+.cm-legacy #btn-zeroize {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 6px 11px !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em !important;
+  border-radius: 6px !important;
+  background-color: #4c0519 !important;
+  background-image: linear-gradient(180deg, #650922 0%, #3b0514 100%) !important;
+  color: #ffe4e6 !important;
+  border: 1.5px solid #f43f5e !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+html:not(.light) .cm-legacy #btn-zeroize *,
+.cm-legacy #btn-zeroize * {
+  color: #ffe4e6 !important;
+}
+html:not(.light) .cm-legacy #btn-zeroize:hover,
+.cm-legacy #btn-zeroize:hover {
+  background-color: #be123c !important;
+  color: #ffffff !important;
+  border-color: #fda4af !important;
+}
+html.light .cm-legacy #btn-zeroize {
+  background-color: #b91c1c !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: 1.5px solid #7f1d1d !important;
+  box-shadow: 0 1px 2px rgba(185, 28, 28, 0.25) !important;
+}
+html.light .cm-legacy #btn-zeroize * {
+  color: #ffffff !important;
+}
+html.light .cm-legacy #btn-zeroize:hover {
+  background-color: #991b1b !important;
+}
+
+/* 3. MATRIX STAGE: Precision Instrument Core (.matrix-stage) */
+html:not(.light) .cm-board .matrix-stage {
+  background-color: #070b12 !important;
+  background-image: radial-gradient(120% 80% at 50% 0%, rgba(16, 185, 129, 0.07), transparent 65%) !important;
+  border: 1.5px solid #1e324a !important;
+  border-top: 2px solid #10b981 !important;
+  border-radius: 10px !important;
+  padding: 10px 12px 12px !important;
+  margin-bottom: 10px !important;
+  box-shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(56, 189, 248, 0.08) !important;
+}
+html.light .cm-board .matrix-stage {
+  background-color: #f8fafc !important;
+  background-image: none !important;
+  border: 1.5px solid #94a3b8 !important;
+  border-top: 3px solid #0284c7 !important;
+  border-radius: 10px !important;
+  padding: 10px 12px 12px !important;
+  margin-bottom: 10px !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.07), inset 0 1px 0 #ffffff !important;
+}
+html:not(.light) .cm-board .matrix-stage::after {
+  display: none !important;
+}
+
+/* Matrix Bezel Telemetry Bar (.cm-matrix-bezel-bar) */
+.cm-legacy .cm-matrix-bezel-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 4px 8px;
+  margin-bottom: 6px;
+  border-radius: 5px;
+  background-color: #0b1320 !important;
+  border: 1px solid #1a2a3e !important;
+  font-family: "Fira Code", ui-monospace, monospace;
+}
+html.light .cm-legacy .cm-matrix-bezel-bar {
+  background-color: #e2e8f0 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+.cm-legacy .cm-bezel-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cm-legacy .cm-bezel-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #00ff88 !important;
+  box-shadow: 0 0 6px #00ff88;
+}
+html.light .cm-legacy .cm-bezel-led {
+  background-color: #047857 !important;
+  box-shadow: none;
+}
+.cm-legacy .cm-bezel-code {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #cbd5e1 !important;
+}
+html.light .cm-legacy .cm-bezel-code {
+  color: #1e293b !important;
+}
+.cm-legacy .cm-bezel-legend {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.cm-legacy .cm-legend-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.cm-legacy .cm-legend-item.cm-leg-tl {
+  color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.cm-legacy .cm-legend-item.cm-leg-tr {
+  color: #c084fc !important;
+  background: rgba(192, 132, 252, 0.1);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+.cm-legacy .cm-legend-item.cm-leg-center {
+  color: #f8fafc !important;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.cm-legacy .cm-legend-item.cm-leg-bl {
+  color: #34d399 !important;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+}
+.cm-legacy .cm-legend-item.cm-leg-br {
+  color: #fbbf24 !important;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+html.light .cm-legacy .cm-legend-item.cm-leg-tl {
+  color: #0369a1 !important;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+}
+html.light .cm-legacy .cm-legend-item.cm-leg-tr {
+  color: #6d28d9 !important;
+  background: #f3e8ff;
+  border: 1px solid #e9d5ff;
+}
+html.light .cm-legacy .cm-legend-item.cm-leg-center {
+  color: #0f172a !important;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+}
+html.light .cm-legacy .cm-legend-item.cm-leg-bl {
+  color: #047857 !important;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+}
+html.light .cm-legacy .cm-legend-item.cm-leg-br {
+  color: #b45309 !important;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+}
+.cm-legacy .cm-bezel-help-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #111e30;
+  border: 1px solid #2b4566;
+  color: #38bdf8;
+  transition: all 0.15s ease;
+}
+.cm-legacy .cm-bezel-help-btn:hover {
+  background: #192d47;
+  border-color: #38bdf8;
+}
+html.light .cm-legacy .cm-bezel-help-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #026aa1;
+}
+html.light .cm-legacy .cm-bezel-help-btn:hover {
+  background: #e2e8f0;
+  border-color: #026aa1;
+}
+
+/* 1マス（セル）の文字構成図パネル (.cm-cell-layout-card) */
+.cm-cell-layout-card {
+  margin-bottom: 8px;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+html:not(.light) .cm-cell-layout-card {
+  background: #090e18;
+  border: 1px solid #1a2a3e;
+  border-left: 3px solid #38bdf8;
+  color: #e2e8f0;
+}
+html.light .cm-cell-layout-card {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3px solid #0284c7;
+  color: #1e293b;
+}
+.cm-cell-layout-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+html.light .cm-cell-layout-head {
+  border-bottom-color: #e2e8f0;
+}
+.cm-cell-layout-title-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.cm-cell-layout-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38bdf8;
+}
+html.light .cm-cell-layout-dot {
+  background: #0284c7;
+}
+.cm-cell-layout-close {
+  background: transparent;
+  border: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-sub, #94a3b8);
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.cm-cell-layout-close:hover {
+  color: #ef4444;
+}
+.cm-cell-layout-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 640px) {
+  .cm-cell-layout-body {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+.cm-cell-preview-box {
+  width: 140px;
+  aspect-ratio: 1 / 0.85;
+  position: relative;
+  border-radius: 6px;
+  padding: 4px;
+}
+html:not(.light) .cm-cell-preview-box {
+  background: #0c1420;
+  border: 1px solid #1f334d;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+html.light .cm-cell-preview-box {
+  background: #ffffff;
+  border: 1px solid #94a3b8;
+  border-bottom: 2px solid #64748b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.cm-prev-corner, .cm-prev-center {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.cm-prev-corner.cm-prev-tl { top: 4px; left: 6px; text-align: left; }
+.cm-prev-corner.cm-prev-tr { top: 4px; right: 6px; text-align: right; }
+.cm-prev-corner.cm-prev-bl { bottom: 4px; left: 6px; text-align: left; }
+.cm-prev-corner.cm-prev-br { bottom: 4px; right: 6px; text-align: right; }
+.cm-prev-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.cm-prev-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: inherit;
+}
+.cm-prev-center .cm-prev-val {
+  font-size: 1.4rem;
+}
+.cm-prev-tag {
+  font-size: 0.55rem;
+  font-weight: 700;
+  opacity: 0.85;
+}
+.cm-prev-sub {
+  display: none;
+}
+.cm-prev-tl .cm-prev-val { color: #38bdf8; }
+.cm-prev-tr .cm-prev-val { color: #c084fc; }
+.cm-prev-center .cm-prev-val { color: #f8fafc; }
+.cm-prev-bl .cm-prev-val { color: #34d399; }
+.cm-prev-br .cm-prev-val { color: #fbbf24; }
+html.light .cm-prev-tl .cm-prev-val { color: #0369a1; }
+html.light .cm-prev-tr .cm-prev-val { color: #6d28d9; }
+html.light .cm-prev-center .cm-prev-val { color: #0f172a; }
+html.light .cm-prev-bl .cm-prev-val { color: #047857; }
+html.light .cm-prev-br .cm-prev-val { color: #b45309; }
+
+.cm-cell-layout-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cm-cell-layout-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+@media (max-width: 500px) {
+  .cm-cell-layout-list li {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+.cm-leg-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.cm-leg-chip.cm-leg-tl { color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); }
+.cm-leg-chip.cm-leg-tr { color: #c084fc; background: rgba(192, 132, 252, 0.12); border: 1px solid rgba(192, 132, 252, 0.35); }
+.cm-leg-chip.cm-leg-center { color: #f8fafc; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.25); }
+.cm-leg-chip.cm-leg-bl { color: #34d399; background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.4); }
+.cm-leg-chip.cm-leg-br { color: #fbbf24; background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.35); }
+html.light .cm-leg-chip.cm-leg-tl { color: #0369a1; background: #e0f2fe; border: 1px solid #bae6fd; }
+html.light .cm-leg-chip.cm-leg-tr { color: #6d28d9; background: #f3e8ff; border: 1px solid #e9d5ff; }
+html.light .cm-leg-chip.cm-leg-center { color: #0f172a; background: #f1f5f9; border: 1px solid #cbd5e1; }
+html.light .cm-leg-chip.cm-leg-bl { color: #047857; background: #dcfce7; border: 1px solid #bbf7d0; }
+html.light .cm-leg-chip.cm-leg-br { color: #b45309; background: #fef3c7; border: 1px solid #fde68a; }
+
+.cm-cell-layout-list p {
+  margin: 0;
+  color: #94a3b8;
+}
+html.light .cm-cell-layout-list p {
+  color: #475569;
+}
+.cm-cell-layout-list p strong {
+  color: #f8fafc;
+}
+html.light .cm-cell-layout-list p strong {
+  color: #0f172a;
+}
+
+/* 4. 8x5 MATRIX KEYCELLS (#div-encrypto-matrix-main & .square) */
+.cm-board .matrix-scroll {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding: 2px 0 6px !important;
+}
+.cm-board #div-encrypto-matrix-main {
+  display: grid !important;
+  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+  gap: 5px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  cursor: pointer !important;
+  user-select: none;
+}
+.cm-board .square {
+  cursor: pointer !important;
+}
+
+/* BLACK HACKER Key Module */
+html:not(.light) .cm-board .square {
+  aspect-ratio: 1 / 0.82 !important;
+  background-color: #0c1420 !important;
+  background-image: linear-gradient(180deg, #111c2d 0%, #0b121e 100%) !important;
+  border: 1px solid #1f334d !important;
+  border-bottom: 2px solid #2b4566 !important;
+  border-radius: 6px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+html:not(.light) .cm-board .square:hover {
+  border-color: #38bdf8 !important;
+  background-color: #111e30 !important;
+  transform: translateY(-1px);
+}
+html:not(.light) .cm-board .center-text {
+  color: #f8fafc !important;
+  font-size: 1.55rem !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+/* Distinct Corner Color Hierarchy in BLACK HACKER */
+html:not(.light) .cm-board .corner-text.top-left:not(.preview-char-spot):not(.start-char-spot):not(.active-char-spot) {
+  color: #38bdf8 !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+}
+html:not(.light) .cm-board .corner-text.top-right:not(.preview-char-spot):not(.start-char-spot):not(.active-char-spot) {
+  color: #c084fc !important;
+  font-size: 0.86rem !important;
+  font-weight: 700 !important;
+}
+html:not(.light) .cm-board .corner-text.bottom-left:not(.preview-char-spot):not(.start-char-spot):not(.active-char-spot) {
+  color: #34d399 !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+}
+html:not(.light) .cm-board .corner-text.bottom-right:not(.preview-char-spot):not(.start-char-spot):not(.active-char-spot) {
+  color: #fbbf24 !important;
+  font-size: 0.86rem !important;
+  font-weight: 700 !important;
+}
+
+/* WHITE HACKER Precision Machined Keycap */
+html.light .cm-board .square {
+  aspect-ratio: 1 / 0.82 !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #94a3b8 !important;
+  border-bottom: 2.5px solid #64748b !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06) !important;
+}
+html.light .cm-board .square:hover {
+  border-color: #0284c7 !important;
+  border-bottom-color: #0369a1 !important;
+  background-color: #f0f9ff !important;
+  transform: translateY(-1px);
+}
+html.light .cm-board .center-text {
+  color: #0f172a !important;
+  font-size: 1.55rem !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+/* Distinct Corner Color Hierarchy in WHITE HACKER */
+html.light .cm-board .corner-text.top-left:not(.preview-char-spot):not(.start-char-spot):not(.active-char-spot) {
+  color: #0369a1 !important;
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+}
+html.light .cm-board .corner-text.top-right:not(.preview-char-spot):not(.start-char-spot):not(.active-char-spot) {
+  color: #6d28d9 !important;
+  font-size: 0.86rem !important;
+  font-weight: 800 !important;
+}
+html.light .cm-board .corner-text.bottom-left:not(.preview-char-spot):not(.start-char-spot):not(.active-char-spot) {
+  color: #047857 !important;
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+}
+html.light .cm-board .corner-text.bottom-right:not(.preview-char-spot):not(.start-char-spot):not(.active-char-spot) {
+  color: #b45309 !important;
+  font-size: 0.86rem !important;
+  font-weight: 800 !important;
+}
+
+/* Active Cell & Laser Spot Illumination */
+html:not(.light) .cm-board #div-encrypto-matrix-main .square.active-tile,
+html:not(.light) .cm-board #div-encrypto-matrix-main .square.stroke-active-tile {
+  background-color: #063922 !important;
+  background-image: linear-gradient(135deg, #073b23 0%, #055833 100%) !important;
+  border: 2px solid #00ff88 !important;
+  box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.35), 0 0 18px rgba(0, 255, 136, 0.5) !important;
+}
+html:not(.light) .cm-board .active-char-spot {
+  background-color: #00ff88 !important;
+  color: #02140a !important;
+  font-weight: 900 !important;
+  box-shadow: 0 0 14px rgba(0, 255, 136, 0.85) !important;
+}
+html.light .cm-board #div-encrypto-matrix-main .square.active-tile,
+html.light .cm-board #div-encrypto-matrix-main .square.stroke-active-tile {
+  background-color: #d1fae5 !important;
+  background-image: none !important;
+  border: 2px solid #047857 !important;
+  border-bottom: 3px solid #065f46 !important;
+  box-shadow: 0 0 0 2px rgba(4, 120, 87, 0.2) !important;
+}
+html.light .cm-board .active-char-spot {
+  background-color: #047857 !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  box-shadow: 0 1px 4px rgba(4, 120, 87, 0.4) !important;
+}
+
+/* 再生ハイライトの拡大 transform が盤面の右端・上端でスクロール領域を広げ、
+   .matrix-scroll に横スクロールバーを出現させてレイアウトをずらすため打ち消す。
+   ハイライト自体は背景・枠・影で維持する（影はスクロール領域を広げない）。 */
+.cm-board #div-encrypto-matrix-main .square.active-tile,
+.cm-board #div-encrypto-matrix-main .square.stroke-active-tile { transform: none !important; }
+.cm-board #div-encrypto-matrix-main .square.fallback-tile,
+.cm-board #div-encrypto-matrix-main .square.stroke-start-tile,
+.cm-board #div-encrypto-matrix-main .square.stroke-preview-tile { transform: none !important; }
+.cm-board .corner-text.active-char-spot { transform: none !important; }
+.cm-board .center-text.active-char-spot { transform: translate(-50%, -50%) !important; }
+
+/* 5. DEDICATED CRYPTOGRAPHIC OUTPUT UNIT & TRACE SWITCH BANK (.live-player-bar) */
+.cm-legacy .live-player-bar {
+  margin-top: 6px !important;
+  padding: 10px !important;
+  border-radius: 8px !important;
+  background-color: #09101b !important;
+  border: 1px solid #1e2d42 !important;
+}
+html.light .cm-legacy .live-player-bar {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+.cm-legacy .live-result-row {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  padding: 0 0 10px 0 !important;
+  margin-bottom: 10px !important;
+  border-top: none !important;
+  border-bottom: 1px solid #1e2d42 !important;
+}
+html.light .cm-legacy .live-result-row {
+  border-bottom: 1px solid #cbd5e1 !important;
+}
+
+.cm-legacy .cm-pw-readout-unit {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: #04070c !important;
+  border: 1px solid #1e3a5f !important;
+  border-left: 4px solid #00ff88 !important;
+}
+html.light .cm-legacy .cm-pw-readout-unit {
+  background-color: #f1f5f9 !important;
+  border: 1px solid #94a3b8 !important;
+  border-left: 4px solid #0284c7 !important;
+}
+
+.cm-legacy .cm-pw-readout-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.cm-legacy .cm-pw-readout-label {
+  font-family: "Fira Code", ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #38bdf8 !important;
+}
+html.light .cm-legacy .cm-pw-readout-label {
+  color: #0369a1 !important;
+}
+
+/* Password Character Readout (#sim-output-pw) */
+.cm-legacy .pw-chars-box {
+  padding: 6px 8px !important;
+  border-radius: 5px !important;
+  background-color: #070d17 !important;
+  border: 1px solid #1a2c44 !important;
+  min-height: 38px !important;
+}
+html.light .cm-legacy .pw-chars-box {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+}
+.cm-legacy .cm-pw-meta-line {
+  font-size: 0.74rem;
+  color: #94a3b8 !important;
+  margin-top: 4px;
+}
+html.light .cm-legacy .cm-pw-meta-line {
+  color: #334155 !important;
+}
+
+/* Trace Action Switch Bank (#trace-controls-bar) */
+.cm-legacy .cm-trace-switch-bank {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+.cm-legacy #trace-controls-bar .btn {
+  width: 100% !important;
+  justify-content: center !important;
+  padding: 6px 10px !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+  line-height: 1.25 !important;
+}
+
+/* Primary Route Execute Button (#btn-play-trace) */
+html:not(.light) .cm-legacy #btn-play-trace,
+html:not(.light) .cm-legacy #btn-sticky-play {
+  background-color: #064e3b !important;
+  background-image: linear-gradient(180deg, #065f46 0%, #064e3b 100%) !important;
+  color: #ecfdf5 !important;
+  border: 1.5px solid #10b981 !important;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.28) !important;
+}
+html:not(.light) .cm-legacy #btn-play-trace:hover:not(:disabled),
+html:not(.light) .cm-legacy #btn-sticky-play:hover:not(:disabled) {
+  background-color: #047857 !important;
+  border-color: #00ff88 !important;
+  color: #ffffff !important;
+}
+html.light .cm-legacy #btn-play-trace,
+html.light .cm-legacy #btn-sticky-play {
+  background-color: #047857 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: 1.5px solid #065f46 !important;
+  box-shadow: 0 1px 3px rgba(4, 120, 87, 0.25) !important;
+}
+html.light .cm-legacy #btn-play-trace:hover:not(:disabled),
+html.light .cm-legacy #btn-sticky-play:hover:not(:disabled) {
+  background-color: #065f46 !important;
+}
+
+/* Copy Password Switch (#btn-copy-pw) */
+html:not(.light) .cm-legacy #btn-copy-pw {
+  background-color: #0c2e47 !important;
+  background-image: linear-gradient(180deg, #0f3857 0%, #0a263b 100%) !important;
+  color: #e0f2fe !important;
+  border: 1.5px solid #0284c7 !important;
+  box-shadow: none !important;
+}
+html:not(.light) .cm-legacy #btn-copy-pw:hover:not(:disabled) {
+  background-color: #0369a1 !important;
+  border-color: #38bdf8 !important;
+  color: #ffffff !important;
+}
+html.light .cm-legacy #btn-copy-pw {
+  background-color: #0369a1 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: 1.5px solid #075985 !important;
+}
+html.light .cm-legacy #btn-copy-pw * {
+  color: #ffffff !important;
+}
+html.light .cm-legacy #btn-copy-pw:hover:not(:disabled) {
+  background-color: #075985 !important;
+}
+html:not(.light) .cm-legacy .bq-select-desc {
+  background-color: #0b1320 !important;
+  color: #cbd5e1 !important;
+  border-color: #1e2d42 !important;
+}
+
+/* Simulation Input Fields (.live-inputs-row) */
+.cm-legacy .live-inputs-row {
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+.cm-legacy .cm-sim-field label {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #cbd5e1 !important;
+  margin-bottom: 3px !important;
+}
+html.light .cm-legacy .cm-sim-field label {
+  color: #0f172a !important;
+}
+.cm-legacy .cm-sim-field input[type="text"] {
+  padding: 6px 9px !important;
+  font-size: 0.88rem !important;
+  border-radius: 5px !important;
+}
+.cm-legacy .cm-sim-secret-hint {
+  font-size: 0.7rem !important;
+  color: #94a3b8 !important;
+  margin-top: 3px !important;
+  line-height: 1.35 !important;
+}
+html.light .cm-legacy .cm-sim-secret-hint {
+  color: #334155 !important;
+}
+.cm-legacy .cm-keeweb-gen-link {
+  color: #38bdf8 !important;
+  text-decoration: underline !important;
+  font-weight: 700;
+}
+html.light .cm-legacy .cm-keeweb-gen-link {
+  color: #0369a1 !important;
+}
+.cm-legacy .step-status-banner {
+  margin-top: 6px !important;
+  padding: 6px 10px !important;
+  font-size: 0.76rem !important;
+  border-radius: 5px !important;
+}
+
+/* Gesture Design Bar semantic classes (High Contrast in Light & Dark) */
+.cm-legacy .gesture-bar-head {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #34d399 !important;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.cm-legacy .gesture-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cm-legacy .gesture-bar-hint {
+  font-size: 0.72rem;
+  color: #6ee7b7 !important;
+  font-weight: 500;
+}
+html.light .cm-legacy .gesture-design-bar {
+  background-color: #f0fdf4 !important;
+  border: 1.5px solid #047857 !important;
+}
+html.light .cm-legacy .gesture-bar-head,
+html.light .cm-legacy .gesture-cat-label {
+  color: #065f46 !important;
+}
+html.light .cm-legacy .gesture-bar-hint {
+  color: #047857 !important;
+}
+html.light .cm-legacy .gesture-pill {
+  background-color: #ffffff !important;
+  color: #065f46 !important;
+  border-color: #047857 !important;
+}
+html.light .cm-legacy .gesture-pill.active {
+  background-color: #047857 !important;
+  color: #ffffff !important;
+}
+
+/* 6. Passkey Status Box (.cm-passkey-status-box) */
+.cm-legacy .cm-passkey-status-box {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0c1422 !important;
+  border: 1px solid #334155 !important;
+}
+.cm-legacy .cm-passkey-status-box.is-saved {
+  background-color: #071f33 !important;
+  border-color: #0284c7 !important;
+}
+.cm-legacy .cm-passkey-status-ico {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.cm-legacy .cm-passkey-status-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: #f1f5f9 !important;
+}
+.cm-legacy .cm-passkey-status-box.is-saved .cm-passkey-status-title {
+  color: #38bdf8 !important;
+}
+.cm-legacy .cm-passkey-status-desc {
+  font-size: 0.74rem;
+  color: #94a3b8 !important;
+  margin-top: 2px;
+}
+html.light .cm-legacy .cm-passkey-status-box {
+  background-color: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+html.light .cm-legacy .cm-passkey-status-box.is-saved {
+  background-color: #f0f9ff !important;
+  border-color: #0284c7 !important;
+}
+html.light .cm-legacy .cm-passkey-status-title {
+  color: #0f172a !important;
+}
+html.light .cm-legacy .cm-passkey-status-box.is-saved .cm-passkey-status-title {
+  color: #0369a1 !important;
+}
+html.light .cm-legacy .cm-passkey-status-desc {
+  color: #334155 !important;
+}
+
+/* 7. Right-Hand Module Cards (.section-card) */
+.cm-module-bay .cm-panel > .section-card,
+.cm-module-bay .cm-subtab-panel > .section-card {
+  border-radius: 0 0 10px 10px !important;
+  padding: 14px 16px !important;
+}
+html:not(.light) .cm-legacy .section-card {
+  background-color: #0b111b !important;
+  border: 1px solid #1e2d42 !important;
+  box-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.8) !important;
+}
+html.light .cm-legacy .section-card {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+}
+.cm-module-bay .cm-subtab-bar {
+  margin: 0 !important;
+  padding: 8px 12px !important;
+  background-color: #080d16 !important;
+  border-left: 1px solid #1e2d42 !important;
+  border-right: 1px solid #1e2d42 !important;
+  border-bottom: 1px solid #1e2d42 !important;
+}
+html.light .cm-module-bay .cm-subtab-bar {
+  background-color: #f1f5f9 !important;
+  border-left: 1px solid #cbd5e1 !important;
+  border-right: 1px solid #cbd5e1 !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+}
+
+/* Verbal Guide Card: One-line slim inspector when collapsed, rich protocol timeline when open */
+.cm-board .verbal-guide-card {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  margin-top: 6px !important;
+  margin-bottom: 0 !important;
+  border-radius: 6px !important;
+  background-color: #080d16 !important;
+  border: 1px solid #1a2a3e !important;
+  border-left: 3px solid #38bdf8 !important;
+  transition: all 0.18s ease;
+}
+html.light .cm-board .verbal-guide-card {
+  background-color: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  border-left: 3px solid #0284c7 !important;
+}
+
+/* 閉じた時（guide-collapsed）：完全1行スリムバー */
+.cm-board .verbal-guide-card.guide-collapsed {
+  padding: 3px 8px !important;
+  min-height: 28px !important;
+  max-height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.cm-board .verbal-guide-card.guide-collapsed .verbal-guide-header {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+.cm-board .verbal-guide-card.guide-collapsed .verbal-guide-title-box {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 6px !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+.cm-board .verbal-guide-card.guide-collapsed .verbal-guide-title {
+  font-size: 0.74rem !important;
+  font-weight: 700 !important;
+  color: #e2e8f0 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+html.light .cm-board .verbal-guide-card.guide-collapsed .verbal-guide-title {
+  color: #0f172a !important;
+}
+.cm-board .verbal-guide-card.guide-collapsed #verbal-mode-badge {
+  font-size: 0.68rem !important;
+  padding: 1px 5px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  min-width: 0 !important;
+  max-width: 200px !important;
+}
+@media (max-width: 640px) {
+  .cm-board .verbal-guide-card.guide-collapsed .verbal-guide-title {
+    font-size: 0.72rem !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+  }
+  .cm-board .verbal-guide-card.guide-collapsed #verbal-mode-badge {
+    max-width: 140px !important;
+  }
+}
+.cm-board .verbal-guide-card.guide-collapsed .verbal-guide-sub {
+  display: none !important;
+}
+.cm-board .verbal-guide-card.guide-collapsed .guide-toggle-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  align-self: center !important;
+  justify-content: center !important;
+  padding: 1px 6px !important;
+  font-size: 0.7rem !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+  white-space: nowrap !important;
+}
+
+/* 開いた時（expanded）：プロトコルタイムライン */
+.cm-board .verbal-guide-card:not(.guide-collapsed) {
+  padding: 10px 14px !important;
+}
+.cm-board .verbal-guide-card:not(.guide-collapsed) .verbal-guide-header {
+  margin-bottom: 8px !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1px solid #1a2a3e !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+html.light .cm-board .verbal-guide-card:not(.guide-collapsed) .verbal-guide-header {
+  border-bottom-color: #cbd5e1 !important;
+}
+.cm-board .verbal-guide-card:not(.guide-collapsed) .verbal-guide-title-box {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+.cm-board .verbal-guide-card:not(.guide-collapsed) .verbal-guide-title {
+  font-size: 0.84rem !important;
+  font-weight: 800 !important;
+  color: #f8fafc !important;
+}
+html.light .cm-board .verbal-guide-card:not(.guide-collapsed) .verbal-guide-title {
+  color: #0f172a !important;
+}
+.cm-board .verbal-guide-card:not(.guide-collapsed) .verbal-guide-sub {
+  font-size: 0.74rem !important;
+  color: #94a3b8 !important;
+}
+html.light .cm-board .verbal-guide-card:not(.guide-collapsed) .verbal-guide-sub {
+  color: #475569 !important;
+}
+.cm-board .verbal-guide-list {
+  padding-left: 20px !important;
+  margin: 0 !important;
+  font-size: 0.82rem !important;
+  line-height: 1.6 !important;
+}
+.cm-board .verbal-guide-list li {
+  margin-bottom: 6px !important;
+  color: #cbd5e1 !important;
+}
+html.light .cm-board .verbal-guide-list li {
+  color: #1e293b !important;
+}
+
+/* マイレシピ詳細：濃い緑背景の完全撤廃＆パラメータモジュール化 */
+html:not(.light) .cm-legacy #section-recipe-detail .field-group,
+html:not(.light) .cm-legacy .field-group {
+  background-color: #0b121e !important;
+  background-image: none !important;
+  border: 1px solid #1e2d42 !important;
+  border-left: 3px solid #10b981 !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+html:not(.light) .cm-legacy .field-group-title {
+  color: #f1f5f9 !important;
+  font-size: 0.86rem !important;
+  font-weight: 700 !important;
+}
+html:not(.light) .cm-legacy .field-group .badge {
+  background-color: #062419 !important;
+  border: 1px solid #10b981 !important;
+  color: #34d399 !important;
+  font-weight: 800 !important;
+}
+html.light .cm-legacy #section-recipe-detail .field-group,
+html.light .cm-legacy .field-group {
+  background-color: #f8fafc !important;
+  background-image: none !important;
+  border: 1px solid #cbd5e1 !important;
+  border-left: 3px solid #0284c7 !important;
+  border-radius: 6px !important;
+}
+html.light .cm-legacy .field-group-title {
+  color: #0f172a !important;
+}
+html.light .cm-legacy .field-group .badge {
+  background-color: #e0f2fe !important;
+  border: 1px solid #0284c7 !important;
+  color: #0369a1 !important;
+  font-weight: 800 !important;
+}
+
+html:not(.light) .cm-legacy .field-group select,
+html:not(.light) .cm-legacy .field-group input[type="text"],
+html:not(.light) .cm-legacy .field-group input[type="number"] {
+  background-color: #060a12 !important;
+  border: 1px solid #1e2d42 !important;
+  color: #f1f5f9 !important;
+  border-radius: 4px !important;
+}
+html.light .cm-legacy .field-group select,
+html.light .cm-legacy .field-group input[type="text"],
+html.light .cm-legacy .field-group input[type="number"] {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  border-radius: 4px !important;
+}
+
+/* 8. Responsive Mobile & Small Viewport Optimization */
+@media (max-width: 640px) {
+  .cm-legacy .cm-deck-header {
+    padding: 6px 8px !important;
+    gap: 4px !important;
+  }
+  .cm-legacy .container .subtitle {
+    display: none !important;
+  }
+  .cm-legacy .cm-deck-controls {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 6px !important;
+  }
+  .cm-legacy .seed-bar {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    padding: 3px 6px !important;
+    gap: 4px !important;
+  }
+  .cm-legacy .seed-bar label {
+    font-size: 0.68rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 135px !important;
+  }
+  .cm-legacy #input-seed-number {
+    width: 44px !important;
+    min-width: 36px !important;
+    padding: 2px 4px !important;
+    font-size: 0.8rem !important;
+  }
+  .cm-legacy .cm-deck-actions {
+    flex-shrink: 0 !important;
+  }
+  .cm-legacy #btn-zeroize {
+    padding: 4px 8px !important;
+    font-size: 0.72rem !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+  .cm-board #div-encrypto-matrix-main {
+    gap: 3px !important;
+  }
+  .cm-board .square {
+    aspect-ratio: 1 / 0.9 !important;
+    border-radius: 4px !important;
+  }
+  .cm-board .center-text {
+    font-size: 1.15rem !important;
+  }
+  .cm-board .corner-text {
+    font-size: 0.66rem !important;
+    padding: 0 1px !important;
+  }
+  .cm-legacy .cm-trace-switch-bank {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 380px) {
+  .cm-board .center-text {
+    font-size: 1.0rem !important;
+  }
+  .cm-board .corner-text {
+    font-size: 0.58rem !important;
+  }
+  .cm-legacy .cm-trace-switch-bank {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ============================================================================
+ * HIGH-PRECISION CYBER CONSOLE REFINEMENTS
+ * Tactical Military & Cryptographic Hardware Details
+ * ============================================================================ */
+
+/* 1. Industrial Form Controls: Sharp, Chamfered, Professional */
+html:not(.light) .cm-legacy select,
+html:not(.light) .cm-legacy input[type="text"],
+html:not(.light) .cm-legacy input[type="password"],
+html:not(.light) .cm-legacy input[type="number"],
+html:not(.light) .cm-legacy textarea {
+  background-color: #060a10 !important;
+  border: 1px solid #1e2d42 !important;
+  color: #f1f5f9 !important;
+  border-radius: 5px !important;
+  font-family: var(--font-ui) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+html:not(.light) .cm-legacy select:focus,
+html:not(.light) .cm-legacy input[type="text"]:focus,
+html:not(.light) .cm-legacy input[type="password"]:focus,
+html:not(.light) .cm-legacy input[type="number"]:focus,
+html:not(.light) .cm-legacy textarea:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 1px #10b981, 0 0 8px rgba(16, 185, 129, 0.25) !important;
+  outline: none !important;
+}
+html.light .cm-legacy select,
+html.light .cm-legacy input[type="text"],
+html.light .cm-legacy input[type="password"],
+html.light .cm-legacy input[type="number"],
+html.light .cm-legacy textarea {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  border-radius: 5px !important;
+  font-family: var(--font-ui) !important;
+}
+html.light .cm-legacy select:focus,
+html.light .cm-legacy input[type="text"]:focus,
+html.light .cm-legacy input[type="password"]:focus,
+html.light .cm-legacy input[type="number"]:focus,
+html.light .cm-legacy textarea:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 1px #0284c7, 0 0 6px rgba(2, 132, 199, 0.2) !important;
+  outline: none !important;
+}
+
+/* 2. Tactile Button Engineering (Physical Switch Physics) */
+html:not(.light) .cm-legacy .btn-secondary,
+html:not(.light) .cm-legacy .btn-outline {
+  background-color: #0c1420 !important;
+  background-image: linear-gradient(180deg, #111a28 0%, #080d16 100%) !important;
+  color: #cbd5e1 !important;
+  border: 1px solid #1e2d42 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 4px rgba(0, 0, 0, 0.35) !important;
+}
+html:not(.light) .cm-legacy .btn-secondary:hover:not(:disabled),
+html:not(.light) .cm-legacy .btn-outline:hover:not(:disabled) {
+  border-color: #38bdf8 !important;
+  color: #f8fafc !important;
+  background-color: #111c2e !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 10px rgba(56, 189, 248, 0.22) !important;
+}
+html:not(.light) .cm-legacy .btn:active:not(:disabled) {
+  transform: translateY(1px) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+}
+
+html.light .cm-legacy .btn-secondary,
+html.light .cm-legacy .btn-outline {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #1e293b !important;
+  border: 1px solid #94a3b8 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08) !important;
+}
+html.light .cm-legacy .btn-secondary:hover:not(:disabled),
+html.light .cm-legacy .btn-outline:hover:not(:disabled) {
+  border-color: #0284c7 !important;
+  background-color: #f0f9ff !important;
+  color: #0369a1 !important;
+}
+html.light .cm-legacy .btn:active:not(:disabled) {
+  transform: translateY(1px) !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.15) !important;
+}
+
+/* 3. Section Titles & Module Card Headers */
+.cm-legacy .section-title {
+  padding: 10px 14px !important;
+  margin: -14px -16px 12px -16px !important;
+  border-bottom: 1px solid #1e2d42 !important;
+  background-color: #080d16 !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+html.light .cm-legacy .section-title {
+  background-color: #f8fafc !important;
+  border-bottom-color: #cbd5e1 !important;
+}
+
+/* Mode Pills & Status Badges: Crisp, High-Contrast */
+html:not(.light) .cm-legacy .mode-pill {
+  background-color: #062419 !important;
+  color: #34d399 !important;
+  border: 1px solid #10b981 !important;
+  font-weight: 700 !important;
+  border-radius: 4px !important;
+  padding: 2px 7px !important;
+}
+html:not(.light) .cm-legacy .mode-pill.inactive {
+  background-color: #0c1420 !important;
+  color: #94a3b8 !important;
+  border-color: #1e2d42 !important;
+}
+html.light .cm-legacy .mode-pill {
+  background-color: #ecfdf5 !important;
+  color: #065f46 !important;
+  border: 1px solid #047857 !important;
+  font-weight: 700 !important;
+  border-radius: 4px !important;
+  padding: 2px 7px !important;
+}
+html.light .cm-legacy .mode-pill.inactive {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* 4. Quick Mode & QR Figure Layout Refinements */
+.cm-legacy #card-quick .cq-grid {
+  grid-template-columns: 1fr !important;
+}
+@media screen {
+  .cm-legacy #seed-qr-list figure,
+  .cm-legacy #bq-qr-list figure {
+    width: 240px !important;
+    margin: 10px auto !important;
+    padding: 12px !important;
+    text-align: center !important;
+    border-radius: 8px !important;
+  }
+  .cm-legacy #seed-qr-list figure figcaption,
+  .cm-legacy #bq-qr-list figure figcaption {
+    margin-top: 6px !important;
+    font-size: 0.76rem !important;
+    line-height: 1.4 !important;
+    color: var(--text-sub) !important;
+  }
+}
+
+
+/* Keep the matrix bezel compact on narrow screens; examples remain available on desktop. */
+@media (max-width: 639px) {
+  .cm-legacy .cm-bezel-legend .cm-legend-examples {
+    display: none;
+  }
+}

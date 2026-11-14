@@ -1,0 +1,121 @@
+/* =====================================================================
+ * 4Q-1 QWERTY 36-Key Board Styles & Central Black Keycap Overrides
+ * ===================================================================== */
+
+.cm-board #div-encrypto-matrix-main.qwerty-matrix {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  padding: 6px 2px !important;
+}
+
+.cm-board .qwerty-row {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+.cm-board .qwerty-matrix .square {
+  flex: 0 0 calc((100% - 9 * 6px) / 10) !important;
+  max-width: 84px !important;
+  min-width: 28px !important;
+  aspect-ratio: 1 / 1.12 !important;
+  position: relative !important;
+  padding: 4px !important;
+}
+
+/* 中央キー文字（黒枠なしのシンプル表示） */
+.cm-board .qwerty-matrix .square .center-text {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+  z-index: 2 !important;
+  pointer-events: none;
+}
+
+html.light .cm-board .qwerty-matrix .square .center-text {
+  background: transparent !important;
+  color: #0f172a !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 4隅の配置調整（黒キートップに重ならないよう四隅に配置） */
+.cm-board .qwerty-matrix .square .corner-text {
+  font-size: 0.85rem !important;
+  line-height: 1 !important;
+  z-index: 1 !important;
+}
+
+.cm-board .qwerty-matrix .square .corner-text.top-left {
+  top: 4px !important;
+  left: 5px !important;
+}
+
+.cm-board .qwerty-matrix .square .corner-text.top-right {
+  top: 4px !important;
+  right: 5px !important;
+}
+
+.cm-board .qwerty-matrix .square .corner-text.bottom-left {
+  bottom: 4px !important;
+  left: 5px !important;
+}
+
+.cm-board .qwerty-matrix .square .corner-text.bottom-right {
+  bottom: 4px !important;
+  right: 5px !important;
+}
+
+/* 構造解説図の中央キー表現 */
+.cm-cell-preview-box .cm-prev-center.qwerty-center-badge {
+  background: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  padding: 4px 8px !important;
+}
+
+@media (max-width: 640px) {
+  .cm-board #div-encrypto-matrix-main.qwerty-matrix {
+    gap: 5px !important;
+  }
+  .cm-board .qwerty-row {
+    gap: 3px !important;
+  }
+  .cm-board .qwerty-matrix .square {
+    flex: 0 0 calc((100% - 9 * 3px) / 10) !important;
+    aspect-ratio: 1 / 1.25 !important;
+    border-radius: 4px !important;
+  }
+  .cm-board .qwerty-matrix .square .center-text {
+    width: 44% !important;
+    min-width: 16px !important;
+    height: 34% !important;
+    min-height: 16px !important;
+    font-size: 0.78rem !important;
+    border-radius: 3px !important;
+  }
+  .cm-board .qwerty-matrix .square .corner-text {
+    font-size: 0.68rem !important;
+  }
+  .cm-board .qwerty-matrix .square .corner-text.top-left { top: 2px !important; left: 2px !important; }
+  .cm-board .qwerty-matrix .square .corner-text.top-right { top: 2px !important; right: 2px !important; }
+  .cm-board .qwerty-matrix .square .corner-text.bottom-left { bottom: 2px !important; left: 2px !important; }
+  .cm-board .qwerty-matrix .square .corner-text.bottom-right { bottom: 2px !important; right: 2px !important; }
+}
