@@ -1018,7 +1018,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'cm_pending_generated_password'
   ]);
 
-  const KEEWEB_WINDOW_NAME = 'CryptoPassKeyKeeWeb';
+  const KEEWEB_WINDOW_NAME = 'CryptoQwertyKeeWeb';
   function trackKeeWebWindow(win) {
     if (!win || (typeof win !== 'object' && typeof win !== 'function')) return null;
     try { if (win.window !== win || win.closed) return null; } catch (_) { return null; }
@@ -1385,7 +1385,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const KEEWEB_TARGET_CONFIG = {
     'passphrase': {
-      title: 'CryptoPassKey - パスワード - 合言葉',
+      title: 'CryptoQwerty - パスワード - 合言葉',
       label: '合言葉',
       inputs: ['sim-secret'],
       statusId: 'sim-secret-status',
@@ -1394,7 +1394,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     'ts-enc': {
-      title: 'CryptoPassKey - 暗号化用パスワード',
+      title: 'CryptoQwerty - 暗号化用パスワード',
       label: '暗号化用パスワード',
       inputs: ['ts-password', 'ts-password-confirm'],
       statusId: 'ts-create-progress',
@@ -1408,7 +1408,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     'ts-ci': {
-      title: 'CryptoPassKey - チェックイン専用パスワード',
+      title: 'CryptoQwerty - チェックイン専用パスワード',
       label: 'チェックイン専用パスワード',
       inputs: ['ts-ci-password', 'ts-ci-password-confirm'],
       statusId: 'ts-create-progress',
@@ -1427,7 +1427,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     'ts-mgmt': {
-      title: 'CryptoPassKey - 管理操作用パスワード',
+      title: 'CryptoQwerty - 管理操作用パスワード',
       label: '管理操作用パスワード',
       inputs: ['ts-mgmt-password', 'ts-mgmt-password-confirm'],
       statusId: 'ts-create-progress',
@@ -1446,7 +1446,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     'ts': {
-      title: 'CryptoPassKey - 暗号化用パスワード',
+      title: 'CryptoQwerty - 暗号化用パスワード',
       label: '暗号化用パスワード',
       inputs: ['ts-password', 'ts-password-confirm'],
       statusId: 'ts-create-progress',
@@ -1460,25 +1460,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     'bq': {
-      title: 'CryptoPassKey - バックアップ - 復元パスワード',
+      title: 'CryptoQwerty - バックアップ - 復元パスワード',
       label: 'バックアップ用の復元パスワード',
       inputs: ['bq-password', 'bq-password-confirm'],
       statusId: 'bq-status'
     },
     'bv': {
-      title: 'CryptoPassKey - 保管庫 - 復元パスワード',
+      title: 'CryptoQwerty - 保管庫 - 復元パスワード',
       label: '保管庫用の復元パスワード',
       inputs: ['bv-password', 'bv-password-confirm'],
       statusId: 'bv-encrypt-status'
     },
     'km': {
-      title: 'CryptoPassKey - キーファイル - 保護パスワード',
+      title: 'CryptoQwerty - キーファイル - 保護パスワード',
       label: 'キーファイル用の復元パスワード',
       inputs: ['km-password'],
       statusId: 'km-generated-password-status'
     },
     'tl': {
-      title: 'CryptoPassKey - タイムカプセル - 復元用パスワード',
+      title: 'CryptoQwerty - タイムカプセル - 復元用パスワード',
       label: 'タイムカプセル用の復元パスワード',
       inputs: ['tl-password', 'tl-password-confirm'],
       statusId: 'tl-encrypt-status'
@@ -1528,7 +1528,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => applyAttempt(attempt + 1), 50);
             return;
           }
-          ack(false, '反映先の入力欄が見つかりません。CryptoPassKeyの対象タブを開いて再試行してください。');
+          ack(false, '反映先の入力欄が見つかりません。CryptoQwertyの対象タブを開いて再試行してください。');
           return;
         }
         try {
@@ -1930,8 +1930,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const isHttp = /^https?:\/\//i.test(baseAppUrl);
       const curSeed = $('input-seed-number')?.value || '0';
       const entryTitle = siteVal
-        ? `CryptoPassKey - 暗号マトリックス - 生成パスワード (${siteVal})`
-        : 'CryptoPassKey - 暗号マトリックス - 生成パスワード';
+        ? `CryptoQwerty - 暗号マトリックス - 生成パスワード (${siteVal})`
+        : 'CryptoQwerty - 暗号マトリックス - 生成パスワード';
       transferId = setPendingKeeWebTransfer('cm_pending_entry', {
         site: entryTitle,
         password: pw,
@@ -4350,16 +4350,16 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
      const isHttp = /^https?:\/\//i.test(baseAppUrl);
      const entryTitle = site
-       ? `CryptoPassKey - 暗号マトリックス - 生成パスワード (${site})`
-       : 'CryptoPassKey - 暗号マトリックス - 生成パスワード';
+       ? `CryptoQwerty - 暗号マトリックス - 生成パスワード (${site})`
+       : 'CryptoQwerty - 暗号マトリックス - 生成パスワード';
      transferId = window.setPendingKeeWebTransfer('cm_pending_entry', {
       site: entryTitle,
       password: pw,
       passphrase: ($('sim-secret')?.value || '').trim(),
-      username: 'CryptoPassKey',
+      username: 'CryptoQwerty',
       url: isHttp ? `${baseAppUrl}#seed=${encodeURIComponent(seed)}${site ? '&site=' + encodeURIComponent(site) : ''}` : '',
       notes: [
-        '【CryptoPassKey 暗号マトリックス 生成パスワード】',
+        '【CryptoQwerty 暗号マトリックス 生成パスワード】',
         `■ サイト/サービス名: ${site || 'N/A'}`,
         `■ カード配列シード番号: #${seed}`,
         '■ パスワード: KeePassの保護された「パスワード」欄に保存（メモ欄には記録しません）'
@@ -4588,9 +4588,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const displayTag = siteVal || `Seed #${seedNum}`;
-    const title = `CryptoPassKey - 暗号マトリックス - レシピ設定 (${displayTag})`;
+    const title = `CryptoQwerty - 暗号マトリックス - レシピ設定 (${displayTag})`;
     const notes=[
-     '【CryptoPassKey 暗号マトリックス レシピ設定情報】',
+     '【CryptoQwerty 暗号マトリックス レシピ設定情報】',
      `■ カード配列シード番号 (seed): #${seedNum}`,
      `■ 復元形式: ${isArmored?'PGPアーマード形式':'BIP39 24単語ブロック形式'}`,
      ...(siteVal?[`■ 対象サイト/サービス: ${siteVal}`]:[]),

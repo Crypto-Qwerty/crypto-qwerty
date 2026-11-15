@@ -1,7 +1,7 @@
 {
   "name": "crypto-qwerty-tests",
   "version": "4.1.0",
-  "description": "CryptoPassKey QWERTY test suite",
+  "description": "CryptoQwerty test suite",
   "private": true,
   "scripts": {
     "test": "node run-all-tests.js",

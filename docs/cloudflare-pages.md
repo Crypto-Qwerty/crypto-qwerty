@@ -1,6 +1,6 @@
 # Cloudflare Pages 対応メモ
 
-CryptoPassKey QWERTY は GitHub Pages と Cloudflare Pages の両方で配信できる
+CryptoQwerty は GitHub Pages と Cloudflare Pages の両方で配信できる
 静的サイトである。ビルドは不要で、リポジトリルートをそのまま公開する。
 アプリの URL は `/contents/qwerty/`（例：
 `https://<host>/contents/qwerty/`）。ルートに `index.html` はないため、

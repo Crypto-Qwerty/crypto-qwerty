@@ -1,6 +1,6 @@
-# CryptoPassKey (QWERTY Offline Password Matrix)
+# CryptoQwerty (QWERTY Offline Password Matrix)
 
-完全オフラインで動作する決定論的パスワード生成・物理カードバックアップシステム **CryptoPassKey** のリポジトリです。
+完全オフラインで動作する決定論的パスワード生成・物理カードバックアップシステム **CryptoQwerty** のリポジトリです。
 
 ## ディレクトリ構成
 
@@ -19,7 +19,7 @@ crypto_qwerty/
 │   └── qwerty/                 ← QWERTY 36キー盤面・レシピプロファイル
 │
 ├── contents/
-│   └── qwerty/                 ← CryptoPassKey Webアプリ本体 (keeweb/ 連携含む)
+│   └── qwerty/                 ← CryptoQwerty Webアプリ本体 (keeweb/ 連携含む)
 │
 ├── tests/
 │   ├── shared/              共通モジュールテスト

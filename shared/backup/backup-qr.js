@@ -3340,7 +3340,7 @@ function initBonusVault(){
         if (!shareText || !s.bytes || !s.bytes.length) {
          throw new Error('シェアデータが不足しているため添付を作成できません。');
         }
-        const title = `CryptoPassKey - 保管庫 - 秘密分散シェア #${s.index}/${shamirN} (${baseName})`;
+        const title = `CryptoQwerty - 保管庫 - 秘密分散シェア #${s.index}/${shamirN} (${baseName})`;
         const attachments = [];
 
         // 1. QR Code PNG
@@ -3388,7 +3388,7 @@ function initBonusVault(){
         });
 
         const notes = [
-         `【CryptoPassKey 保管庫 秘密分散シェア ${s.index}/${shamirN}】`,
+         `【CryptoQwerty 保管庫 秘密分散シェア ${s.index}/${shamirN}】`,
          `■ 復元条件: 全${shamirN}シェア中、任意の${shamirM}シェアで復元可能`,
          `■ ブロック数: ${s.blocksCount}`,
          `■ カード配列シード番号: #${curSeed}`,
@@ -3962,8 +3962,8 @@ function initBonusVault(){
        }
        const displayName = name || outFileName || '';
        const title = displayName
-        ? `CryptoPassKey - 保管庫 - 復元パスワード (${displayName})`
-        : 'CryptoPassKey - 保管庫 - 復元パスワード';
+        ? `CryptoQwerty - 保管庫 - 復元パスワード (${displayName})`
+        : 'CryptoQwerty - 保管庫 - 復元パスワード';
 
        const attachments=[];
 
@@ -4012,7 +4012,7 @@ function initBonusVault(){
        });
 
        const notes=[
-        '【CryptoPassKey 保管庫 (Vault) エントリー情報】',
+        '【CryptoQwerty 保管庫 (Vault) エントリー情報】',
         `■ 種別: ${isFile?'ファイル暗号化':'テキスト/パスワード暗号化'}`,
         `■ ファイル名: ${name || 'N/A'}`,
         `■ サイズ: ${bodyToShare ? bodyToShare.length : 0} bytes`,
@@ -5490,11 +5490,11 @@ document.addEventListener('DOMContentLoaded',()=>{
    }
 
    const title = siteVal
-    ? `CryptoPassKey - バックアップ - 復元パスワード (${siteVal})`
-    : 'CryptoPassKey - バックアップ - 復元パスワード';
+    ? `CryptoQwerty - バックアップ - 復元パスワード (${siteVal})`
+    : 'CryptoQwerty - バックアップ - 復元パスワード';
 
    const notes = [
-    '【CryptoPassKey 暗号化バックアップ情報】',
+    '【CryptoQwerty 暗号化バックアップ情報】',
     `■ 保護方式: ${artifact.factorLabel}`,
     `■ カード配列シード番号 (seed): #${seedNum}`,
     `■ 復元形式: ${isArmored ? 'PGPアーマード形式' : 'BIP39 24単語ブロック形式'}`,

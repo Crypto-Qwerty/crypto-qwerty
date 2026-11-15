@@ -1,5 +1,5 @@
 /**
- * CryptoPassKey / crypto_matrix — Time Lock / Time Capsule Module (timelock.js)
+ * CryptoQwerty / crypto_matrix — Time Lock / Time Capsule Module (timelock.js)
  *
  * Implements:
  * - Mode A (Time Capsule: drand quicknet tlock IBE + AGE + header commitment)
@@ -823,7 +823,7 @@
 
     return [
       '========================================================================',
-      '  CryptoPassKey / crypto_matrix — タイムカプセル リカバリーガイド (保管用)',
+      '  CryptoQwerty / crypto_matrix — タイムカプセル リカバリーガイド (保管用)',
       '========================================================================',
       '※このファイルにはパスワードや秘密鍵は一切含まれていません。',
       '  カプセルファイル (.cmtl) と一緒に長期保管してください。',
@@ -1900,13 +1900,13 @@
 
         const pw = tlLastArtifact.createdPassword || '';
         const modeLabel = meta.mode === 'A' ? 'タイムカプセル（時間解禁のみ）' : 'パスワード付きタイムカプセル';
-        const title = `CryptoPassKey - タイムカプセル - カプセル (${unlockDateStr} 解禁)`;
+        const title = `CryptoQwerty - タイムカプセル - カプセル (${unlockDateStr} 解禁)`;
         const baseAppUrl = window.location.href.split(/[?#]/)[0];
         const isHttp = /^https?:\/\//i.test(baseAppUrl);
         const activeSecret = ($('sim-secret')?.value || '').trim();
 
         const notes = [
-          '【CryptoPassKey タイムカプセルカプセル情報】',
+          '【CryptoQwerty タイムカプセルカプセル情報】',
           `■ 保護タイプ: ${modeLabel}`,
           `■ 連動カード配列シード番号: #${tlLastArtifact.seedNum || '0'} (復元時に必要)`,
           `■ 解禁予定日時: ${unlockDateStr}`,
@@ -1953,7 +1953,7 @@
 
         const openFn = window.MatrixCardPreset?.openKeeWeb || window.openKeeWeb;
         if (openFn) openFn(transferId);
-        else window.open('keeweb/index.html', 'CryptoPassKeyKeeWeb');
+        else window.open('keeweb/index.html', 'CryptoQwertyKeeWeb');
 
         tlMessage('tl-encrypt-status', '📥 KeePassで新規エントリーの自動作成・保存を開始しました。');
       } catch (err) {
@@ -2547,13 +2547,13 @@
                 });
               }
 
-              const title = `CryptoPassKey - タイムカプセル - 秘密分散シェア #${idx}/${art.shamirN} (${unlockDateStr} 解禁)`;
+              const title = `CryptoQwerty - タイムカプセル - 秘密分散シェア #${idx}/${art.shamirN} (${unlockDateStr} 解禁)`;
               const baseAppUrl = window.location.href.split(/[?#]/)[0];
               const isHttpShare = /^https?:\/\//i.test(baseAppUrl);
               const activeSecret = ($('sim-secret')?.value || '').trim();
 
               const notes = [
-                `【CryptoPassKey タイムカプセル 秘密分散シェア #${idx}/${art.shamirN}】`,
+                `【CryptoQwerty タイムカプセル 秘密分散シェア #${idx}/${art.shamirN}】`,
                 `■ 解禁予定日時: ${unlockDateStr}`,
                 `■ 復元条件: 全${art.shamirN}シェア中 任意の${art.shamirM}シェアが必要`,
                 `■ 連動カード配列シード番号: #${art.seedNum || '0'}`,
@@ -2596,7 +2596,7 @@
 
               const openFn = window.MatrixCardPreset?.openKeeWeb || window.openKeeWeb;
               if (openFn) openFn(transferId);
-              else window.open('keeweb/index.html', 'CryptoPassKeyKeeWeb');
+              else window.open('keeweb/index.html', 'CryptoQwertyKeeWeb');
             } catch (err) {
               btn.innerHTML = origLabel;
               btn.dataset.kwBusy = '0';
