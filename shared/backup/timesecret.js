@@ -1,5 +1,5 @@
 /**
- * CryptoPassKey / crypto_matrix — Time Secret Module v2.12.0 (timesecret.js)
+ * CryptoQwerty / crypto_matrix — Time Secret Module v2.12.0 (timesecret.js)
  *
  * Multi-Vault Check-in Timed Vault ("タイムシークレット"):
  * - Separated 3-Layer Authentication per vault (DeviceKey-sealed, tamper-evident):

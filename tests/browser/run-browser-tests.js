@@ -320,7 +320,7 @@ async function main() {
         'precached entries must not be redirected');
       // Navigation to the .html URL (served from the precache).
       await cfPage.goto(cfOrigin + '/contents/qwerty/index.html', { waitUntil: 'load' });
-      assert.match(await cfPage.title(), /CryptoPassKey/);
+      assert.match(await cfPage.title(), /CryptoQwerty/);
       // The URL must stay on the .html form: a network fetch would 308 to
       // the clean form, so staying here proves the precached copy answered.
       assert.equal(cfPage.url(), cfOrigin + '/contents/qwerty/index.html',

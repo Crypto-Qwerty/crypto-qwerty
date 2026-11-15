@@ -18,7 +18,7 @@ const testFiles = [
   'qwerty/service-worker-redirect.test.js'
 ].map((file) => path.join(__dirname, file));
 
-console.log('CryptoPassKey QWERTY — Node.js test suite');
+console.log('CryptoQwerty — Node.js test suite');
 const result = spawnSync(process.execPath, ['--test', ...testFiles], {
   cwd: __dirname,
   stdio: 'inherit'

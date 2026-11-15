@@ -1,4 +1,4 @@
-# CryptoPassKey QWERTY版 — 盤面生成 第3世代（Board V3）設計書
+# CryptoQwerty — 盤面生成 第3世代（Board V3）設計書
 
 日付: 2026-11-14
 対象: `Crypto-Qwerty/crypto-qwerty`（第3段階）

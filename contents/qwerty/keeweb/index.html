@@ -668,7 +668,7 @@ body.kw-generator-focus-mode .gen {
         tab: 'パスワード',
         feature: '合言葉生成・保管',
         targetLabel: '合言葉',
-        title: 'CryptoPassKey - パスワード - 合言葉',
+        title: 'CryptoQwerty - パスワード - 合言葉',
         usage: '合言葉生成・保管',
         label: '合言葉',
         inputField: '合言葉'
@@ -677,7 +677,7 @@ body.kw-generator-focus-mode .gen {
         tab: 'バックアップ',
         feature: 'BIP39暗号化バックアップ',
         targetLabel: '復元パスワード',
-        title: 'CryptoPassKey - バックアップ - 復元パスワード',
+        title: 'CryptoQwerty - バックアップ - 復元パスワード',
         usage: 'バックアップデータの暗号化・復元',
         label: 'バックアップ用の復元パスワード',
         inputField: 'バックアップ復元パスワード'
@@ -686,7 +686,7 @@ body.kw-generator-focus-mode .gen {
         tab: '保管庫',
         feature: '保管庫の暗号化・復号',
         targetLabel: '保管庫復元パスワード',
-        title: 'CryptoPassKey - 保管庫 - 復元パスワード',
+        title: 'CryptoQwerty - 保管庫 - 復元パスワード',
         usage: '保管庫（Vault）の暗号化・復号',
         label: '保管庫用の復元パスワード',
         inputField: '保管庫復元パスワード'
@@ -695,7 +695,7 @@ body.kw-generator-focus-mode .gen {
         tab: 'タイムカプセル',
         feature: 'タイムカプセル復元',
         targetLabel: '復元用パスワード',
-        title: 'CryptoPassKey - タイムカプセル - 復元用パスワード',
+        title: 'CryptoQwerty - タイムカプセル - 復元用パスワード',
         usage: 'タイムカプセル復元',
         label: 'タイムカプセル用の復元パスワード',
         inputField: 'タイムカプセル復元パスワード'
@@ -704,7 +704,7 @@ body.kw-generator-focus-mode .gen {
         tab: 'キーファイル',
         feature: 'キーファイル保護',
         targetLabel: '保護パスワード',
-        title: 'CryptoPassKey - キーファイル - 保護パスワード',
+        title: 'CryptoQwerty - キーファイル - 保護パスワード',
         usage: 'キーファイル生成・保護',
         label: 'キーファイル用の復元パスワード',
         inputField: 'キーファイル保護パスワード'
@@ -713,7 +713,7 @@ body.kw-generator-focus-mode .gen {
         tab: '時限金庫',
         feature: '金庫データの暗号化・復号',
         targetLabel: '暗号化用パスワード',
-        title: 'CryptoPassKey - 暗号化用パスワード',
+        title: 'CryptoQwerty - 暗号化用パスワード',
         usage: '金庫データの暗号化・復号',
         label: '暗号化用パスワード',
         inputField: '暗号化パスワード'
@@ -722,7 +722,7 @@ body.kw-generator-focus-mode .gen {
         tab: '時限金庫',
         feature: 'チェックイン・期限延長',
         targetLabel: 'チェックイン専用パスワード',
-        title: 'CryptoPassKey - チェックイン専用パスワード',
+        title: 'CryptoQwerty - チェックイン専用パスワード',
         usage: 'チェックイン・期限延長',
         label: 'チェックイン専用パスワード',
         inputField: 'チェックイン専用パスワード'
@@ -731,7 +731,7 @@ body.kw-generator-focus-mode .gen {
         tab: '時限金庫',
         feature: '金庫の削除・認証設定変更など',
         targetLabel: '管理操作用パスワード',
-        title: 'CryptoPassKey - 管理操作用パスワード',
+        title: 'CryptoQwerty - 管理操作用パスワード',
         usage: '金庫の削除・認証設定変更など',
         label: '管理操作用パスワード',
         inputField: '管理用パスワード'
@@ -740,7 +740,7 @@ body.kw-generator-focus-mode .gen {
         tab: '時限金庫',
         feature: '金庫データの暗号化・復号',
         targetLabel: '暗号化用パスワード',
-        title: 'CryptoPassKey - 暗号化用パスワード',
+        title: 'CryptoQwerty - 暗号化用パスワード',
         usage: '金庫データの暗号化・復号',
         label: '暗号化用パスワード',
         inputField: '暗号化パスワード'
@@ -761,7 +761,7 @@ body.kw-generator-focus-mode .gen {
     btnRow.style.cssText = 'margin-top:16px; padding-top:14px; border-top:1px dashed var(--light-border-color); text-align:center; width:100%; max-width:100%; min-width:0; box-sizing:border-box; overflow-wrap:anywhere; word-break:break-word;';
     btnRow.innerHTML = `
       <button type="button" id="kw-cm-apply-secret-btn" style="width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important; white-space:normal !important; overflow-wrap:anywhere !important; word-break:normal !important; line-height:1.45 !important; padding:12px 14px !important; font-size:clamp(0.82rem, 2.8vw, 1rem) !important; font-weight:800 !important; color:#fff !important; background:linear-gradient(135deg, #0369a1, #0284c7) !important; border:2px solid #075985 !important; border-radius:9px !important; cursor:pointer !important; display:flex !important; flex-wrap:wrap !important; align-items:center !important; justify-content:center !important; gap:7px !important; text-align:center !important; overflow-wrap:anywhere !important; word-break:break-word !important; box-shadow:0 4px 12px rgba(2,132,199,0.32) !important;" title="この生成パスワードをCryptoMatrixへ反映します">
-        ⚡ このパスワードをCryptoPassKeyの「${targetMeta ? targetMeta.label : '合言葉'}」に反映
+        ⚡ このパスワードをCryptoQwertyの「${targetMeta ? targetMeta.label : '合言葉'}」に反映
       </button>
       ${targetMeta ? `
         <div style="margin-top:10px; padding:10px 12px; background:rgba(3,105,161,0.14); border:1.5px solid #0284c7; border-radius:8px; text-align:left; font-size:0.80rem; line-height:1.5; width:100%; max-width:100%; min-width:0; box-sizing:border-box; overflow-wrap:anywhere;">
@@ -819,7 +819,7 @@ body.kw-generator-focus-mode .gen {
         tab: 'パスワード生成',
         feature: 'KeePassパスワード生成',
         targetLabel: '自動生成パスワード',
-        title: 'CryptoPassKey - パスワード生成 - 自動生成パスワード',
+        title: 'CryptoQwerty - パスワード生成 - 自動生成パスワード',
         usage: 'パスワード自動生成・保管',
         label: '自動生成パスワード'
       };
@@ -850,8 +850,8 @@ body.kw-generator-focus-mode .gen {
       }
 
       var notesText = [
-        'アプリ：CryptoPassKey',
-        'タブ：' + (saveMeta.tab || 'CryptoPassKey'),
+        'アプリ：CryptoQwerty',
+        'タブ：' + (saveMeta.tab || 'CryptoQwerty'),
         '機能：' + (saveMeta.feature || saveMeta.usage),
         '対象：' + (saveMeta.targetLabel || saveMeta.label),
         '生成日時：' + formatDateTime(new Date())
@@ -930,15 +930,15 @@ body.kw-generator-focus-mode .gen {
         if (st) {
           st.style.display = 'block';
           var masked = pwVal.length > 6 ? (pwVal.slice(0, 3) + '••••' + pwVal.slice(-2)) : '••••••';
-          st.textContent = '✅ CryptoPassKeyの「' + (targetMeta ? targetMeta.label : '合言葉') + '」に「' + masked + '」を反映しました。元の画面に戻ります…';
+          st.textContent = '✅ CryptoQwertyの「' + (targetMeta ? targetMeta.label : '合言葉') + '」に「' + masked + '」を反映しました。元の画面に戻ります…';
         }
 
-        // The receiving CryptoPassKey tab listens for the localStorage event.
+        // The receiving CryptoQwerty tab listens for the localStorage event.
         // Give that event time to run, then return only when the destination is
         // reasonably identifiable. Never navigate away if the target is unknown.
         if (cmTarget && targetMeta) {
           // Do not close KeeWeb merely because localStorage.setItem succeeded.
-          // Wait for CryptoPassKey to confirm that the intended input fields were
+          // Wait for CryptoQwerty to confirm that the intended input fields were
           // actually populated; otherwise leave the window open and explain retry.
           var ackStartedAt = Date.now();
           var ackTimer = setInterval(function() {
@@ -951,10 +951,10 @@ body.kw-generator-focus-mode .gen {
                   if (window.opener && !window.opener.closed && window.opener.location.origin === window.location.origin) window.opener.focus();
                 } catch (_) {}
                 window.close();
-                if (!window.closed && st) st.textContent = '✅ CryptoPassKeyへの反映を確認しました。元のタブに戻ってください。';
+                if (!window.closed && st) st.textContent = '✅ CryptoQwertyへの反映を確認しました。元のタブに戻ってください。';
               } else if (st) {
                 st.style.color = '#dc2626';
-                st.textContent = '❌ CryptoPassKeyへの反映を確認できませんでした。画面を閉じず、元のタブを表示して再試行してください。' + (ack.error ? ' (' + ack.error + ')' : '');
+                st.textContent = '❌ CryptoQwertyへの反映を確認できませんでした。画面を閉じず、元のタブを表示して再試行してください。' + (ack.error ? ' (' + ack.error + ')' : '');
               }
               return;
             }
@@ -962,7 +962,7 @@ body.kw-generator-focus-mode .gen {
               clearInterval(ackTimer);
               if (st) {
                 st.style.color = '#b45309';
-                st.textContent = '⚠️ 反映確認の応答がありません。CryptoPassKeyの元タブを表示し、入力欄に反映されたか確認してから閉じてください。';
+                st.textContent = '⚠️ 反映確認の応答がありません。CryptoQwertyの元タブを表示し、入力欄に反映されたか確認してから閉じてください。';
               }
             }
           }, 100);
@@ -1129,7 +1129,7 @@ body.kw-generator-focus-mode .gen {
       var ProtectedValue = (window.kw && window.kw.ProtectedValue) || window.ProtectedValue;
 
       var fields = {
-        Title: data.site || 'CryptoPassKey',
+        Title: data.site || 'CryptoQwerty',
         UserName: userName,
         URL: destinationUrl,
         Notes: data.notes || ''
@@ -1374,7 +1374,7 @@ body.kw-generator-focus-mode .gen {
       clearTimeout(_autoCreatedToastTimer);
       _autoCreatedToastTimer = null;
     }
-    var titleText = (data && data.site) || (entry && entry.title) || 'CryptoPassKey';
+    var titleText = (data && data.site) || (entry && entry.title) || 'CryptoQwerty';
     var attCount = (data && data.attachments && data.attachments.length) || 0;
     var attNote = attCount > 0 ? '（添付ファイル ' + attCount + '件・保護フィールド保存済）' : '（保護フィールド保存済）';
 
@@ -1418,7 +1418,7 @@ body.kw-generator-focus-mode .gen {
     bar.style.cssText = 'position:fixed; top:max(8px, env(safe-area-inset-top, 8px)); left:50%; transform:translateX(-50%); z-index:999999; width:calc(100% - 20px); max-width:680px; box-sizing:border-box; background:#fef2f2; border:2px solid #dc2626; border-radius:10px; padding:10px 14px; box-shadow:0 8px 24px rgba(220,38,38,0.28); font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif; color:#991b1b; display:flex; align-items:center; gap:10px; flex-wrap:wrap;';
     bar.innerHTML = `
       <div style="flex:1 1 240px; min-width:0; font-size:0.82rem; font-weight:700; line-height:1.45; overflow-wrap:anywhere;">
-        ❌ 新規エントリー「${escapeHtml(data.site || 'CryptoPassKey')}」の自動作成・保存に失敗しました（不完全なデータはロールバック済み）：
+        ❌ 新規エントリー「${escapeHtml(data.site || 'CryptoQwerty')}」の自動作成・保存に失敗しました（不完全なデータはロールバック済み）：
         <div style="font-weight:600; font-size:0.76rem; color:#b91c1c; margin-top:2px;">${escapeHtml(errMessage || '不明なエラー')}</div>
       </div>
       <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
@@ -1476,7 +1476,7 @@ body.kw-generator-focus-mode .gen {
       <div style="display:flex; align-items:center; gap:8px; flex:1 1 220px; min-width:0;">
         <span style="font-size:1.2rem; flex-shrink:0;">📥</span>
         <div style="font-size:0.82rem; font-weight:700; color:#0369a1; line-height:1.45; overflow-wrap:anywhere;">
-          自動作成・保存待機中：<span style="color:#0284c7;">「${escapeHtml(data.site || 'CryptoPassKey')}」</span>
+          自動作成・保存待機中：<span style="color:#0284c7;">「${escapeHtml(data.site || 'CryptoQwerty')}」</span>
           <span style="font-weight:normal; font-size:0.73rem; color:#64748b; margin-left:4px;">${escapeHtml(infoDetail)}</span>
           <div style="font-weight:600; font-size:0.74rem; color:#334155; margin-top:2px;">データベースを開くか新規作成すると、自動的に新規エントリーを作成・保存して先頭に選択します。</div>
         </div>
