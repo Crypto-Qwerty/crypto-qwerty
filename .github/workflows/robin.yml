@@ -1,0 +1,51 @@
+name: Robin AI Review
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: robin-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check LLM configuration
+        id: llm
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: |
+          if [ -z "$LLM_API_KEY" ] || [ -z "$LLM_BASE_URL" ] || [ -z "$LLM_MODEL" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Robin is not running: configure LLM_API_KEY, LLM_BASE_URL and LLM_MODEL in repository Actions secrets."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Review pull request with Robin
+        if: steps.llm.outputs.configured == 'true'
+        uses: antongulin/robin@c307d49e53284c3c0e05c9a764ab9e8cce6f7dff # v2.13.3
+        with:
+          github-token: ${{ github.token }}
+          llm-api-key: ${{ secrets.LLM_API_KEY }}
+          llm-base-url: ${{ secrets.LLM_BASE_URL }}
+          model: ${{ secrets.LLM_MODEL }}
+          agent-mode: "off"
+          request-changes: "false"
+          fail-on-high: "false"
+          max-diff-size: "120000"
+          # Let the model/provider select its output limit; do not reject via Robin's byte heuristic.
+          estimated-request-token-budget: "off"
+          llm-timeout-ms: "600000"
+          use-json-response-mode: "true"
+          review-on-synchronize: "true"
