@@ -1,0 +1,31 @@
+name: Robin AI Review
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+  issue_comment:
+    types: [created]
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    # Do not attempt to review this installation PR before the OpenRouter secrets are configured.
+    if: github.event_name == 'issue_comment' || github.event.pull_request.head.ref != 'integrations/robin-openrouter'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Review pull request with Robin
+        uses: antongulin/robin@c307d49e53284c3c0e05c9a764ab9e8cce6f7dff # v2.13.3
+        with:
+          github-token: ${{ github.token }}
+          llm-api-key: ${{ secrets.LLM_API_KEY }}
+          llm-base-url: ${{ secrets.LLM_BASE_URL }}
+          model: ${{ secrets.LLM_MODEL }}
+          agent-mode: off
+          request-changes: "false"
+          fail-on-high: "false"
+          max-diff-size: "120000"
+          estimated-request-token-budget: "30000"
