@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: ja-JP
+reviews:
+  profile: assertive
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+  path_instructions:
+    - path: "shared/random/**"
+      instructions: |
+        暗号学的な正確性を最優先で確認する。
+        - HMAC-SHA-256 の鍵・メッセージ構成、ドメイン分離、カウンターのエンディアンと境界、カウンターオーバーフローを検証する。
+        - 乱数から文字集合への変換で modulo bias や分布の偏りが発生しないか確認する。
+        - Node.js とブラウザー間の出力一致、UTF-8 等のエンコード、境界値、再現可能なテストベクトルを確認する。
+        - シードや中間値がログ、DOM、URL、エラーメッセージ等へ漏えいしないか確認する。
+        - 決定論的なシードベース生成器と OS CSPRNG を混同しない。用途と脅威モデルに照らして評価する。
+        - 暗号強度を下げる変更、独自暗号の追加、検証回避を重大な問題として扱う。
+    - path: "profiles/**"
+      instructions: |
+        プロファイル定義とキーボード配列の仕様整合性を確認する。
+        文字集合、モード割り当て、キー位置、表示と実際の生成結果の不一致、重複・欠落、互換性への影響を確認する。
+        ユーザー向け表示だけでなく、実際の生成処理とテストが同じ仕様を参照しているか検証する。
+    - path: "tests/**"
+      instructions: |
+        正常系だけでなく境界値、異常系、回帰ケースを確認する。
+        テストが実装と同じロジックを複製して誤った期待値を作っていないか、失敗を握りつぶしていないか確認する。
+        暗号・乱数テストでは固定ベクトル、クロスランタイム整合性、偏り・オーバーフロー等の境界条件を重視する。
+    - path: ".github/workflows/**"
+      instructions: |
+        GitHub Actions の権限を最小化し、第三者 Action のバージョン固定、未信頼 PR 入力の扱い、シークレット漏えい、危険な pull_request_target 利用、キャッシュ汚染、成果物の信頼境界を確認する。
+        セキュリティ検査が意図せず無効化・スキップされないか確認する。
