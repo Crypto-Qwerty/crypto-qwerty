@@ -27,11 +27,10 @@ jobs:
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
-          LLM_MODEL: ${{ secrets.LLM_MODEL }}
         run: |
-          if [ -z "$LLM_API_KEY" ] || [ -z "$LLM_BASE_URL" ] || [ -z "$LLM_MODEL" ]; then
+          if [ -z "$LLM_API_KEY" ] || [ -z "$LLM_BASE_URL" ]; then
             echo "configured=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Robin is not running: configure LLM_API_KEY, LLM_BASE_URL and LLM_MODEL in repository Actions secrets."
+            echo "::notice::Robin is not running: configure LLM_API_KEY and LLM_BASE_URL in repository Actions secrets."
           else
             echo "configured=true" >> "$GITHUB_OUTPUT"
           fi
@@ -43,9 +42,12 @@ jobs:
           github-token: ${{ github.token }}
           llm-api-key: ${{ secrets.LLM_API_KEY }}
           llm-base-url: ${{ secrets.LLM_BASE_URL }}
-          model: ${{ secrets.LLM_MODEL }}
+          # Pin a code-focused free model; avoid openrouter/free routing to tiny models.
+          model: cohere/north-mini-code:free
           agent-mode: off
           request-changes: "false"
           fail-on-high: "false"
           max-diff-size: "120000"
           estimated-request-token-budget: "30000"
+          max-output-tokens: "16000"
+          llm-timeout-ms: "600000"
