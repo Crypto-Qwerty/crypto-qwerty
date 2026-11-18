@@ -11,18 +11,25 @@ permissions:
   contents: read
   pull-requests: write
 
+concurrency:
+  group: robin-${{ github.event.pull_request.number || github.event.issue.number }}
+  cancel-in-progress: true
+
 jobs:
   review:
     if: >-
       github.event_name == 'pull_request' ||
       (github.event.issue.pull_request &&
        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association) &&
-       (startsWith(github.event.comment.body, '/robin') ||
-        startsWith(github.event.comment.body, '/review')))
+       (github.event.comment.body == '/robin' ||
+        startsWith(github.event.comment.body, '/robin ') ||
+        github.event.comment.body == '/review' ||
+        startsWith(github.event.comment.body, '/review ')))
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - name: Check OpenRouter configuration
-        id: openrouter
+      - name: Check LLM configuration
+        id: llm
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
@@ -36,20 +43,18 @@ jobs:
           fi
 
       - name: Review pull request with Robin
-        if: steps.openrouter.outputs.configured == 'true'
+        if: steps.llm.outputs.configured == 'true'
         uses: antongulin/robin@c307d49e53284c3c0e05c9a764ab9e8cce6f7dff # v2.13.3
         with:
           github-token: ${{ github.token }}
           llm-api-key: ${{ secrets.LLM_API_KEY }}
           llm-base-url: ${{ secrets.LLM_BASE_URL }}
           model: ${{ secrets.LLM_MODEL }}
-          agent-mode: off
+          agent-mode: "off"
           request-changes: "false"
           fail-on-high: "false"
           max-diff-size: "120000"
-          # Budget is deliberately disabled: model/provider defaults control generation,
-          # avoiding Robin's local estimate rejecting valid diff+prompt requests.
+          # Let the model/provider select its output limit; do not reject via Robin's byte heuristic.
           estimated-request-token-budget: "off"
-          # Leave max-output-tokens unset so Robin does not impose its own output cap.
           llm-timeout-ms: "600000"
           use-json-response-mode: "true"
