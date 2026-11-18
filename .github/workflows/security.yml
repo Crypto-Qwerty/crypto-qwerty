@@ -83,7 +83,7 @@ jobs:
         working-directory: tests
         run: npm install --ignore-scripts --no-audit --no-fund
       - name: Scan dependencies and configuration
-        uses: aquasecurity/trivy-action@0.36.0
+        uses: aquasecurity/trivy-action@v0.36.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
