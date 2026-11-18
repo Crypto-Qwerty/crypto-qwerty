@@ -48,3 +48,4 @@ jobs:
           estimated-request-token-budget: "off"
           llm-timeout-ms: "600000"
           use-json-response-mode: "true"
+          review-on-synchronize: "true"
